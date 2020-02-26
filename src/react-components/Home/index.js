@@ -20,7 +20,7 @@ class Home extends React.Component {
                         <li><a>About us</a></li>
                     </ul>
                 </div>
-                <div id="Backgorund-img">
+                <div id="title-container">
                     <div id="Welcome-section">
                         <h1 id="Welcome">Welcome to UTACG survey center</h1>
                         <p>Your opinion is valuable to us</p>
@@ -40,107 +40,6 @@ class Home extends React.Component {
                         <Posts/>
                     </Link>
                 </div>
-                {/* <div id='Backgorund-img'>
-                    <div className="event-forms">
-                        <p>hahahh</p>
-                    </div>
-                    <div className="event-forms">
-                        <p>hahahh</p>
-                    </div>
-                    <div className="event-forms">
-                        <p>hahahh</p>
-                    </div>
-                    <div className="event-forms">
-                        <p>hahahh</p>
-                    </div>
-                    <div className="event-forms">
-                        <p>hahahh</p>
-                    </div>
-                    <div className="event-forms">
-                        <p>hahahh</p>
-                    </div>
-                    <div className="event-forms">
-                        <p>hahahh</p>
-                    </div>
-                    <div className="event-forms">
-                        <p>hahahh</p>
-                    </div>
-                    <div className="event-forms">
-                        <p>hahahh</p>
-                    </div>
-                    <div className="event-forms">
-                        <p>hahahh</p>
-                    </div>
-                    <div className="event-forms">
-                        <p>hahahh</p>
-                    </div>
-                    <div className="event-forms">
-                        <p>hahahh</p>
-                    </div>
-                    <div className="event-forms">
-                        <p>hahahh</p>
-                    </div>
-                    <div className="event-forms">
-                        <p>hahahh</p>
-                    </div>
-                    <div className="event-forms">
-                        <p>hahahh</p>
-                    </div>
-                    <div className="event-forms">
-                        <p>hahahh</p>
-                    </div>
-                    <div className="event-forms">
-                        <p>hahahh</p>
-                    </div>
-                    <div className="event-forms">
-                        <p>hahahh</p>
-                    </div>
-                    <div className="event-forms">
-                        <p>hahahh</p>
-                    </div>
-                    <div className="event-forms">
-                        <p>hahahh</p>
-                    </div>
-                    <div className="event-forms">
-                        <p>hahahh</p>
-                    </div>
-                    <div className="event-forms">
-                        <p>hahahh</p>
-                    </div>
-                    <div className="event-forms">
-                        <p>hahahh</p>
-                    </div>
-                    <div className="event-forms">
-                        <p>hahahh</p>
-                    </div>
-                    <div className="event-forms">
-                        <p>hahahh</p>
-                    </div>
-                    <div className="event-forms">
-                        <p>hahahh</p>
-                    </div>
-                    <div className="event-forms">
-                        <p>hahahh</p>
-                    </div>
-                    <div className="event-forms">
-                        <p>hahahh</p>
-                    </div>
-                    <div className="event-forms">
-                        <p>hahahh</p>
-                    </div>
-                    <div className="event-forms">
-                        <p>hahahh</p>
-                    </div>
-                    <div className="event-forms">
-                        <p>hahahh</p>
-                    </div>
-                    <div className="event-forms">
-                        <p>hahahh</p>
-                    </div>
-                    <div className="event-forms">
-                        <p>hahahh</p>
-                    </div>
-                </div> */}
             </div>
         )
     }
