@@ -1,4 +1,4 @@
-body, html {
+  body {
     height: 100%;
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
@@ -8,21 +8,12 @@ body, html {
   .home_pg {
     height: 100vh;
     background-color: black;
-    /* min-height: 400px; */
   }
-
-  /* .center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  } */
 
   #Backgorund-img{
     display: flex;
     flex-direction: column;
     height: 100%;
-    /* width: 100%; */
     background-image: url("./images/background2.png");
     background-size: cover;
     background-position: center;
@@ -98,4 +89,6 @@ body, html {
   .posts {
     margin-left: 100px;
     margin-right: 100px;
+    display: grid;
+    grid-gap: 1em;
   }
