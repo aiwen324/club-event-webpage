@@ -1,0 +1,20 @@
+.post {
+	background-color: black;
+	
+    /* margin-left: 50px;
+    margin-right: 200px; */
+
+    overflow: hidden;
+
+    border: 2px;
+    border-style: solid;
+    border-color: white;
+
+	/* no height, no width, want text to be responsive to width of browser */
+	padding: 20px;
+    border-radius: 10px;
+    
+
+    color: white;
+    text-align: left;
+}
