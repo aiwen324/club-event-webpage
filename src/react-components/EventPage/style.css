@@ -1,0 +1,60 @@
+
+  #Navigation-bar{
+      position: sticky;
+      background-color: black;
+      display: block;
+      top: 0;
+      z-index: 1;
+  }
+
+  #Navigation-bar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  #Navigation-bar li {
+    float: left;
+    background-color: transparent;
+    transition: 0.25s;
+    border-radius: 5px;
+  }
+
+  #Navigation-bar li:hover{
+    background-color: #66ccff;
+  }
+
+  #Navigation-bar li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+
+  #accountInfo {
+    float: right;
+    background-color: transparent;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    color: white;
+    transition: 0.25s;
+    border-radius: 5px;
+  }
+
+  #event_title h1{
+    margin: auto;
+    color: white;
+  }
+
+  #event_time h3 {
+    margin: auto;
+    color: white;
+  }
+
+  #event_loc h3 {
+    margin: auto;
+    color: white;
+  }
