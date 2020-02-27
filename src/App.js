@@ -6,6 +6,7 @@ import { Route, Switch, BrowserRouter } from 'react-router-dom';
 
 import Home from './react-components/Home'
 import Login from './react-components/Login'
+import EventPage from './react-components/EventPage'
 
 function App() {
   return (
@@ -17,6 +18,9 @@ function App() {
           <Route exact path='/login/' render={() =>
                           (<Login/>)}/>
           <Route path='/postid=:id' render={() => (<Login/>)} />
+          <Route exact path='/event' render={() =>
+                          (<EventPage/>)
+          }/>
         </Switch>
       </BrowserRouter>
     </div>
