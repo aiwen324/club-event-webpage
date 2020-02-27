@@ -27,13 +27,13 @@ class Home extends React.Component {
                     </div>
                 </div>
                 <div className='posts'>
-                    <Link underline='none' component={RouterLink} to='/your-target-path'>
+                    <Link underline='none' component={RouterLink} to='/postid=1'>
                         <Posts/>
                     </Link>
-                    <Link underline='none' component={RouterLink} to='/your-target-path'>
+                    <Link underline='none' component={RouterLink} to='/postid=2'>
                         <Posts/>
                     </Link>
-                    <Link underline='none' component={RouterLink} to='/your-target-path'>
+                    <Link underline='none' component={RouterLink} to='/postid=3'>
                         <Posts/>
                     </Link>
                     <Link underline='none' component={RouterLink} to='/your-target-path'>

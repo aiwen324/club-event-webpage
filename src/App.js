@@ -16,6 +16,7 @@ function App() {
                           (<Home/>)}/>
           <Route exact path='/login/' render={() =>
                           (<Login/>)}/>
+          <Route path='/postid=:id' render={() => (<Login/>)} />
         </Switch>
       </BrowserRouter>
     </div>
