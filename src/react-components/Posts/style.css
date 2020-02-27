@@ -1,0 +1,17 @@
+.post {
+	background-color: black;
+    overflow: hidden;
+    /* Border Effect */
+    border: 2px;
+    border-style: solid;
+    border-color: grey;
+	/* no height, no width, want text to be responsive to width of browser */
+	padding: 1em;
+    border-radius: 10px;
+    color: white;
+    text-align: left;
+}
+
+.post:hover {
+    border-color: white;
+}
