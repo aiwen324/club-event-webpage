@@ -23,9 +23,17 @@ class EventPage extends React.Component {
                 <div>
                     <h1 id='event_title'>Project Demo</h1>
                 </div>
-                <div id='event_detail'>
-                    <h3 id='event_time'>Date and Time: <p>Friday, February 28, 2020 @ 14:40</p></h3>
-                    <h3 id='event_loc'>Location: <p>Myhal Centre, Rm. 317</p></h3>
+                <div id='event_info'>
+                    <h3 id='event_time'>Date and Time: <h>Friday, February 28, 2020 @ 14:40</h></h3>
+                    <h3 id='event_loc'>Location: <h>Myhal Centre, Rm. 317</h></h3>
+                </div>
+                <div id='event_details'>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 
+                    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation 
+                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in 
+                    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur 
+                    sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id 
+                    est laborum.
                 </div>
             </div>
         )
