@@ -11,7 +11,7 @@ class Home extends React.Component {
             <div className='home_pg'>
                 <div id="Navigation-bar">
                     <div id="accountInfo">
-                        <a>Login</a>
+                        <a href='login/'>Login</a>
                     </div>
                     <ul>
                         <li><a>Home</a></li>
