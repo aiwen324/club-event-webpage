@@ -11,7 +11,7 @@ class Home extends React.Component {
             <div className='home_pg'>
                 <div id="Navigation-bar">
                     <div id="accountInfo">
-                        <a>Login</a>
+                        <a href='login/'>Login</a>
                     </div>
                     <ul>
                         <li><a>Home</a></li>
@@ -27,13 +27,13 @@ class Home extends React.Component {
                     </div>
                 </div>
                 <div className='posts'>
-                    <Link underline='none' component={RouterLink} to='/your-target-path'>
+                    <Link underline='none' component={RouterLink} to='/postid=1'>
                         <Posts/>
                     </Link>
-                    <Link underline='none' component={RouterLink} to='/your-target-path'>
+                    <Link underline='none' component={RouterLink} to='/postid=2'>
                         <Posts/>
                     </Link>
-                    <Link underline='none' component={RouterLink} to='/your-target-path'>
+                    <Link underline='none' component={RouterLink} to='/postid=3'>
                         <Posts/>
                     </Link>
                     <Link underline='none' component={RouterLink} to='/your-target-path'>

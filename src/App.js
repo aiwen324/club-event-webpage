@@ -5,6 +5,7 @@ import './App.css';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 
 import Home from './react-components/Home'
+import Login from './react-components/Login'
 
 function App() {
   return (
@@ -13,6 +14,9 @@ function App() {
         <Switch>
           <Route exact path='/' render={() => 
                           (<Home/>)}/>
+          <Route exact path='/login/' render={() =>
+                          (<Login/>)}/>
+          <Route path='/postid=:id' render={() => (<Login/>)} />
         </Switch>
       </BrowserRouter>
     </div>
