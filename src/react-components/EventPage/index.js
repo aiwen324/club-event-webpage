@@ -1,7 +1,6 @@
 import React from 'react';
 
 import './style.css';
-// import Posts from '../Posts' 
 import { Link as RouterLink } from 'react-router-dom';
 // import Link from '@material-ui/core/Link'
 
@@ -34,6 +33,12 @@ class EventPage extends React.Component {
                     reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur 
                     sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id 
                     est laborum.
+                </div>
+                <div>
+                    <img class="event_image" src={require("./images/boeing777x.jpeg")}/>
+                </div>
+                <div>
+                    <img class="event_image" src={require("./images/shoko-enoshima.jpeg")}/>
                 </div>
             </div>
         )

@@ -23,3 +23,10 @@
     margin-right: 30pt;
 }
 
+.event_image {
+    margin: auto;
+    margin-top: 30pt;
+    max-width: 500pt;
+    max-height: 600pt;
+}
+
