@@ -2,17 +2,17 @@
     height: 100%;
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
-    background-color: black;
-    background-image: url("./images/background2.png");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+    /* background-color: black; */
     z-index: -1;
   }
-
+  
   .home_pg {
     height: 100%;
+    background-image: url("./images/background2.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    
   }
 
   #title-container{
@@ -32,9 +32,14 @@
   }
   
   .posts {
-    margin-left: 100px;
-    margin-right: 100px;
-    margin-bottom: 100px;
+    background: transparent;
+    margin-left: 100pt;
+    margin-right: 100pt;
+    /* margin-bottom: 100pt; */
     display: grid;
     grid-gap: 1em;
+  }
+
+  #bottom-padding {
+    min-height: 20pt;
   }

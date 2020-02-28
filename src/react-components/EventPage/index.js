@@ -1,6 +1,8 @@
 import React from 'react';
 
 import './style.css';
+import SurveyQuestion from "../SurveyQuestion"
+
 import { Link as RouterLink } from 'react-router-dom';
 import Event_register from '../Event_register'
 // import Link from '@material-ui/core/Link'
@@ -13,8 +15,8 @@ class EventPage extends React.Component {
                     <h1 id='event_title'>Project Demo</h1>
                 </div>
                 <div id='event_info'>
-                    <h3 id='event_time'>Date and Time: <h>Friday, February 28, 2020 @ 14:40</h></h3>
-                    <h3 id='event_loc'>Location: <h>Myhal Centre, Rm. 317</h></h3>
+                    <h3 id='event_time'>Date and Time: <span>Friday, February 28, 2020 @ 14:40</span></h3>
+                    <h3 id='event_loc'>Location: <span>Myhal Centre, Rm. 317</span></h3>
                 </div>
                 <div id='event_details'>
                     <p>
@@ -27,12 +29,19 @@ class EventPage extends React.Component {
                     </p>
                 </div>
                 <div>
-                    <img class="event_image" src={require("./images/boeing777x.jpeg")}/>
+                    <img className="event_image" src={require("./images/boeing777x.jpeg")}/>
                 </div>
                 <div>
-                    <img class="event_image" src={require("./images/shoko-enoshima.jpeg")}/>
+                    <img className="event_image" src={require("./images/shoko-enoshima.jpeg")}/>
                 </div>
-                <Event_register />
+                {/* <div id='survey_form'>
+                    <SurveyQuestion/>
+                </div> */}
+                <div>
+                    <h2 className='event_section_title'>Registration Form</h2>
+                </div>
+                <Event_register/>
+                <div id='bottom_padder'/>
             </div>
         )
     }
