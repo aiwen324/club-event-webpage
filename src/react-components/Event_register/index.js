@@ -1,5 +1,6 @@
 import React from 'react';
 import { TextField, Box, Button } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles'
 
 import './style.css'
 
@@ -10,9 +11,9 @@ class Event_register extends React.Component {
             <div className='register_field'>
                 <form>
                     <TextField
+                        required
                         variant="outlined"
                         margin="normal"
-                        required
                         fullWidth
                         id="email"
                         label="Email Address"
@@ -21,9 +22,9 @@ class Event_register extends React.Component {
                         autoFocus
                         />
                     <TextField
+                        required
                         variant="outlined"
                         margin="normal"
-                        required
                         fullWidth
                         id="first_name"
                         label="First Name"
@@ -32,9 +33,9 @@ class Event_register extends React.Component {
                         autoFocus
                         />
                     <TextField
+                        required
                         variant="outlined"
                         margin="normal"
-                        required
                         fullWidth
                         id="last_name"
                         label="Last Name"

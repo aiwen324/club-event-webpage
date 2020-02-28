@@ -34,10 +34,14 @@ class EventPage extends React.Component {
                 <div>
                     <img className="event_image" src={require("./images/shoko-enoshima.jpeg")}/>
                 </div>
-                <div id='survey_form'>
+                {/* <div id='survey_form'>
                     <SurveyQuestion/>
+                </div> */}
+                <div>
+                    <h2 className='event_section_title'>Registration Form</h2>
                 </div>
-                <Event_register />
+                <Event_register/>
+                <div id='bottom_padder'/>
             </div>
         )
     }

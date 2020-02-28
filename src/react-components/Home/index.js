@@ -30,6 +30,8 @@ class Home extends React.Component {
                         <Posts/>
                     </Link>
                 </div>
+                <div id='bottom-padding'/>
+
             </div>
         )
     }
