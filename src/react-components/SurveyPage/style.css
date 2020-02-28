@@ -1,0 +1,53 @@
+.event_page {
+    margin-bottom: 50pt;
+}
+
+
+#event_title {
+    margin: auto;
+    color: black;
+    text-align: left;
+    margin-left: 30pt;
+    margin-right: 30pt;
+    margin-top: 30pt;
+}
+
+#event_info {
+    margin: auto;
+    color: black;
+    text-align: left;
+    margin-left: 30pt;
+}
+
+#event_details {
+    margin: auto;
+    color: black;
+    text-align: left;
+    margin-left: 30pt;
+    margin-right: 30pt;
+}
+
+.event_image {
+    margin: auto;
+    margin-top: 30pt;
+    max-width: 500pt;
+    max-height: 600pt;
+}
+
+.event_section_title {
+    margin: auto;
+    color: black;
+    text-align: left;
+    margin-left: 30pt;
+    margin-right: 30pt;
+    margin-top: 30pt;
+}
+
+#submit_button {
+    margin-top: 20pt;
+}
+
+#bottom_padder {
+    min-height: 30pt;
+}
+

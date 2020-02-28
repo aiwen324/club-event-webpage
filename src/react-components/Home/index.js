@@ -20,7 +20,7 @@ class Home extends React.Component {
                         <Posts/>
                     </Link>
 
-                    <Link underline='none' component={RouterLink} to='/postid=2'>
+                    <Link underline='none' component={RouterLink} to='/survey'>
                         <Posts/>
                     </Link>
                     <Link underline='none' component={RouterLink} to='/postid=3'>
