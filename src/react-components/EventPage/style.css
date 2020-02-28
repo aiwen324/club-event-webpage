@@ -1,0 +1,36 @@
+.event_page {
+    margin-bottom: 50pt;
+}
+
+
+#event_title {
+    margin: auto;
+    color: white;
+    text-align: left;
+    margin-left: 30pt;
+    margin-right: 30pt;
+    margin-top: 30pt;
+}
+
+#event_info {
+    margin: auto;
+    color: white;
+    text-align: left;
+    margin-left: 30pt;
+}
+
+#event_details {
+    margin: auto;
+    color: white;
+    text-align: left;
+    margin-left: 30pt;
+    margin-right: 30pt;
+}
+
+.event_image {
+    margin: auto;
+    margin-top: 30pt;
+    max-width: 500pt;
+    max-height: 600pt;
+}
+

@@ -16,9 +16,10 @@ class Home extends React.Component {
                     </div>
                 </div>
                 <div className='posts' id='posts'>
-                    <Link underline='none' component={RouterLink} to='/postid=1'>
+                    <Link underline='none' component={RouterLink} to='/event'>
                         <Posts/>
                     </Link>
+
                     <Link underline='none' component={RouterLink} to='/postid=2'>
                         <Posts/>
                     </Link>
