@@ -9,27 +9,17 @@ class Home extends React.Component {
     render() {
         return (
             <div className='home_pg'>
-                <div id="Navigation-bar">
-                    <div id="accountInfo">
-                        <a href='login/'>Login</a>
-                    </div>
-                    <ul>
-                        <li><a>Home</a></li>
-                        <li><a>Announcements</a></li>
-                        <li><a>Events</a></li>
-                        <li><a>About us</a></li>
-                    </ul>
-                </div>
                 <div id="title-container">
                     <div id="Welcome-section">
                         <h1 id="Welcome">Welcome to UTACG survey center</h1>
                         <p>Your opinion is valuable to us</p>
                     </div>
                 </div>
-                <div className='posts'>
-                    <Link underline='none' component={RouterLink} to='/postid=1'>
+                <div className='posts' id='posts'>
+                    <Link underline='none' component={RouterLink} to='/event'>
                         <Posts/>
                     </Link>
+
                     <Link underline='none' component={RouterLink} to='/postid=2'>
                         <Posts/>
                     </Link>
