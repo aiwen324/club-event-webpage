@@ -37,11 +37,14 @@
     background-color: transparent;
     text-align: center;
     padding: 14px 16px;
-    text-decoration: none;
-    color: white;
     transition: 0.25s;
     border-radius: 5px;
   }
+  
+#accountInfo a {
+  color: white;
+  text-decoration: none;
+}
 
 #accountInfo:hover {
     background-color: #66ccff;

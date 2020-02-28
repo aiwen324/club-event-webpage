@@ -15,7 +15,7 @@ class Home extends React.Component {
                         <p>Your opinion is valuable to us</p>
                     </div>
                 </div>
-                <div className='posts'>
+                <div className='posts' id='posts'>
                     <Link underline='none' component={RouterLink} to='/postid=1'>
                         <Posts/>
                     </Link>
