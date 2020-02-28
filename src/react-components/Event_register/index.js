@@ -1,6 +1,5 @@
 import React from 'react';
 import { TextField, Box, Button } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles'
 
 import './style.css'
 
@@ -45,10 +44,10 @@ class Event_register extends React.Component {
                         autoFocus
                         />
                 </form>
-                <div id='vertical_padding'/>
+                {/* <div id='vertical_padding'/>
                 <Button type="submit"
                     variant="contained"
-                    color="primary">Register Event</Button>
+                    color="primary">Register Event</Button> */}
             </div>
         )
     }

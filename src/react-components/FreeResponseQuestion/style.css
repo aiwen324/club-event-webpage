@@ -1,4 +1,3 @@
-
 .survey_question {
     text-align: left;
     margin-top: 30pt;
@@ -6,10 +5,8 @@
     margin-right: 30pt;
 }
 
-.choice {
+.response_field {
     text-align: left;
-    margin-top: 10pt;
     margin-left: 30pt;
-    margin-right: 30pt
-    ;
+    margin-right: 30pt;
 }

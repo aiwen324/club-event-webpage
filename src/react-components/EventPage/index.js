@@ -2,9 +2,12 @@ import React from 'react';
 
 import './style.css';
 import SurveyQuestion from "../SurveyQuestion"
+import Event_register from '../Event_register'
+import FreeResponseQuestion from "../FreeResponseQuestion"
 
 import { Link as RouterLink } from 'react-router-dom';
-import Event_register from '../Event_register'
+import { Button } from '@material-ui/core'
+
 // import Link from '@material-ui/core/Link'
 
 class EventPage extends React.Component {
@@ -41,6 +44,21 @@ class EventPage extends React.Component {
                     <h2 className='event_section_title'>Registration Form</h2>
                 </div>
                 <Event_register/>
+                <div>
+                    <h2 className='event_section_title'>Pre-event Survey</h2>
+                </div>
+                <SurveyQuestion/>
+                <SurveyQuestion/>
+                <SurveyQuestion/>
+                <FreeResponseQuestion/>
+                <div id='submit_button'>
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary">
+                            Register & Submit
+                    </Button>
+                </div>
                 <div id='bottom_padder'/>
             </div>
         )

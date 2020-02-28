@@ -43,7 +43,11 @@
     margin-top: 30pt;
 }
 
+#submit_button {
+    margin-top: 20pt;
+}
+
 #bottom_padder {
-    min-height: 20pt;
+    min-height: 30pt;
 }
 
