@@ -1,6 +1,11 @@
 .register_field {
     background-color: white;
-    margin-left: 30pt;
-    margin-right: 30pt;
+    margin-left: 200pt;
+    margin-right: 200pt;
+    min-width: 100pt;
     background-color: transparent;
+}
+
+#vertical_padding {
+    height: 10pt;
 }
