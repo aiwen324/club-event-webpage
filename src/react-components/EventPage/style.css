@@ -1,45 +1,68 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+.event_page_content{
+    background-image: url("./images/background2.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
 .event_page {
-    margin-bottom: 50pt;
+    padding-bottom: 1%;
+    margin-left: 20%;
+    margin-right: 20%;
+    background-color: #9AA0A6;
+    border-radius: 8px;
 }
 
 
 #event_title {
+    font-family: 'Google Sans','Roboto', sans-serif;
+    font-size: 24px;
     margin: auto;
     color: black;
     text-align: left;
-    margin-left: 30pt;
-    margin-right: 30pt;
-    margin-top: 30pt;
+    margin-left: 4%;
+    margin-right: 4%;
+    padding-top: 3%;
 }
 
 #event_info {
+    font-family: 'Roboto', 'Helvetica Neue', Helvetica, sans-serif;
+    font-size: 14px;
     margin: auto;
     color: black;
     text-align: left;
-    margin-left: 30pt;
+    margin-left: 7%;
 }
 
 #event_details {
+    font-family: 'Roboto', 'Helvetica Neue', Helvetica, sans-serif;
+    font-size: 14px;
     margin: auto;
     color: black;
     text-align: left;
-    margin-left: 30pt;
-    margin-right: 30pt;
+    margin-left: 7%;
+    margin-right: 7%;
+    text-align: justify;
 }
 
 .event_image {
     margin: auto;
-    margin-top: 30pt;
-    max-width: 500pt;
-    max-height: 600pt;
+    margin-top: 1%;
+    max-width: 80%;
+    max-height: 100%;
 }
 
 .event_section_title {
+    
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+    font-size: 24px;
     margin: auto;
     color: black;
     text-align: left;
-    margin-left: 30pt;
-    margin-right: 30pt;
+    margin-left: 7%;
+    margin-right: 7%;
     margin-top: 30pt;
 }
 
@@ -49,5 +72,80 @@
 
 #bottom_padder {
     min-height: 30pt;
+}
+
+.comment-submit {
+    width: 8%;
+    height: 62px;
+    position: absolute;
+    font-size: 14px;
+    color: #fff;
+    border-radius: 4px;
+    text-align: center;
+    min-width: 60px;
+    vertical-align: top;
+    cursor: pointer;
+    background-color: #00a1d6;
+    border: 1px solid #00a1d6;
+    transition: .1s;
+    user-select: none;
+    outline: none;
+    margin-left: 2px;
+}
+
+.inputArea {
+    font-size: 12px;
+    display: inline-block;
+    box-sizing: border-box;
+    background-color: #f4f5f7;
+    border: 1px solid #e5e9ef;
+    overflow: auto;
+    border-radius: 4px;
+    color: #555;
+    margin-left: 0%;
+    width: 100%;
+    height: 100%;
+    transition: 0s;
+    line-height: normal;
+    border-radius: 5px;
+}
+
+.commentTextField{
+    padding-top: 10%;
+    align-content: left;
+    left: 0px;
+    position: relative;
+    height: 62px; 
+}
+
+.commentSection{
+    margin-top: 10px;
+    border-radius: 8px;
+    background-color: #9AA0A6;
+    padding-bottom: 1%;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.SenderIconContainer {
+	width: 10%;
+    float: left;
+    padding-left: 3%;
+}
+
+.SenderIcon {
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+    margin-left: 0px;
+    margin-top: 10px;
+}
+
+.inputTextArea{
+    left:0px;
+    position: absolute;
+    height: 62px;
+    margin-left: 12%;
+    width: 73%;
 }
 
