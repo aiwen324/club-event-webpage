@@ -8,6 +8,7 @@ import Home from './react-components/Home'
 import Login from './react-components/Login'
 import Navbar from './react-components/Nav_bar'
 import EventPage from './react-components/EventPage'
+import SurveyPage from './react-components/SurveyPage'
 
 function App() {
   return (
@@ -22,6 +23,9 @@ function App() {
           <Route path='/postid=:id' render={() => (<Login/>)} />
           <Route exact path='/event' render={() =>
                           (<EventPage/>)
+          }/>
+          <Route exact path='/survey' render={() =>
+                          (<SurveyPage/>)
           }/>
         </Switch>
       </BrowserRouter>

@@ -10,16 +10,12 @@ import { Button } from '@material-ui/core'
 
 // import Link from '@material-ui/core/Link'
 
-class EventPage extends React.Component {
+class SurveyPage extends React.Component {
     render() {
         return (
             <div className="event_page">
                 <div>
-                    <h1 id='event_title'>Project Demo</h1>
-                </div>
-                <div id='event_info'>
-                    <h3 id='event_time'>Date and Time: <span>Friday, February 28, 2020 @ 14:40</span></h3>
-                    <h3 id='event_loc'>Location: <span>Myhal Centre, Rm. 317</span></h3>
+                    <h1 id='event_title'>Which anime are you watching this season?</h1>
                 </div>
                 <div id='event_details'>
                     <p>
@@ -32,20 +28,16 @@ class EventPage extends React.Component {
                     </p>
                 </div>
                 <div>
-                    <img className="event_image" src={require("./images/boeing777x.jpeg")}/>
+                    <img className="event_image" src={require("./images/ao-manaka-1.jpeg")}/>
                 </div>
                 <div>
-                    <img className="event_image" src={require("./images/shoko-enoshima.jpeg")}/>
+                    <img className="event_image" src={require("./images/ao-manaka-2.jpeg")}/>
                 </div>
                 {/* <div id='survey_form'>
                     <SurveyQuestion/>
                 </div> */}
                 <div>
-                    <h2 className='event_section_title'>Registration Form</h2>
-                </div>
-                <Event_register/>
-                <div>
-                    <h2 className='event_section_title'>Pre-event Survey</h2>
+                    <h2 className='event_section_title'>Survey Questions</h2>
                 </div>
                 <SurveyQuestion/>
                 <SurveyQuestion/>
@@ -56,7 +48,7 @@ class EventPage extends React.Component {
                         type="submit"
                         variant="contained"
                         color="primary">
-                            Register & Submit
+                            Submit
                     </Button>
                 </div>
                 <div id='bottom_padder'/>
@@ -65,4 +57,4 @@ class EventPage extends React.Component {
     }
 }
 
-export default EventPage
+export default SurveyPage

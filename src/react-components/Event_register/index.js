@@ -1,12 +1,12 @@
 import React from 'react';
 import { TextField, Box, Button } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles'
 
 import './style.css'
 
 class Event_register extends React.Component {
 
     render() {
+
         return (
             <div className='register_field'>
                 <form>
@@ -14,8 +14,8 @@ class Event_register extends React.Component {
                         required
                         variant="outlined"
                         margin="normal"
-                        fullWidth
                         id="email"
+                        fullWidth
                         label="Email Address"
                         name="email"
                         autoComplete="email"
@@ -25,8 +25,8 @@ class Event_register extends React.Component {
                         required
                         variant="outlined"
                         margin="normal"
-                        fullWidth
                         id="first_name"
+                        fullWidth
                         label="First Name"
                         name="first_name"
                         autoComplete="first_name"
@@ -36,18 +36,18 @@ class Event_register extends React.Component {
                         required
                         variant="outlined"
                         margin="normal"
-                        fullWidth
                         id="last_name"
+                        fullWidth
                         label="Last Name"
                         name="last_name"
                         autoComplete="last_name"
                         autoFocus
                         />
                 </form>
+                {/* <div id='vertical_padding'/>
                 <Button type="submit"
-                    fullWidth
                     variant="contained"
-                    color="primary">Register Event</Button>
+                    color="primary">Register Event</Button> */}
             </div>
         )
     }
