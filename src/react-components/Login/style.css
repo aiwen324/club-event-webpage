@@ -1,3 +1,12 @@
+ #login_page {
+   /* Background Image */
+   background-image: url('./images/shoko.png');
+   background-position: right;
+   /* background-position-x: 50%; */
+   background-size: auto;
+   background-repeat: no-repeat;
+ }
+ 
  .Login_panel {
     width: 30%;
     min-width: 10%;
@@ -5,5 +14,5 @@
     margin-top: 10%;
     background-color: white;
     padding: 30px;
-    border-radius: 20px;
+    border-radius: 20px;  
  }
