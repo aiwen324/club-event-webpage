@@ -18,6 +18,7 @@ class EventPage extends React.Component {
         const {commentsTable} = this.props;
         return (
             <div className='event_page_content'>
+            
                 <div className="event_page">
                     <div>
                         <h1 id='event_title'>Project Demo</h1>
@@ -84,7 +85,8 @@ class EventPage extends React.Component {
                 <div>
                     <br/>
                 </div>
-            </div>
+            
+            </div>    
         )
     }
 }
