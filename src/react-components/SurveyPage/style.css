@@ -1,9 +1,26 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+#event_page_contents {
+    background-image: url("./images/background_5ms.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    padding-top: 2%;
+}
+
 .event_page {
-    margin-bottom: 50pt;
+    padding-bottom: 1%;
+    margin-left: 10%;
+    margin-right: 10%;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.904);
+    backdrop-filter: blur(5px);
 }
 
 
 #event_title {
+    font-family: 'Google Sans','Roboto', sans-serif;
+    font-size: 24px;
     margin: auto;
     color: black;
     text-align: left;
@@ -12,14 +29,9 @@
     margin-top: 30pt;
 }
 
-#event_info {
-    margin: auto;
-    color: black;
-    text-align: left;
-    margin-left: 30pt;
-}
-
 #event_details {
+    font-family: 'Roboto', 'Helvetica Neue', Helvetica, sans-serif;
+    font-size: 14px;
     margin: auto;
     color: black;
     text-align: left;
@@ -47,7 +59,7 @@
     margin-top: 20pt;
 }
 
-#bottom_padder {
+.bottom_padder {
     min-height: 30pt;
 }
 
