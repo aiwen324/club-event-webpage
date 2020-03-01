@@ -19,7 +19,6 @@ class Event_register extends React.Component {
                         label="Email Address"
                         name="email"
                         autoComplete="email"
-                        autoFocus
                         />
                     <TextField
                         required
@@ -30,7 +29,6 @@ class Event_register extends React.Component {
                         label="First Name"
                         name="first_name"
                         autoComplete="first_name"
-                        autoFocus
                         />
                     <TextField
                         required
@@ -41,7 +39,6 @@ class Event_register extends React.Component {
                         label="Last Name"
                         name="last_name"
                         autoComplete="last_name"
-                        autoFocus
                         />
                 </form>
                 {/* <div id='vertical_padding'/>
