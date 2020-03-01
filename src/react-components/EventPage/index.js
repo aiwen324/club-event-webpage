@@ -65,7 +65,7 @@ class EventPage extends React.Component {
                             Register & Submit
                         </Button>
                     </div>
-                    <div id='bottom_padder'/>
+                    <div className='bottom_padder'/>
                 </div>
                 <div className='commentSection'>
                     <div id='CommentsContainer'>
@@ -82,9 +82,7 @@ class EventPage extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div>
-                    <br/>
-                </div>
+                <div className='bottom_padder'/>
             
             </div>    
         )
