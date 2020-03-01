@@ -2,7 +2,6 @@ import React from 'react';
 
 import './style.css';
 import SurveyQuestion from "../SurveyQuestion"
-import Event_register from '../Event_register'
 import FreeResponseQuestion from "../FreeResponseQuestion"
 
 import { Link as RouterLink } from 'react-router-dom';
@@ -13,12 +12,12 @@ import { Button } from '@material-ui/core'
 class SurveyPage extends React.Component {
     render() {
         return (
-            <div id='event_page_contents'>
-                <div className="event_page">
+            <div id='survey_page_contents'>
+                <div className="survey_page">
                     <div>
-                        <h1 id='event_title'>Which anime are you watching this season?</h1>
+                        <h1 id='survey_title'>Which anime are you watching this season?</h1>
                     </div>
-                    <div id='event_details'>
+                    <div id='survey_details'>
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 
                             ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation 
@@ -29,16 +28,16 @@ class SurveyPage extends React.Component {
                         </p>
                     </div>
                     <div>
-                        <img className="event_image" src={require("./images/ao-manaka-1.jpeg")}/>
+                        <img className="survey_image" src={require("./images/ao-manaka-1.jpeg")}/>
                     </div>
                     <div>
-                        <img className="event_image" src={require("./images/ao-manaka-2.jpeg")}/>
+                        <img className="survey_image" src={require("./images/ao-manaka-2.jpeg")}/>
                     </div>
                     {/* <div id='survey_form'>
                         <SurveyQuestion/>
                     </div> */}
                     <div>
-                        <h2 className='event_section_title'>Survey Questions</h2>
+                        <h2 className='survey_section_title'>Survey Questions</h2>
                     </div>
                     <SurveyQuestion/>
                     <SurveyQuestion/>
