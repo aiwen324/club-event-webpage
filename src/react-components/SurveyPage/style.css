@@ -1,45 +1,58 @@
-.event_page {
-    margin-bottom: 50pt;
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+#survey_page_contents {
+    background-image: url("./images/background_5ms.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    padding-top: 2%;
 }
 
+.survey_page {
+    padding-bottom: 1%;
+    margin-left: 10%;
+    margin-right: 10%;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.904);
+    backdrop-filter: blur(5px);
+}
 
-#event_title {
+#survey_title {
+    font-family: 'Google Sans','Roboto', sans-serif;
+    font-size: 24px;
     margin: auto;
     color: black;
     text-align: left;
-    margin-left: 30pt;
-    margin-right: 30pt;
-    margin-top: 30pt;
+    margin-left: 4%;
+    margin-right: 4%;
+    padding-top: 3%;
 }
 
-#event_info {
+#survey_details {
+    font-family: 'Roboto', 'Helvetica Neue', Helvetica, sans-serif;
+    font-size: 14px;
     margin: auto;
     color: black;
     text-align: left;
-    margin-left: 30pt;
+    margin-left: 7%;
+    margin-right: 7%;
 }
 
-#event_details {
+.survey_image {
+    margin: auto;
+    margin-top: 1%;
+    max-width: 80%;
+    max-height: 100%;
+}
+
+.survey_section_title {
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+    font-size: 24px;
     margin: auto;
     color: black;
     text-align: left;
-    margin-left: 30pt;
-    margin-right: 30pt;
-}
-
-.event_image {
-    margin: auto;
-    margin-top: 30pt;
-    max-width: 500pt;
-    max-height: 600pt;
-}
-
-.event_section_title {
-    margin: auto;
-    color: black;
-    text-align: left;
-    margin-left: 30pt;
-    margin-right: 30pt;
+    margin-left: 7%;
+    margin-right: 7%;
     margin-top: 30pt;
 }
 
@@ -47,7 +60,7 @@
     margin-top: 20pt;
 }
 
-#bottom_padder {
+.bottom_padder {
     min-height: 30pt;
 }
 

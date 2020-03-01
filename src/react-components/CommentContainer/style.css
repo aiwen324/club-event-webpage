@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+#userId{
+    text-align: left;
+    display: block;
+    font-family: 'Roboto', Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 900;
+    padding: 0%;
+    margin-top: 1%;
+    margin-bottom: 0%;
+    color: #030303;
+}
+
+#content{
+    text-align: left;
+    display: block;
+    font-family:'Roboto', Arial, sans-serif;
+    font-size: 14px;
+    margin-top: 1%;
+    margin-bottom: 2px;
+    color: #030303;
+
+}
+
+.commentContainer{
+    margin-left: 3%;
+    margin-right: 3%;
+    padding-top: 10px;
+}
+
+.commentIconContainer {
+	width: 10%;
+    float: left;
+}
+
+.commentIcon {
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+    margin: 0px;
+    margin-top: 10px;
+
+}
+
+.timeContainer{
+
+}
+
+.time{
+    font-family: 'Roboto', Arial, sans-serif;
+    font-size: 13px;
+    color: #606060;
+    text-align: left;
+    padding-left: 10%;
+    margin:0px;
+}
