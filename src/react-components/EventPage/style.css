@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
 .event_page_content{
-    background-image: url("./images/background2.png");
-    background-size: auto;
+    background-image: url("./images/background_5ms.jpg");
+    background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
     padding-top: 2%;
@@ -12,8 +12,8 @@
     padding-bottom: 1%;
     margin-left: 20%;
     margin-right: 20%;
-    border-radius: 30px;
-    background-color: rgba(154, 160, 166, 0.719);
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.904);
     backdrop-filter: blur(5px);
     
 }
@@ -124,7 +124,7 @@
 .commentSection{
     margin-top: 10px;
     border-radius: 8px;
-    background-color: rgba(154, 160, 166, 0.719);
+    background-color: rgba(255, 255, 255, 0.904);
     backdrop-filter: blur(5px);
     padding-bottom: 1%;
     margin-left: 20%;
