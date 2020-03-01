@@ -25,6 +25,7 @@ export default function SignIn() {
 
     return (
         <div id='login_page'>
+            <div id='top_padding'/>
             <div className='Login_panel'>
                 <div>
                     <h2>Sign In</h2>
