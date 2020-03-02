@@ -9,6 +9,7 @@ import Login from './react-components/Login'
 import Navbar from './react-components/Nav_bar'
 import EventPage from './react-components/EventPage'
 import SurveyPage from './react-components/SurveyPage'
+import AdminEdit from './react-components/Admin_edit'
 
 function App() {
   return (
@@ -26,6 +27,9 @@ function App() {
           }/>
           <Route exact path='/survey' render={() =>
                           (<SurveyPage/>)
+          }/>
+          <Route exact path='/admin/edit_announce' render={
+            ()=>(<AdminEdit/>)
           }/>
         </Switch>
       </BrowserRouter>

@@ -1,0 +1,14 @@
+.Edit_panel {
+    width: 100%;
+    background-color: white;
+    overflow: hidden;
+    display: block;
+}
+
+/* .edit_form {
+    background: transparent;
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 10%;
+    text-align: left;
+} */
