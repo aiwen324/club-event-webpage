@@ -1,4 +1,5 @@
 import React from 'react'
+import DashboardSidebar from '../DashboardSidebar'
 
 import './style.css'
 
@@ -33,6 +34,7 @@ class AdminDashboard extends React.Component {
         const { greeting } = this.state
         return (
             <div id='admin_dashboard'>
+                <DashboardSidebar/>
                 <h3 id='admin_greet'>{greeting}, Admin!</h3>
             </div>
         )

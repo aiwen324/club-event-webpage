@@ -1,0 +1,64 @@
+#sidebar {
+    position: sticky;
+    background-color: rgb(90, 195, 236);
+    display: block;
+    top: 0;
+    height: 100vh;
+    float: left;
+    width: 8%;
+}
+
+#sidebar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#sidebar li {
+    float: left;
+    background-color: transparent;
+    transition: 0.25s;
+    margin-left: 0;
+    margin-right: 0;
+    height: 12vh;
+    width: 100%;
+}
+
+#sidebar li:hover {
+    background-color: rgb(0, 168, 235);
+}
+
+#sidebar li a {
+    display: block;
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+#signout {
+    height: 12vh;
+    text-align: center;
+    background-color: transparent;
+    transition: 0.25s;
+    width: 100%;
+    bottom: 0;
+    position: absolute;
+}
+
+#signout a {
+    display: block;
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+#signout:hover {
+    background-color: rgb(0, 168, 235);
+}
+
+.button_padding {
+    height: 12%;
+}
