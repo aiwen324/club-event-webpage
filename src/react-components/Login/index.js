@@ -25,9 +25,7 @@ export default function SignIn() {
 
     return (
         <div id='login_page'>
-            <div id='background_image_column'>
-                <img id='backgroung_image' src={require('./images/gochiusa.jpg')}/>
-            </div>
+            <div id='top_padding'/>
             <div className='Login_panel'>
                 <div>
                     <h2>Sign In</h2>
