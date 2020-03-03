@@ -12,33 +12,36 @@ import SurveyPage from './react-components/SurveyPage'
 import AdminEdit from './react-components/Admin_edit'
 import AdminDashboard from './react-components/AdminDashboard'
 
-function App() {
-  return (
-    <div className="App">
-      <Navbar/>
-      <BrowserRouter>
-        <Switch>
-          <Route exact path='/' render={() => 
-                          (<Home/>)}/>
-          <Route exact path='/login/' render={() =>
-                          (<Login/>)}/>
-          <Route path='/postid=:id' render={() => (<Login/>)} />
-          <Route exact path='/event' render={() =>
-                          (<EventPage/>)
-          }/>
-          <Route exact path='/survey' render={() =>
-                          (<SurveyPage/>)
-          }/>
-          <Route exact path='/admin/edit_announce' render={
-            ()=>(<AdminEdit/>)
-          }/>
-          <Route exact path='/admin' render={() =>
-                          (<AdminDashboard/>)
-          }/>
-        </Switch>
-      </BrowserRouter>
-    </div>
-  );
+
+class App extends React.Component {
+  render() {
+    return (
+      <div className="App">
+        <Navbar/>
+        <BrowserRouter>
+          <Switch>
+            <Route exact path='/' render={() => 
+                            (<Home/>)}/>
+            <Route exact path='/login/' render={() =>
+                            (<Login/>)}/>
+            <Route path='/postid=:id' render={() => (<Login/>)} />
+            <Route exact path='/event' render={() =>
+                            (<EventPage/>)
+            }/>
+            <Route exact path='/survey' render={() =>
+                            (<SurveyPage/>)
+            }/>
+            <Route exact path='/admin/edit_announce' render={
+              ()=>(<AdminEdit/>)
+            }/>
+            <Route exact path='/admin' render={() =>
+                            (<AdminDashboard/>)
+            }/>
+          </Switch>
+        </BrowserRouter>
+      </div>
+    );
+  }
 }
 
 export default App;
