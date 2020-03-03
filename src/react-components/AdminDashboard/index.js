@@ -1,5 +1,7 @@
 import React from 'react'
 import DashboardSidebar from '../DashboardSidebar'
+import Posts from '../Posts'
+import DashboardAddButtons from '../DashboardAddButtons'
 
 import './style.css'
 
@@ -34,9 +36,28 @@ class AdminDashboard extends React.Component {
         const { greeting } = this.state
         return (
             <div id='admin_dashboard'>
-                <DashboardSidebar/>
+                <div id='sidebar'>
+                    <DashboardSidebar/>
+                </div>
                 <h3 id='admin_greet'>{greeting}, Admin!</h3>
+                <div id='add_buttons'>
+                    <DashboardAddButtons/>
+                </div>
+                <div id='posts'>
+                    <Posts/>
+                    <Posts/>
+                    <Posts/>
+                    <Posts/>
+                    <Posts/>
+                    <Posts/>
+                    <Posts/>
+                    <Posts/>
+                    <Posts/>
+                    <Posts/>
+                </div>
+                
             </div>
+            
         )
     }
 

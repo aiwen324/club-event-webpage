@@ -9,6 +9,15 @@
     background-color: white;
 }
 
+#sidebar {
+    float: left;
+    width: 8vw;
+    margin-top: 0;
+    margin-bottom: 0;
+    position: fixed;
+    overflow: hidden;
+}
+
 #admin_greet {
     font-family: 'Roboto', 'Helvetica Neue', Helvetica, sans-serif;
     font-size: 36px;
@@ -17,7 +26,18 @@
     text-align: left;
     margin-left: 12%;
     margin-right: 30%;
-    padding-top: 5%;
+    padding-top: 2%;
 }
 
+#add_buttons {
+    margin-top: 2%;
+    margin-left:  10%;
+}
 
+#posts {
+    margin-top: 2%;
+    margin-left: 12%;
+    margin-right: 30%;
+    display: grid;
+    grid-gap: 1em;
+}

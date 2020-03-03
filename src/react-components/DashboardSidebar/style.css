@@ -4,8 +4,7 @@
     display: block;
     top: 0;
     height: 100vh;
-    float: left;
-    width: 8%;
+    width: 8vw;
 }
 
 #sidebar ul {
