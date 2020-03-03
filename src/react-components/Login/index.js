@@ -10,10 +10,26 @@ import './style.css';
 
 
 class SignIn extends React.Component {
-    // const classes = useStyles();
+
+    state = {
+        userName: "", 
+        password: "",
+    }
+
+    handleInputChange = event => {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+    
+        // log(name)
+    
+        // 'this' is bound to the component in this arrow function.
+        this.setState({
+          [name]: value // [name] sets the object property name to the value of the 'name' variable.
+        });
+      };
 
     render() {
-
         return (
             <div id='login_page'>
                 <div id='top_padding' />
@@ -27,10 +43,12 @@ class SignIn extends React.Component {
                             margin="normal"
                             required
                             fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
+                            id="user_name"
+                            label="User Name"
+                            name="userName"
+                            value={this.state.userName}
+                            onChange={this.handleInputChange}
+                            autoComplete="user_name"
                             autoFocus
                         />
                         <TextField
@@ -42,6 +60,8 @@ class SignIn extends React.Component {
                             label="Password"
                             type="password"
                             id="password"
+                            value={this.state.password}
+                            onChange={this.handleInputChange}
                             autoComplete="current-password"
                         />
                         <FormControlLabel
