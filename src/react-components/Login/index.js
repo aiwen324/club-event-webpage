@@ -20,14 +20,12 @@ class SignIn extends React.Component {
         const target = event.target;
         const value = target.value;
         const name = target.name;
-    
-        // log(name)
-    
+        
         // 'this' is bound to the component in this arrow function.
         this.setState({
           [name]: value // [name] sets the object property name to the value of the 'name' variable.
         });
-      };
+    };
 
     render() {
         return (

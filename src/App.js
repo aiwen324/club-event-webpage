@@ -14,6 +14,13 @@ import AdminDashboard from './react-components/AdminDashboard'
 
 
 class App extends React.Component {
+
+  state = {
+    userId: null,
+    userName: null, 
+    admin: false,
+  }
+
   render() {
     return (
       <div className="App">
