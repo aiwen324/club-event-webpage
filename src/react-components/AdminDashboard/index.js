@@ -3,6 +3,9 @@ import DashboardSidebar from '../DashboardSidebar'
 import Posts from '../Posts'
 import DashboardAddButtons from '../DashboardAddButtons'
 
+import { Link as RouterLink } from 'react-router-dom';
+import Link from '@material-ui/core/Link'
+
 import './style.css'
 
 class AdminDashboard extends React.Component {
@@ -47,16 +50,34 @@ class AdminDashboard extends React.Component {
                     <DashboardAddButtons/>
                 </div>
                 <div id='posts'>
-                    <Posts/>
-                    <Posts/>
-                    <Posts/>
-                    <Posts/>
-                    <Posts/>
-                    <Posts/>
-                    <Posts/>
-                    <Posts/>
-                    <Posts/>
-                    <Posts/>
+                    <Link underline='none' component={RouterLink} to='/event'>
+                        <Posts/>
+                    </Link>
+
+                    <Link underline='none' component={RouterLink} to='/survey'>
+                        <Posts/>
+                    </Link>
+                    <Link underline='none' component={RouterLink} to='/event'>
+                        <Posts/>
+                    </Link>
+
+                    <Link underline='none' component={RouterLink} to='/survey'>
+                        <Posts/>
+                    </Link>
+                    <Link underline='none' component={RouterLink} to='/event'>
+                        <Posts/>
+                    </Link>
+
+                    <Link underline='none' component={RouterLink} to='/survey'>
+                        <Posts/>
+                    </Link>
+                    <Link underline='none' component={RouterLink} to='/event'>
+                        <Posts/>
+                    </Link>
+
+                    <Link underline='none' component={RouterLink} to='/survey'>
+                        <Posts/>
+                    </Link>
                 </div>
             </div>
             
