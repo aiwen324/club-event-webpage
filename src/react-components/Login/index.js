@@ -65,6 +65,7 @@ export default function SignIn() {
                         variant="contained"
                         color="primary"
                         className={classes.submit}
+                        href='/admin'
                     >
                         Sign In
                     </Button>
