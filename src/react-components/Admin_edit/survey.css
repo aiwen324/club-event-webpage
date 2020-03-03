@@ -1,0 +1,9 @@
+.question_section {
+    width: 70%;
+    padding: 3pt;
+    border-width: 3px;
+    border: solid;
+    border-color: green;
+    /* padding: 16pt; */
+    margin: 8pt;
+}
