@@ -6,6 +6,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
+import { loginAuth } from '../../actions/login_auth'
 
 import './style.css';
 import { render } from '@testing-library/react';
