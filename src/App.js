@@ -31,6 +31,7 @@ function App() {
           }/>
           <Route exact path='/admin/edit_announce' render={
             ()=>(<AdminEdit/>)
+          }/>
           <Route exact path='/admin' render={() =>
                           (<AdminDashboard/>)
           }/>
