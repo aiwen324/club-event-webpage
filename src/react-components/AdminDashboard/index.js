@@ -39,6 +39,9 @@ class AdminDashboard extends React.Component {
                 <div id='sidebar'>
                     <DashboardSidebar/>
                 </div>
+                <div>
+                    <img id='background_image' src={require("./images/shoko.png")}/>
+                </div>
                 <h3 id='admin_greet'>{greeting}, Admin!</h3>
                 <div id='add_buttons'>
                     <DashboardAddButtons/>
