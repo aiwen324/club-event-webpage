@@ -18,20 +18,6 @@ class DashboardSidebar extends React.Component {
                         />
                         <a href='/'>Home</a>
                     </li>
-                    <li>
-                        <PersonIcon
-                            style={{ color: 'white' }}
-                            fontSize='large'
-                        />
-                        <a href='/'>Account</a>
-                    </li>
-                    <li>
-                        <SettingsIcon
-                            style={{ color: 'white' }}
-                            fontSize='large'
-                        />
-                        <a href='/'>Settings</a>
-                    </li>
                 </ul>
                 <div id='signout'>
                     <div id='signout-button-content'>
