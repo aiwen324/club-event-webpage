@@ -58,7 +58,6 @@ class AdminDashboard extends React.Component {
                     <Posts/>
                     <Posts/>
                 </div>
-                
             </div>
             
         )

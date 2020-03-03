@@ -12,41 +12,35 @@ class DashboardSidebar extends React.Component {
             <div id='sidebar'>
                 <ul>
                     <li>
-                        <div className='button_padding'/>
                         <HomeIcon
                             style={{ color: 'white' }}
                             fontSize='large'
                         />
                         <a href='/'>Home</a>
-                        <div className='button_padding'/>
                     </li>
                     <li>
-                        <div className='button_padding'/>
                         <PersonIcon
                             style={{ color: 'white' }}
                             fontSize='large'
                         />
                         <a href='/'>Account</a>
-                        <div className='button_padding'/>
                     </li>
                     <li>
-                        <div className='button_padding'/>
                         <SettingsIcon
                             style={{ color: 'white' }}
                             fontSize='large'
                         />
                         <a href='/'>Settings</a>
-                        <div className='button_padding'/>
                     </li>
                 </ul>
                 <div id='signout'>
-                    <div className='button_padding'/>
-                    <CloseIcon
-                        style={{ color: 'white' }}
-                        fontSize='large'
-                    />
-                    <a href='/'>Sign Out</a>
-                    <div className='button_padding'/>
+                    <div id='signout-button-content'>
+                        <CloseIcon
+                            style={{ color: 'white' }}
+                            fontSize='large'
+                        />
+                        <a href='/'>Sign Out</a>
+                    </div>
                 </div>
             </div>
         )

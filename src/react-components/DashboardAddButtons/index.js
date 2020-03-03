@@ -7,10 +7,14 @@ import { blue, red } from '@material-ui/core/colors';
 
 const useStyles = makeStyles(theme => ({
     root: {
-        '& > *': {
+        // '& > *': {
             margin: theme.spacing(1),
             backgroundColor: 'seagreen',
             borderColor: 'seagreen',
+        // },
+        '&:hover': {
+            backgroundColor: '#5ac3ec',
+            borderColor: '#5ac3ec'
         },
     },
 }));
@@ -19,8 +23,9 @@ export default function DashboardAddButtons() {
     const classes = useStyles();
 
     return (
-        <div className={classes.root}>
+        <div>
             <Button
+                className={classes.root}
                 variant="contained"
                 color="primary"
                 startIcon={<AddIcon/>}
@@ -28,6 +33,7 @@ export default function DashboardAddButtons() {
                 New Event
             </Button>
             <Button
+                className={classes.root}
                 variant="contained"
                 color="primary"
                 startIcon={<AddIcon/>}
