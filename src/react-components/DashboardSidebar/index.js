@@ -39,7 +39,7 @@ class DashboardSidebar extends React.Component {
                             style={{ color: 'white' }}
                             fontSize='large'
                         />
-                        <a href='/'>Sign Out</a>
+                        <a href='/login'>Sign Out</a>
                     </div>
                 </div>
             </div>
