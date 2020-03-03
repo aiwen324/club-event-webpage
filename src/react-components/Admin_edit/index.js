@@ -1,42 +1,11 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import FormGroup from '@material-ui/core/FormGroup';
-import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import './style.css'
-import Select from '@material-ui/core/Select';
-import { Grid } from '@material-ui/core';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import Paper from '@material-ui/core/Paper';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-
-const useStyles = theme => ({
-    edit_form: {
-        width: '70%',
-        '& > *': {
-            margin: theme.spacing(2),
-        },
-        margin: "0 auto",
-        marginTop: '20pt',
-        textAlign: "left",
-    },
-    input: {
-        display: 'none',
-    },
-    formControl: {
-        // margin: theme.spacing(1),
-        minWidth: 120,
-    },
-    question_section: {
-        width: '50%',
-    },
-});
+import Survey from './survey'
 
 
 
@@ -47,10 +16,29 @@ class AdminEdit extends React.Component {
         survey: true,
         question_type: 10,
         question_array: [
-            { index:0, type:10, options:''},
+            { index: 0, type: 10, options: '' },
         ],
     }
 
+    addQuestion = (e) => {
+        const question_array = this.state.question_array;
+        const new_question = {
+            index: question_array.length,
+            type: 10,
+            options: '',
+        }
+        question_array.push(new_question)
+        this.setState({ ['question_array']: question_array })
+    }
+
+    removeQuestion = (edit_panel) => (survey) => (event) => {
+        const survey_index = survey.state.index;
+        const question_array = edit_panel.state.question_array;
+        question_array.splice(survey_index, 1);
+        edit_panel.setState({['question_array']: question_array})
+    }
+
+    // Handle Checkbox for Register Field and Survey
     handleChange = (name) => {
         return (event) => {
             this.setState({ [name]: event.target.checked });
@@ -64,12 +52,12 @@ class AdminEdit extends React.Component {
 
     render() {
 
-        const { reg_field, survey, age } = this.state;
+        const { reg_field, survey } = this.state;
 
-        const { classes } = this.props;
+        // const { classes } = this.props;
         return (
             <div className='Edit_panel'>
-                <form className={classes.edit_form}>
+                <form className='edit_form'>
                     <TextField
                         id='announce_title'
                         className='input_field'
@@ -83,12 +71,12 @@ class AdminEdit extends React.Component {
                         placeholder="Enter the description"
                         multiline
                         rows="5"
-                        fullWidth='true'
+                        fullWidth
                         variant="outlined"
                     />
                     <input
                         accept="image/*"
-                        className={classes.input}
+                        className='input'
                         id="contained-button-file"
                         multiple
                         type="file"
@@ -98,6 +86,9 @@ class AdminEdit extends React.Component {
                             Upload Images
                         </Button>
                     </label>
+                    <Button variant="contained" color="primary" component="span">
+                            Post Announcement
+                    </Button>
                     <FormGroup>
                         <FormControlLabel
                             control={<Checkbox checked={reg_field} onChange={this.handleChange('reg_field')} value="reg_field" />}
@@ -110,41 +101,12 @@ class AdminEdit extends React.Component {
                     </FormGroup>
                     {
                         this.state.survey ?
-                            <Paper className={classes.question_section}>
-                                <Grid container spacing={2}>
-                                    <Grid item xs={7}>
-                                        <TextField
-                                            className='question'
-                                            label='Question'
-                                            placeholder='Question'
-                                            fullWidth='true'
-                                        />
-                                    </Grid>
-                                    <Grid item xs={2}>
-                                        <FormControl className={classes.formControl}>
-                                            <Select value={this.state.question_type} onChange={this.handleChange2} displayEmpty className={classes.selectEmpty}>
-                                                <MenuItem value={10}>Checkboxes</MenuItem>
-                                                <MenuItem value={20}>Paragraph</MenuItem>
-                                            </Select>
-                                            <FormHelperText>Select question type</FormHelperText>
-                                        </FormControl>
-                                    </Grid>
-                                    {
-                                        this.state.question_type == 10 ?
-                                            <Grid item xs={10}>
-                                                <TextField
-                                                    className='question'
-                                                    label='options'
-                                                    placeholder='Options sepereated by ; (e.g. a; b; c; d)'
-                                                    fullWidth='true'
-                                                    multiline
-                                                />
-                                            </Grid>
-                                            :
-                                            <div></div>
-                                    }
-                                </Grid>
-                            </Paper>
+                            <div>
+                                {this.state.question_array.map(question => (<Survey {...this.state.question_array[0]} removeQuestion={this.removeQuestion(this)} />))}
+                                <Button variant="contained" color="primary" component="span" onClick={this.addQuestion}>
+                                    Add Question
+                                </Button>
+                            </div>
                             :
                             <div></div>
                     }
@@ -154,4 +116,4 @@ class AdminEdit extends React.Component {
     }
 }
 
-export default withStyles(useStyles)(AdminEdit)
+export default AdminEdit
