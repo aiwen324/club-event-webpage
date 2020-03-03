@@ -10,6 +10,7 @@ import Navbar from './react-components/Nav_bar'
 import EventPage from './react-components/EventPage'
 import SurveyPage from './react-components/SurveyPage'
 import AdminEdit from './react-components/Admin_edit'
+import AdminDashboard from './react-components/AdminDashboard'
 
 function App() {
   return (
@@ -30,6 +31,8 @@ function App() {
           }/>
           <Route exact path='/admin/edit_announce' render={
             ()=>(<AdminEdit/>)
+          <Route exact path='/admin' render={() =>
+                          (<AdminDashboard/>)
           }/>
         </Switch>
       </BrowserRouter>
