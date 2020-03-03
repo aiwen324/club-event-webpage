@@ -16,6 +16,13 @@ import AdminSurveyPage from './react-components/AdminSurvey/index.js'
 
 
 class App extends React.Component {
+
+  state = {
+    userId: null,
+    userName: null, 
+    admin: false,
+  }
+
   render() {
     return (
       <div className="App">
