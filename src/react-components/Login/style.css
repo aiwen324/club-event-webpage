@@ -29,3 +29,13 @@
     margin-right: 30%;
     position: fixed;
  }
+
+.form {
+  width: 100% !important; /* Fix IE 11 issue. */
+  margin-top: 8pt !important;
+}
+
+
+.submit {
+  margin: 24, 0, 16 !important;
+}
