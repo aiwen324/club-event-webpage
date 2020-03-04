@@ -92,15 +92,7 @@ class AdminEventPage extends React.Component {
                     {this.state.comments.map(comment => (<DiscussionBoard comments={comment} />))}
                     
                     </div>
-                    <div className='commentTextField'>
-                        <div class="SenderIconContainer">
-                            <img class='SenderIcon' src={require("./images/icon2.jpg")}/>
-                        </div>
-                        <div className='inputTextArea'>
-                            <textarea className='inputArea' placeholder="Please leave a comment"></textarea>
-                            <button class="comment-submit">Send!</button>
-                        </div>
-                    </div>
+                    
                 </div>
                 <div className='bottom_padder'/>
             
