@@ -10,6 +10,7 @@ import Link from '@material-ui/core/Link'
 import './style.css'
 
 class AdminDashboard extends React.Component {
+
     state = {
         greeting: null,
     }
@@ -40,6 +41,8 @@ class AdminDashboard extends React.Component {
 
     render() {
         const { greeting } = this.state
+        const { displayName } = this.props
+
         return (
             <div id='admin_dashboard'>
                 <div id='sidebar'>
@@ -48,7 +51,7 @@ class AdminDashboard extends React.Component {
                 <div>
                     <img id='background_image' src={require("./images/shoko.png")}/>
                 </div>
-                <h3 id='admin_greet'>{greeting}, Admin!</h3>
+                <h3 id='admin_greet'>{greeting}, {displayName}!</h3>
                 <div id='add_buttons'>
                     <DashboardAddButtons/>
                 </div>
