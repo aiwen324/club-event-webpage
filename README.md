@@ -19,7 +19,9 @@ The platform has different functionalities and interfaces for *Admins* and *Gene
 
 ### About Sign-out
 
-Signing out is not yet available in this demonstration. To sign out, please restart the browser. 
+For general users, click the *User* button on the very right of the navigation bar to sign out. 
+
+For Admin users, click the *Sign Out* button on the very bottom of the vertical navigation bar in the dashboard. 
 
 ## To Browse Events and Surveys
 
