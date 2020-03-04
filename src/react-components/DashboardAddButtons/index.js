@@ -29,6 +29,7 @@ export default function DashboardAddButtons() {
                 variant="contained"
                 color="primary"
                 startIcon={<AddIcon/>}
+                href='/admin/edit_announce'
             >
                 New Event
             </Button>
@@ -37,6 +38,7 @@ export default function DashboardAddButtons() {
                 variant="contained"
                 color="primary"
                 startIcon={<AddIcon/>}
+                href='/admin/edit_announce'
             >
                 New Survey
             </Button>
