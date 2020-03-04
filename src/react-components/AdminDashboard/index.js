@@ -2,6 +2,7 @@ import React from 'react'
 import DashboardSidebar from '../DashboardSidebar'
 import Posts from '../Posts'
 import DashboardAddButtons from '../DashboardAddButtons'
+import Surveys from '../Surveys/index.js'
 
 import { Link as RouterLink } from 'react-router-dom';
 import Link from '@material-ui/core/Link'
@@ -12,6 +13,8 @@ class AdminDashboard extends React.Component {
     state = {
         greeting: null,
     }
+    
+    admain_status = 1;
 
     componentDidMount() {
         // Remove navbar
@@ -50,34 +53,39 @@ class AdminDashboard extends React.Component {
                     <DashboardAddButtons/>
                 </div>
                 <div id='posts'>
-                    <Link underline='none' component={RouterLink} to='/event'>
+
+                    <Link underline='none' component={RouterLink} to="/adminEventPage">
                         <Posts/>
                     </Link>
 
-                    <Link underline='none' component={RouterLink} to='/survey'>
-                        <Posts/>
+                    <Link underline='none' component={RouterLink} to='/AdminSurveyPage'>
+                        <Surveys/>
                     </Link>
-                    <Link underline='none' component={RouterLink} to='/event'>
+
+                    <Link underline='none' component={RouterLink} to="/adminEventPage">
                         <Posts/>
                     </Link>
 
-                    <Link underline='none' component={RouterLink} to='/survey'>
-                        <Posts/>
-                    </Link>
-                    <Link underline='none' component={RouterLink} to='/event'>
+                    <Link underline='none' component={RouterLink} to='/adminEventPage'>
                         <Posts/>
                     </Link>
 
-                    <Link underline='none' component={RouterLink} to='/survey'>
-                        <Posts/>
-                    </Link>
-                    <Link underline='none' component={RouterLink} to='/event'>
+                    <Link underline='none' component={RouterLink} to="/adminEventPage">
                         <Posts/>
                     </Link>
 
-                    <Link underline='none' component={RouterLink} to='/survey'>
+                    <Link underline='none' component={RouterLink} to='/AdminSurveyPage'>
+                        <Surveys/>
+                    </Link>
+
+                    <Link underline='none' component={RouterLink} to="/adminEventPage">
                         <Posts/>
                     </Link>
+
+                    <Link underline='none' component={RouterLink} to='/AdminSurveyPage'>
+                        <Surveys/>
+                    </Link>
+                    
                 </div>
             </div>
             

@@ -11,6 +11,8 @@ import EventPage from './react-components/EventPage'
 import SurveyPage from './react-components/SurveyPage'
 import AdminEdit from './react-components/Admin_edit'
 import AdminDashboard from './react-components/AdminDashboard'
+import AdminEventPage from './react-components/AdminEventPage/index.js'
+import AdminSurveyPage from './react-components/AdminSurvey/index.js'
 
 function App() {
   return (
@@ -34,6 +36,12 @@ function App() {
           }/>
           <Route exact path='/admin' render={() =>
                           (<AdminDashboard/>)
+          }/>
+          <Route exact path='/adminEventPage' render={() =>
+                          (<AdminEventPage/>)
+          }/>
+          <Route exact path='/adminSurveyPage' render={() =>
+                          (<AdminSurveyPage/>)
           }/>
         </Switch>
       </BrowserRouter>

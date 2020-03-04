@@ -1,12 +1,12 @@
 import React from 'react';
 import './style.css';
 
-class Posts extends React.Component {
+class Surveys extends React.Component {
 
     render() {
         return (
-            <div className='post'>
-                <h3>Event 1</h3>
+            <div className='Survey'>
+                <h3>Which anime are you watching this season?</h3>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 Quisque id tristique libero, sit amet tempus ex. In egestas
                 enim felis, vel dapibus dolor malesuada vitae. Praesent
@@ -16,4 +16,4 @@ class Posts extends React.Component {
     }
 }
 
-export default Posts;
+export default Surveys;
