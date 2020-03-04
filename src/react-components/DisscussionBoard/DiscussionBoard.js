@@ -4,10 +4,15 @@ import Comment from "../CommentContainer/Comment"
 import TableBody from "@material-ui/core/TableBody";
 class DiscussionBoard extends React.Component{
 
+    constructor(props) {
+        super(props)
+    }
+
     render(){
+        const { comments } = this.props;
         return (
             <Table className='DiscussionContainer'>
-                 <Comment></Comment>
+                 <Comment comments={comments}></Comment>
             </Table>
         )
     }

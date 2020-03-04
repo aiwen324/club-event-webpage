@@ -14,6 +14,31 @@ import { Button } from '@material-ui/core'
 class EventPage extends React.Component {
 
 
+    state = {
+        input_comment: '',
+        comments: [
+            {poster: 'IMNF' , content: 'I love this activity!', date: '2 hours ago'},
+            {poster: 'IMNF' , content: 'I love this activity!', date: '2 hours ago'},
+        ]
+    }
+
+    handle_input_comment = (event) => {
+        const target = event.target
+        const value = target.value
+        const name = target.name
+
+        this.setState({[name]: value});
+    }
+
+    post_comment = (event) => {
+        const comments = this.state.comments;
+        comments.push({
+            poster: 'IMNF', content: this.state.input_comment, date: 'Just now'
+        })
+        this.setState({['comments']: comments});
+        this.setState({['input_comment']: ''})
+    }
+
     render() {
         const {commentsTable} = this.props;
         return (
@@ -69,16 +94,17 @@ class EventPage extends React.Component {
                 </div>
                 <div className='commentSection'>
                     <div id='CommentsContainer'>
-                        <DiscussionBoard comments={commentsTable}></DiscussionBoard>
-                        <DiscussionBoard comments={commentsTable}></DiscussionBoard>
+                        {/* <DiscussionBoard comments={this.state.comments[0]}></DiscussionBoard>
+                        <DiscussionBoard comments={this.state.comments[1]}></DiscussionBoard> */}
+                        {this.state.comments.map(comment => (<DiscussionBoard comments={comment} />))}
                     </div>
                     <div className='commentTextField'>
                         <div class="SenderIconContainer">
                             <img class='SenderIcon' src={require("./images/icon2.jpg")}/>
                         </div>
                         <div className='inputTextArea'>
-                            <textarea className='inputArea' placeholder="Please leave a comment"></textarea>
-                            <button class="comment-submit">Send!</button>
+                            <textarea className='inputArea' name='input_comment' placeholder="Please leave a comment" value={this.state.input_comment} onChange={this.handle_input_comment}></textarea>
+                            <button class="comment-submit" onClick={this.post_comment}>Send!</button>
                         </div>
                     </div>
                 </div>
