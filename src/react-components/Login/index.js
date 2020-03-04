@@ -28,6 +28,8 @@ class SignIn extends React.Component {
     };
 
     render() {
+        const { handle } = this.props
+
         return (
             <div id='login_page'>
                 <div id='top_padding' />
@@ -72,7 +74,8 @@ class SignIn extends React.Component {
                             variant="contained"
                             color="primary"
                             className='submit'
-                            href='/admin'
+                            // href='/admin'
+                            onClick={() => loginAuth(this, handle) }
                         >
                             Sign In
                     </Button>

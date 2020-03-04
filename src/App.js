@@ -12,12 +12,23 @@ import SurveyPage from './react-components/SurveyPage'
 import AdminEdit from './react-components/Admin_edit'
 import AdminDashboard from './react-components/AdminDashboard'
 
+const handle = (app) => (userId, userName, userDisplayName, admin) => {
+  app.setState({
+    ['userId']: userId,
+    ['userName']: userName,
+    ['userDisplayName']: userDisplayName,
+    ['admin']: admin
+  })
+  console.log("Login successful")
+}
+
 
 class App extends React.Component {
 
   state = {
     userId: null,
-    userName: null, 
+    userName: "", 
+    userDisplayName: "",
     admin: false,
   }
 
@@ -29,8 +40,9 @@ class App extends React.Component {
           <Switch>
             <Route exact path='/' render={() => 
                             (<Home/>)}/>
-            <Route exact path='/login/' render={() =>
-                            (<Login/>)}/>
+            <Route exact path='/login/' 
+                        render={() => (<Login handle={handle(this)}/>)}
+                        />
             <Route path='/postid=:id' render={() => (<Login/>)} />
             <Route exact path='/event' render={() =>
                             (<EventPage/>)
@@ -42,7 +54,7 @@ class App extends React.Component {
               ()=>(<AdminEdit/>)
             }/>
             <Route exact path='/admin' render={() =>
-                            (<AdminDashboard/>)
+                            (<AdminDashboard displayName={this.state.userDisplayName}/>)
             }/>
           </Switch>
         </BrowserRouter>
