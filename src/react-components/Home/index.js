@@ -1,4 +1,6 @@
 import React from 'react';
+import DashboardAddButtons from '../DashboardAddButtons'
+import Surveys from '../Surveys/index.js'
 
 import './style.css';
 import Posts from '../Posts' 
@@ -15,13 +17,13 @@ class Home extends React.Component {
                         <p>Your opinion is valuable to us</p>
                     </div>
                 </div>
-                <div className='posts' id='posts'>
+                <div className='homePosts'>
                     <Link underline='none' component={RouterLink} to='/event'>
                         <Posts/>
                     </Link>
 
                     <Link underline='none' component={RouterLink} to='/survey'>
-                        <Posts/>
+                        <Surveys/>
                     </Link>
                     <Link underline='none' component={RouterLink} to='/postid=3'>
                         <Posts/>

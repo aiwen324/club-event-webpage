@@ -31,10 +31,10 @@
     font-size: xx-large;
   }
   
-  .posts {
+  .homePosts {
     background: transparent;
-    margin-left: 100pt;
-    margin-right: 100pt;
+    margin-left: 20%;
+    margin-right: 20%;
     /* margin-bottom: 100pt; */
     display: grid;
     grid-gap: 1em;
