@@ -31,6 +31,14 @@ class AdminEventPage extends React.Component {
         }
     }
 
+    state = {
+        input_comment: '',
+        comments: [
+            {poster: 'IMNF' , content: 'I love this activity!', date: '2 hours ago'},
+            {poster: 'IMNF' , content: 'I love this activity!', date: '2 hours ago'},
+        ]
+    }
+
     render() {
         const {commentsTable} = this.props;
 
@@ -81,8 +89,8 @@ class AdminEventPage extends React.Component {
                 
                 <div className='commentSection'>
                     <div id='CommentsContainer'>
-                        <DiscussionBoard comments={commentsTable}></DiscussionBoard>
-                        <DiscussionBoard comments={commentsTable}></DiscussionBoard>
+                    {this.state.comments.map(comment => (<DiscussionBoard comments={comment} />))}
+                    
                     </div>
                     <div className='commentTextField'>
                         <div class="SenderIconContainer">
