@@ -18,7 +18,6 @@ class SurveyQuestion extends React.Component {
                 </div>
                 <div className='choice'>
                     <Checkbox
-                        checked='true'
                         // onChange={handleChange}
                         value="primary"
                         inputProps={{ 'aria-label': 'primary checkbox' }}
@@ -26,7 +25,6 @@ class SurveyQuestion extends React.Component {
                 </div>
                 <div className='choice'>
                     <Checkbox
-                        checked='false'
                         // onChange={handleChange}
                         value="primary"
                         inputProps={{ 'aria-label': 'primary checkbox' }}

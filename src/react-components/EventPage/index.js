@@ -7,6 +7,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import Event_register from '../Event_register'
 import FreeResponseQuestion from "../FreeResponseQuestion"
 import SurveyStats from "../SurveyStats/SurveyStats.js"
+import { uid } from "react-uid";
 
 import { Button } from '@material-ui/core'
 
@@ -117,15 +118,15 @@ class EventPage extends React.Component {
                     <div id='CommentsContainer'>
                         {/* <DiscussionBoard comments={this.state.comments[0]}></DiscussionBoard>
                         <DiscussionBoard comments={this.state.comments[1]}></DiscussionBoard> */}
-                        {this.state.comments.map(comment => (<DiscussionBoard comments={comment} />))}
+                        {this.state.comments.map(comment => (<DiscussionBoard comments={comment} key={uid(comment)}/>))}
                     </div>
                     <div className='commentTextField'>
-                        <div class="SenderIconContainer">
-                            <img class='SenderIcon' src={require("./images/icon2.jpg")}/>
+                        <div className="SenderIconContainer">
+                            <img className='SenderIcon' src={require("./images/icon2.jpg")}/>
                         </div>
                         <div className='inputTextArea'>
                             <textarea className='inputArea' name='input_comment' placeholder="Please leave a comment" value={this.state.input_comment} onChange={this.handle_input_comment}></textarea>
-                            <button class="comment-submit" onClick={this.post_comment}>Send!</button>
+                            <button className="comment-submit" onClick={this.post_comment}>Send!</button>
                         </div>
                     </div>
                 </div>

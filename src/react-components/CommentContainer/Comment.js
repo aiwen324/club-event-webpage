@@ -10,16 +10,16 @@ class Comment extends React.Component{
     render(){
         const {comments} = this.props;
         return (
-            <div class="commentContainer">
-                <div class="commentIconContainer">
-                    <img class='commentIcon' src={require("./icon1.jpg")}/>
+            <div className="commentContainer">
+                <div className="commentIconContainer">
+                    <img className='commentIcon' src={require("./icon1.jpg")}/>
                 </div>
-                <div class='comment'>
+                <div className='comment'>
                     <p id="userId">{comments.poster}</p>
                     <p id="content">{comments.content}</p>
                 </div>
-                <div class='timeContainer'>
-                    <p class='time'>{comments.date}</p>
+                <div className='timeContainer'>
+                    <p className='time'>{comments.date}</p>
                 </div>
             </div>
         )
