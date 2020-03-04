@@ -6,96 +6,111 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import { loginAuth } from '../../actions/login_auth'
+import { Redirect } from "react-router-dom"
 import './style.css';
 
 
 class SignIn extends React.Component {
 
     state = {
-        userName: "", 
+        userName: "",
         password: "",
+        user_type: 2,
     }
 
     handleInputChange = event => {
         const target = event.target;
         const value = target.value;
         const name = target.name;
-        
+
         // 'this' is bound to the component in this arrow function.
         this.setState({
-          [name]: value // [name] sets the object property name to the value of the 'name' variable.
+            [name]: value // [name] sets the object property name to the value of the 'name' variable.
         });
     };
 
     render() {
         const { handle } = this.props
-
-        return (
-            <div id='login_page'>
-                <div id='top_padding' />
-                <div className='Login_panel'>
-                    <div>
-                        <h2>Sign In</h2>
-                    </div>
-                    <form className='form' noValidate>
-                        <TextField
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="user_name"
-                            label="User Name"
-                            name="userName"
-                            value={this.state.userName}
-                            onChange={this.handleInputChange}
-                            autoComplete="user_name"
-                            autoFocus
-                        />
-                        <TextField
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="password"
-                            label="Password"
-                            type="password"
-                            id="password"
-                            value={this.state.password}
-                            onChange={this.handleInputChange}
-                            autoComplete="current-password"
-                        />
-                        <FormControlLabel
-                            control={<Checkbox value="remember" color="primary" />}
-                            label="Remember me"
-                        />
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                            className='submit'
-                            // href='/admin'
-                            onClick={() => loginAuth(this, handle) }
-                        >
-                            Sign In
+        if (this.state.user_type == 2) {
+            return (
+                <div id='login_page'>
+                    <div id='top_padding' />
+                    <div className='Login_panel'>
+                        <div>
+                            <h2>Sign In</h2>
+                        </div>
+                        <form className='form' noValidate>
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="user_name"
+                                label="User Name"
+                                name="userName"
+                                value={this.state.userName}
+                                onChange={this.handleInputChange}
+                                autoComplete="user_name"
+                                autoFocus
+                            />
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="password"
+                                label="Password"
+                                type="password"
+                                id="password"
+                                value={this.state.password}
+                                onChange={this.handleInputChange}
+                                autoComplete="current-password"
+                            />
+                            <FormControlLabel
+                                control={<Checkbox value="remember" color="primary" />}
+                                label="Remember me"
+                            />
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                className='submit'
+                                // href='/admin'
+                                onClick={() => {
+                                    const flag = loginAuth(this, handle)
+                                    if (flag == 0) {
+                                        this.setState({['user_type']: 0});
+                                    }
+                                    if (flag == 1) {
+                                        this.setState({['user_type']: 1});
+                                    }
+                                }}
+                            >
+                                Sign In
                     </Button>
-                        <Grid container>
-                            <Grid item xs={3}>
-                                <Link href="#" variant="body2">
-                                    Forgot password?
+                            <Grid container>
+                                <Grid item xs={3}>
+                                    <Link href="#" variant="body2">
+                                        Forgot password?
                             </Link>
+                                </Grid>
+                                <Grid item xs={9}>
+                                    <Link href="#" variant="body2">
+                                        {"Don't have an account? Sign Up"}
+                                    </Link>
+                                </Grid>
                             </Grid>
-                            <Grid item xs={9}>
-                                <Link href="#" variant="body2">
-                                    {"Don't have an account? Sign Up"}
-                                </Link>
-                            </Grid>
-                        </Grid>
-                    </form>
+                        </form>
+                    </div>
                 </div>
-            </div>
 
-        )
+            )
+        } else if (this.state.user_type == 0) {
+            return <Redirect to='/admin' />;
+        } else if (this.state.user_type == 1) {
+            return <Redirect to='/' />;
+        }
     }
 }
 
