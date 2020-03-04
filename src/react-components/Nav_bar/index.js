@@ -7,7 +7,7 @@ class Navbar extends React.Component {
         return (
             <div id="Navigation-bar">
                 <div id="accountInfo">
-                    <a href='login'>Sign in</a>
+                    <a href='/login'>Sign in</a>
                 </div>
                 <ul>
                     <li><a href='/'>Home</a></li>
