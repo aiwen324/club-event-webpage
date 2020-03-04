@@ -1,68 +1,56 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# UTACG Event and Survey Platform
+### Team 41
 
-## Available Scripts
+Our project is an event and survey platform for a ACG *(Anime, Comic and Games)* related student organization. The platform enables the administrators of the organization to collect registerations for events and conduct surveys on all organization-related issues. 
 
-In the project directory, you can run:
+## To Sign In
 
-### `npm start`
+The platform has different functionalities and interfaces for *Admins* and *General Users*. To sign in, hit the "*Sign in*" button on the very right of the navigation bar. Note that after a successful sign-in, the button's caption will become the display name of the user. 
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### To Sign In as an Admin
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+* **Username**: admin
+* **Password**: admin
 
-### `npm test`
+### To Sign In as a General User
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* **Username**: user
+* **Password**: user
 
-### `npm run build`
+### About Sign-out
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Signing out is not yet available in this demonstration. To sign out, please restart the browser. 
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## To Browse Events and Surveys
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Events
 
-### `npm run eject`
+On the home page, hit the first column ("*Event 1*"). You will be redirected to a demonstration to an event page, which enables you to register to the event, answer the survey question affiliated (in actual practice, all regarded to the event) and make comments to the events. 
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Surveys
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+On the home page, hit the second column ("*Which anime are you watching this season?*"). You will be redirected to a demonstration to a survey page, which enables you to file an answer to the survey. 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Note
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+The third and fourth columns are placeholders, for you to see the appearance and scrolling features of the home page. 
 
-## Learn More
+## To See Admin Dashboard and Perform Admin Operations
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Admin users have a dashboard, which enables them to manage all events/surveys and add new ones. To access the dashboard, sign in as an admin user and you will be automatically directed to the dashboard. 
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### To Add a New Event
 
-### Code Splitting
+Hit the *New Event* button on the top of the dashboard, and you will be redirected to an interface which enables to edit the title, description, time & location, images and related survey questions of a new event. 
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+### To Add a New Survey
 
-### Analyzing the Bundle Size
+Hit the *New Survey* button on the top of the dashboard, and you will be redirected to an interface which enables to edit the title, description, images and questions of a new survey. 
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+### To See Survey Results and Comments of an Event
 
-### Making a Progressive Web App
+To see comments regarding to an event, hit the first column ("*Event 1*") in the contents list on the dashboard. You will be redirected to a demonstration of an event results page containing the survey results and comments on an event. 
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+### To See Results of a Survey
 
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+To see results of a survey, hit the second column (*WHich anime are you watching this season?*) in the contents list on the dashboard. You will be redirected to a demonstration of an event results page containing the survey results. 
