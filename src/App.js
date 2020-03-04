@@ -2,7 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import { Route, Switch, BrowserRouter } from 'react-router-dom';
+import { Route, Switch, BrowserRouter, Router } from 'react-router-dom';
 
 import Home from './react-components/Home'
 import Login from './react-components/Login'
@@ -58,6 +58,10 @@ class App extends React.Component {
             <Route exact path='/admin' render={() =>
                             (<AdminDashboard displayName={this.state.userDisplayName}/>)
             }/>
+            <Route exact path='/adminEventPage' render={() =>
+                            (<AdminEventPage/>)}/>
+            <Route exact path='/adminSurveyPage' render={() =>
+                            (<AdminSurveyPage/>)}/>
           </Switch>
         </BrowserRouter>
       </div>
