@@ -13,10 +13,6 @@ export const loginAuth = (login_page, handle) => {
     } else if (userName == 'user' && password == 'user') {
         handle(1, "user", "User", false)
     } else {
-        // const username_field = login_page.getElementById("userName")
-        // const password_field = login_page.getElementById("password")
-
-        // username_field.error = true
-        // password_field.error = true
+        
     }
 }
