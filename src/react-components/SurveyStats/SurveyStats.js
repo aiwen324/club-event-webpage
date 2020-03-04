@@ -10,13 +10,13 @@ class SurveyStats extends React.Component {
 						That is the question. 
 					</div>
 
-					<div class="container">
-						<div class="skills tobe"> To be: 65%</div>
+					<div className="container">
+						<div className="skills tobe"> To be: 65%</div>
 						<br/>
 					</div>
 
-					<div class="container">
-						<div class="skills NotTobe"> Not to be: 60%</div>
+					<div className="container">
+						<div className="skills NotTobe"> Not to be: 60%</div>
 						<br/>
 					</div>
 				</div>

@@ -9,8 +9,8 @@ class FreeResponseResult extends React.Component{
                 <div className='survey_question'>
                     Do you have anything else to tell us? 
                 </div>
-                <div class="ReseponseContainer">
-                    <div class='Reseponse'>
+                <div className="ReseponseContainer">
+                    <div className='Reseponse'>
                         <p id="userId">IMNF</p>
                         <p id="content">I hope that there will be more interaction between singer and viewers</p>
                     </div>

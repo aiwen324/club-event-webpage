@@ -11,9 +11,11 @@ class DiscussionBoard extends React.Component{
     render(){
         const { comments } = this.props;
         return (
-            <Table className='DiscussionContainer'>
-                 <Comment comments={comments}></Comment>
-            </Table>
+            <div>
+                
+                <Comment comments={comments}></Comment>
+                
+            </div>
         )
     }
 
