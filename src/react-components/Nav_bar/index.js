@@ -20,8 +20,7 @@ class Navbar extends React.Component {
                 </div>
                 <ul>
                     <li><a href='/'>Home</a></li>
-                    <li><a href='/#posts'>Announcements</a></li>
-                    <li><a href='/#posts'>Events</a></li>
+                    <li><a href='#posts'>Announcements</a></li>
                 </ul>
             </div>
         )
