@@ -12,6 +12,8 @@ class AdminDashboard extends React.Component {
     state = {
         greeting: null,
     }
+    
+    admain_status = 1;
 
     componentDidMount() {
         // Remove navbar
@@ -50,28 +52,31 @@ class AdminDashboard extends React.Component {
                     <DashboardAddButtons/>
                 </div>
                 <div id='posts'>
-                    <Link underline='none' component={RouterLink} to='/event'>
+                    <Link underline='none' component={RouterLink} to="/adminEventPage">
+                        <Posts/>
+                    </Link>
+
+                    <Link underline='none' component={RouterLink} to='/AdminSurveyPage'>
+                        <Posts/>
+                    </Link>
+
+                    <Link underline='none' component={RouterLink} to="/adminEventPage">
+                        <Posts/>
+                    </Link>
+
+                    <Link underline='none' component={RouterLink} to='/adminEventPage'>
+                        <Posts/>
+                    </Link>
+
+                    <Link underline='none' component={RouterLink} to="/adminEventPage">
                         <Posts/>
                     </Link>
 
                     <Link underline='none' component={RouterLink} to='/survey'>
                         <Posts/>
                     </Link>
-                    <Link underline='none' component={RouterLink} to='/event'>
-                        <Posts/>
-                    </Link>
 
-                    <Link underline='none' component={RouterLink} to='/survey'>
-                        <Posts/>
-                    </Link>
-                    <Link underline='none' component={RouterLink} to='/event'>
-                        <Posts/>
-                    </Link>
-
-                    <Link underline='none' component={RouterLink} to='/survey'>
-                        <Posts/>
-                    </Link>
-                    <Link underline='none' component={RouterLink} to='/event'>
+                    <Link underline='none' component={RouterLink} to="/adminEventPage">
                         <Posts/>
                     </Link>
 
