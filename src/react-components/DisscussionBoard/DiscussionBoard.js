@@ -1,20 +1,14 @@
 import React from 'react';
-import Table from "@material-ui/core/Table";
 import Comment from "../CommentContainer/Comment"
-import TableBody from "@material-ui/core/TableBody";
-class DiscussionBoard extends React.Component{
+class DiscussionBoard extends React.Component {
 
-    constructor(props) {
-        super(props)
-    }
-
-    render(){
+    render() {
         const { comments } = this.props;
         return (
             <div>
-                
+
                 <Comment comments={comments}></Comment>
-                
+
             </div>
         )
     }

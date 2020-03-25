@@ -1,6 +1,5 @@
 import React from 'react'
 import { Grid } from '@material-ui/core';
-import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FormControl from '@material-ui/core/FormControl';
@@ -29,7 +28,7 @@ class Survey extends React.Component {
     handleChange2 = (event) => {
         console.log(this.state)
         console.log("Get event value", event.target.value)
-        this.setState({ ['type']: event.target.value });
+        this.setState({ type: event.target.value });
     }
 
 
@@ -57,7 +56,7 @@ class Survey extends React.Component {
                         </FormControl>
                     </Grid>
                     {
-                        this.state.type == 10 ?
+                        this.state.type === 10 ?
                             <Grid item xs={10}>
                                 <TextField
                                     className='question'
