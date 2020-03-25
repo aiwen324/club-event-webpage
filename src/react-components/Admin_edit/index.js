@@ -28,14 +28,14 @@ class AdminEdit extends React.Component {
             options: '',
         }
         question_array.push(new_question)
-        this.setState({ ['question_array']: question_array })
+        this.setState({ question_array: question_array })
     }
 
     removeQuestion = (edit_panel) => (survey) => (event) => {
         const survey_index = survey.state.index;
         const question_array = edit_panel.state.question_array;
         question_array.splice(survey_index, 1);
-        edit_panel.setState({['question_array']: question_array})
+        edit_panel.setState({ question_array: question_array })
     }
 
     // Handle Checkbox for Register Field and Survey
@@ -47,7 +47,7 @@ class AdminEdit extends React.Component {
 
     handleChange2 = (event) => {
         console.log("Get event value", event.target.value)
-        this.setState({ ['question_type']: event.target.value });
+        this.setState({ question_type: event.target.value });
     }
 
     render() {
@@ -87,7 +87,7 @@ class AdminEdit extends React.Component {
                         </Button>
                     </label>
                     <Button variant="contained" color="primary" component="span">
-                            Post Announcement
+                        Post Announcement
                     </Button>
                     <FormGroup>
                         <FormControlLabel

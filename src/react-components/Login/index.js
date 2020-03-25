@@ -31,7 +31,7 @@ class SignIn extends React.Component {
 
     render() {
         const { handle } = this.props
-        if (this.state.user_type == 2) {
+        if (this.state.user_type === 2) {
             return (
                 <div id='login_page'>
                     <div id='top_padding' />
@@ -79,11 +79,11 @@ class SignIn extends React.Component {
                                 // href='/admin'
                                 onClick={() => {
                                     const flag = loginAuth(this, handle)
-                                    if (flag == 0) {
-                                        this.setState({['user_type']: 0});
+                                    if (flag === 0) {
+                                        this.setState({ user_type: 0 });
                                     }
-                                    if (flag == 1) {
-                                        this.setState({['user_type']: 1});
+                                    if (flag === 1) {
+                                        this.setState({ user_type: 1 });
                                     }
                                 }}
                             >
@@ -106,9 +106,9 @@ class SignIn extends React.Component {
                 </div>
 
             )
-        } else if (this.state.user_type == 0) {
+        } else if (this.state.user_type === 0) {
             return <Redirect to='/admin' />;
-        } else if (this.state.user_type == 1) {
+        } else if (this.state.user_type === 1) {
             return <Redirect to='/' />;
         }
     }

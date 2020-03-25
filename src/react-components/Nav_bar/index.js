@@ -7,7 +7,7 @@ class Navbar extends React.Component {
         const { displayName } = this.props
 
         let name = ""
-        if (displayName == "") {
+        if (displayName === "") {
             name = "Sign in"
         } else {
             name = displayName

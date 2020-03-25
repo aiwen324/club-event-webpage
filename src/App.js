@@ -1,8 +1,7 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-import { Route, Switch, BrowserRouter, Router } from 'react-router-dom';
+import { Route, Switch, BrowserRouter } from 'react-router-dom';
 
 import Home from './react-components/Home'
 import Login from './react-components/Login'
@@ -16,10 +15,10 @@ import AdminSurveyPage from './react-components/AdminSurvey/index.js'
 
 const handle = (app) => (userId, userName, userDisplayName, admin) => {
   app.setState({
-    ['userId']: userId,
-    ['userName']: userName,
-    ['userDisplayName']: userDisplayName,
-    ['admin']: admin
+    userId: userId,
+    userName: userName,
+    userDisplayName: userDisplayName,
+    admin: admin
   })
   console.log("Login successful")
 }
@@ -29,7 +28,7 @@ class App extends React.Component {
 
   state = {
     userId: null,
-    userName: "", 
+    userName: "",
     userDisplayName: "",
     admin: false,
   }
@@ -37,31 +36,31 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <Navbar displayName={this.state.userDisplayName}/>
+        <Navbar displayName={this.state.userDisplayName} />
         <BrowserRouter>
           <Switch>
-            <Route exact path='/' render={() => 
-                            (<Home/>)}/>
-            <Route exact path='/login/' 
-                        render={() => (<Login handle={handle(this)}/>)}
-                        />
-            <Route path='/postid=:id' render={() => (<Login/>)} />
+            <Route exact path='/' render={() =>
+              (<Home />)} />
+            <Route exact path='/login/'
+              render={() => (<Login handle={handle(this)} />)}
+            />
+            <Route path='/postid=:id' render={() => (<Login />)} />
             <Route exact path='/event' render={() =>
-                            (<EventPage/>)
-            }/>
+              (<EventPage />)
+            } />
             <Route exact path='/survey' render={() =>
-                            (<SurveyPage/>)
-            }/>
+              (<SurveyPage />)
+            } />
             <Route exact path='/admin/edit_announce' render={
-              ()=>(<AdminEdit/>)
-            }/>
+              () => (<AdminEdit />)
+            } />
             <Route exact path='/admin' render={() =>
-                            (<AdminDashboard displayName={this.state.userDisplayName}/>)
-            }/>
+              (<AdminDashboard displayName={this.state.userDisplayName} />)
+            } />
             <Route exact path='/adminEventPage' render={() =>
-                            (<AdminEventPage/>)}/>
+              (<AdminEventPage />)} />
             <Route exact path='/adminSurveyPage' render={() =>
-                            (<AdminSurveyPage/>)}/>
+              (<AdminSurveyPage />)} />
           </Switch>
         </BrowserRouter>
       </div>

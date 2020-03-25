@@ -14,7 +14,7 @@ import { Button } from '@material-ui/core'
 // import Link from '@material-ui/core/Link'
 
 class EventPage extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.admin = props.fromDashboard;
         this.surveySection = document.querySelector('SurveyPart');
@@ -22,9 +22,9 @@ class EventPage extends React.Component {
 
     adminCheck() {
         console.log(this.props)
-        if(this.admin == 'true'){
+        if (this.admin === 'true') {
             let child = this.surveySection.lastElementChild;
-            while(child){
+            while (child) {
                 this.surveySection.removeChild(child);
                 child = this.surveySection.lastElementChild;
             }
@@ -34,8 +34,8 @@ class EventPage extends React.Component {
     state = {
         input_comment: '',
         comments: [
-            {poster: 'IMNF' , content: 'I love this activity!', date: '2 hours ago'},
-            {poster: 'IMNF' , content: 'I love this activity!', date: '2 hours ago'},
+            { poster: 'IMNF', content: 'I love this activity!', date: '2 hours ago' },
+            { poster: 'IMNF', content: 'I love this activity!', date: '2 hours ago' },
         ]
     }
 
@@ -44,7 +44,7 @@ class EventPage extends React.Component {
         const value = target.value
         const name = target.name
 
-        this.setState({[name]: value});
+        this.setState({ [name]: value });
     }
 
     post_comment = (event) => {
@@ -52,16 +52,16 @@ class EventPage extends React.Component {
         comments.push({
             poster: 'IMNF', content: this.state.input_comment, date: 'Just now'
         })
-        this.setState({['comments']: comments});
-        this.setState({['input_comment']: ''})
+        this.setState({ comments: comments });
+        this.setState({ input_comment: '' })
     }
 
     render() {
-        const {commentsTable} = this.props;
+        const { commentsTable } = this.props;
 
         return (
             <div className='event_page_content'>
-            
+
                 <div className="event_page">
                     <div>
                         <h1 id='event_title'>Project Demo</h1>
@@ -72,19 +72,19 @@ class EventPage extends React.Component {
                     </div>
                     <div id='event_details'>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 
-                            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation 
-                            ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in 
-                            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur 
-                            sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id 
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                            ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+                            sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
                             est laborum.
                         </p>
                     </div>
                     <div>
-                        <img className="event_image" src={require("./images/boeing777x.jpeg")}/>
+                        <img className="event_image" src={require("./images/boeing777x.jpeg")} />
                     </div>
                     <div>
-                        <img className="event_image" src={require("./images/shoko-enoshima.jpeg")}/>
+                        <img className="event_image" src={require("./images/shoko-enoshima.jpeg")} />
                     </div>
                     {/* <div id='survey_form'>
                         <SurveyQuestion/>
@@ -93,16 +93,16 @@ class EventPage extends React.Component {
                         <div>
                             <h2 className='event_section_title'>Registration Form</h2>
                         </div>
-                        <Event_register/>
+                        <Event_register />
                         <div>
                             <h2 className='event_section_title'>Pre-event Survey</h2>
                         </div>
-                        <SurveyQuestion/>
-                        <SurveyQuestion/>
-                        <SurveyQuestion/>
-                        <FreeResponseQuestion/>
+                        <SurveyQuestion />
+                        <SurveyQuestion />
+                        <SurveyQuestion />
+                        <FreeResponseQuestion />
                     </div>
-                    
+
                     <div id='submit_button'>
                         <Button
                             type="submit"
@@ -111,18 +111,18 @@ class EventPage extends React.Component {
                             Register & Submit
                         </Button>
                     </div>
-                        <div className='bottom_padder'/>
+                    <div className='bottom_padder' />
                 </div>
-                
+
                 <div className='commentSection'>
                     <div id='CommentsContainer'>
                         {/* <DiscussionBoard comments={this.state.comments[0]}></DiscussionBoard>
                         <DiscussionBoard comments={this.state.comments[1]}></DiscussionBoard> */}
-                        {this.state.comments.map(comment => (<DiscussionBoard comments={comment} key={uid(comment)}/>))}
+                        {this.state.comments.map(comment => (<DiscussionBoard comments={comment} key={uid(comment)} />))}
                     </div>
                     <div className='commentTextField'>
                         <div className="SenderIconContainer">
-                            <img className='SenderIcon' src={require("./images/icon2.jpg")}/>
+                            <img className='SenderIcon' src={require("./images/icon2.jpg")} />
                         </div>
                         <div className='inputTextArea'>
                             <textarea className='inputArea' name='input_comment' placeholder="Please leave a comment" value={this.state.input_comment} onChange={this.handle_input_comment}></textarea>
@@ -130,9 +130,9 @@ class EventPage extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className='bottom_padder'/>
-            
-            </div>    
+                <div className='bottom_padder' />
+
+            </div>
         )
     }
 }
