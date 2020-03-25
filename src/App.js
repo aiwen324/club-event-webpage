@@ -4,7 +4,7 @@ import './App.css';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 
 import Home from './react-components/Home'
-import Login from './react-components/Login'
+import SignIn from './react-components/Login'
 import Navbar from './react-components/Nav_bar'
 import EventPage from './react-components/EventPage'
 import SurveyPage from './react-components/SurveyPage'
@@ -42,9 +42,9 @@ class App extends React.Component {
             <Route exact path='/' render={() =>
               (<Home />)} />
             <Route exact path='/login/'
-              render={() => (<Login handle={handle(this)} />)}
+              render={() => (<SignIn handle={handle(this)} />)}
             />
-            <Route path='/postid=:id' render={() => (<Login />)} />
+            <Route path='/postid=:id' render={() => (<SignIn />)} />
             <Route exact path='/event' render={() =>
               (<EventPage />)
             } />
