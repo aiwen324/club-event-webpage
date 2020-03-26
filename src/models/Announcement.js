@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const {mongoose} = require('../DB/mongoose');
 
 const FieldSchema = new mongoose.Schema({
     fieldType: {
@@ -32,7 +32,7 @@ const surveyQuestionSchema = new mongoose.Schema({
     questionOptions:{
         type: [optionSechma],
         required: ()=>{
-            return this.surveyQuestions.length != 0
+            return this.surveyQuestions.length !== 0
         }
     }
 })
@@ -50,7 +50,7 @@ const surveySchema = new mongoose.Schema({
     
 })
 
-const commentSchema = new  mongoose.Schema({
+const commentSchema = new mongoose.Schema({
     content: String,
     userID: Number,
     date: Date
@@ -69,6 +69,6 @@ const AnnouncementSchema = new mongoose.Schema({
 
 
 
-const Announcement = mongoose.model('Announcement', AnnouncementSchema);
+const Announcements = mongoose.model('Announcement', AnnouncementSchema);
 
-module.exports = { Announcement };
+module.exports = { Announcements };

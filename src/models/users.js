@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const {mongoose} = require('../DB/mongoose');
 
 const userSchema = new mongoose.Schema({
     // If accountType == 0, this is a normal user, else it is an admin

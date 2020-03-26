@@ -52,9 +52,9 @@ const validatelogin = (req, res, next)=>{
 
 // API used to login, request json should be formated like:
 /*  {
-//      username: <username>,
-//      password: <password>
-//  }
+      username: <username>,
+      password: <password>
+    }
 */
 // This method will return a json as follow if login is a sucess:
 /* 
@@ -70,7 +70,7 @@ app.post('/Login', (req, res)=>{
     const username = req.body.email
     const password = req.body.password
 
-    Users.findOne({username, password}).then((result)=>{
+    Users.findOne({username: username, password: password}).then((result)=>{
         if(!result){
             res.status(400).send()
         }
@@ -117,7 +117,69 @@ app.post('/signUp', (req, res)=>{
     })
 })
 
+
 // This API is for getting all the visable announcement from the server
+//return {[results]}
 app.get('/visableAnnouncements',(req, res)=>{
     //work in progress
+    Announcement.find({visable: 1}).then((result)=>{
+        res.status(200).send({result})
+    },(error)=>{
+        res.status(500).send(error)
+    });
+})
+
+
+// This API is for getting all the visable announcement
+//return {[results]}
+app.get('/getAllAnnouncement',(req, res)=>{
+    Announcement.find().then((result)=>{
+        res.send({result})
+    }, (error)=>{
+        res.status(500).send(error)
+    })
+})
+
+
+// Get Announcement by announcement id
+// return announcement object
+app.get('/Announcement/:id', (req, res)=>{
+    const announcementID = req.param.id
+    
+    Announcement.findById(announcementID).then((result)=>{
+        res.status(200).send(result)
+    },(error)=>{
+        res.status(500).send(error)
+    })
+})
+
+// Add comment to a Announcement
+/*
+    {
+        content: <content (String)>,
+        userID:  <userID (Number)>,
+        date:    <date (Date)>
+    }
+*/
+app.post('/Announcement/:id', validatelogin,(req, res)=>{
+    const announcementID = req.param.id
+
+    const newComment = {
+        content: req.body.content,
+        userID:  req.body.userID,
+        date:    req.body.date
+    }
+
+    Announcement.findById(announcementID).then((result)=>{
+        const comment = result.comments
+        comment.push(newComment)
+
+        Announcement.findByIdAndUpdate(announcementID, {$set: {comments: Comment}}, {new: true}).then((updateResult)=>{
+			res.status(200).json(updateResult)
+		}, (error)=>{
+			res.status(500).send(error)
+		})
+    },(error)=>{
+        res.status(404).send(error)
+    })
 })
