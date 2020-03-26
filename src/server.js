@@ -110,11 +110,21 @@ app.post('/signUp', (req, res)=>{
         password: req.body.password,
         phoneNumber: req.body.phoneNumber
     })
-    newUser.save().then((result)=>(
-        res.status(200).send()
-    ), (error)=>{
-        res.status(500).send(error)
-    })
+    Users.findOne({
+        $or: [{ username: req.body.username, email: req.body.email }]
+    }).then(user => {
+        if (user) {
+            console.log("Find User exists");
+            res.status(403).send({ reason: "Duplicated Users" });
+        } else {
+            newUser.save().then(
+                result => res.status(200).send(),
+                error => {
+                    res.status(500).send(error);
+                }
+            );
+        }
+    });
 })
 
 
