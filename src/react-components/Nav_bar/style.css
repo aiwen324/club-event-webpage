@@ -1,11 +1,11 @@
-#Navigation-bar{
-    position: sticky;
-    background-color: rgba(154, 160, 166, 0.719);
-    backdrop-filter: blur(5px);
-    display: block;
-    top: 0;
-    z-index: 3;
-    float: center;
+#Navigation-bar {
+  position: sticky;
+  background-color: rgba(154, 160, 166, 0.719);
+  backdrop-filter: blur(5px);
+  display: block;
+  top: 0;
+  z-index: 3;
+  float: center;
 }
 
 #Navigation-bar ul {
@@ -22,7 +22,7 @@
   border-radius: 5px;
 }
 
-#Navigation-bar li:hover{
+#Navigation-bar li:hover {
   background-color: #66ccff;
 }
 
@@ -35,19 +35,19 @@
 }
 
 #accountInfo {
-    float: right;
-    background-color: transparent;
-    text-align: center;
-    padding: 14px 16px;
-    transition: 0.25s;
-    border-radius: 5px;
-  }
-  
+  float: right;
+  background-color: transparent;
+  text-align: center;
+  padding: 14px 16px;
+  transition: 0.25s;
+  border-radius: 5px;
+}
+
 #accountInfo a {
   color: white;
   text-decoration: none;
 }
 
 #accountInfo:hover {
-    background-color: #66ccff;
+  background-color: #66ccff;
 }
