@@ -161,8 +161,13 @@ app.get('/Announcement/:id', (req, res)=>{
         date:    <date (Date)>
     }
 */
+// return a with updated post content
 app.post('/Announcement/:id', validatelogin,(req, res)=>{
     const announcementID = req.param.id
+
+    if(!ObjectID.isValid(announcementID)){
+        res.status(404).send()
+    }
 
     const newComment = {
         content: req.body.content,
@@ -182,4 +187,15 @@ app.post('/Announcement/:id', validatelogin,(req, res)=>{
     },(error)=>{
         res.status(404).send(error)
     })
+})
+
+// Register a user to activity, expect a json as follows:
+/*
+    {
+        userID: <userID (Number)>
+    }
+*/
+//Upon sucess, return 200, if post does not exit, print failure.
+app.post('/Register/:id', validatelogin, (req, res)=>{
+    
 })
