@@ -62,7 +62,9 @@ const AnnouncementSchema = new mongoose.Schema({
     registerFields: [FieldSchema],
     registeredUser: [Number],
     survey: surveySchema,
-    comments: [commentSchema]
+    comments: [commentSchema],
+    // If the field is 0, this announcement is not visable to public, else 1.
+    visable: Number
 });
 
 

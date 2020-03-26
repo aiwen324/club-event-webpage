@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-    accountType: Number,
+    // If accountType == 0, this is a normal user, else it is an admin
+    accountType: {type: Number, default: 0},
     username: String,
     email: String,
     password: String,
-    phoneNumber: Number
+    phoneNumber: String
 });
 
 
