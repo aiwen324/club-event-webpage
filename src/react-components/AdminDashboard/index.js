@@ -11,18 +11,23 @@ import './style.css'
 
 class AdminDashboard extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.props.history.push('/admin');
+    }
+
     state = {
         greeting: null,
     }
-    
+
     admain_status = 1;
 
     componentDidMount() {
         // Remove navbar
-        const nav_bar = document.getElementById('Navigation-bar')
-        if (nav_bar != null) {
-            nav_bar.parentNode.removeChild(nav_bar)
-        }
+        // const nav_bar = document.getElementById('Navigation-bar')
+        // if (nav_bar != null) {
+        //     nav_bar.parentNode.removeChild(nav_bar)
+        // }
 
         // Get greetings according to time of the day
         const date = new Date()
@@ -41,57 +46,62 @@ class AdminDashboard extends React.Component {
 
     render() {
         const { greeting } = this.state
-        const { displayName } = this.props
+        const { user, history, app } = this.props
+        const { username } = user;
+
+        if (!app.state.navBarHidden) {
+            app.setState({ navBarHidden: true })
+        }
 
         return (
             <div id='admin_dashboard'>
                 <div id='sidebar'>
-                    <DashboardSidebar/>
+                    <DashboardSidebar app={app} history={history} />
                 </div>
                 <div>
-                    <img id='background_image' src={require("./images/shoko.png")}/>
+                    <img id='background_image' src={require("./images/shoko.png")} />
                 </div>
-                <h3 id='admin_greet'>{greeting}, {displayName}!</h3>
+                <h3 id='admin_greet'>{greeting}, {username}!</h3>
                 <div id='add_buttons'>
-                    <DashboardAddButtons/>
+                    <DashboardAddButtons />
                 </div>
                 <div id='posts'>
 
                     <Link underline='none' component={RouterLink} to="/adminEventPage">
-                        <Posts/>
+                        <Posts />
                     </Link>
 
                     <Link underline='none' component={RouterLink} to='/AdminSurveyPage'>
-                        <Surveys/>
+                        <Surveys />
                     </Link>
 
                     <Link underline='none' component={RouterLink} to="/adminEventPage">
-                        <Posts/>
+                        <Posts />
                     </Link>
 
                     <Link underline='none' component={RouterLink} to='/adminEventPage'>
-                        <Posts/>
+                        <Posts />
                     </Link>
 
                     <Link underline='none' component={RouterLink} to="/adminEventPage">
-                        <Posts/>
+                        <Posts />
                     </Link>
 
                     <Link underline='none' component={RouterLink} to='/AdminSurveyPage'>
-                        <Surveys/>
+                        <Surveys />
                     </Link>
 
                     <Link underline='none' component={RouterLink} to="/adminEventPage">
-                        <Posts/>
+                        <Posts />
                     </Link>
 
                     <Link underline='none' component={RouterLink} to='/AdminSurveyPage'>
-                        <Surveys/>
+                        <Surveys />
                     </Link>
-                    
+
                 </div>
             </div>
-            
+
         )
     }
 
