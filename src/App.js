@@ -43,11 +43,11 @@ class App extends React.Component {
     console.log(this.state);
     return (
       <div className="App">
-        <Navbar
-          user={this.state.currentUser}
-          navBarHidden={this.state.navBarHidden}
-        />
         <BrowserRouter>
+          <Navbar
+            user={this.state.currentUser}
+            navBarHidden={this.state.navBarHidden}
+          />
           <Switch>
             <Route exact path='/' render={() =>
               (<Home />)} />

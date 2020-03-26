@@ -1,5 +1,6 @@
 import React from 'react';
-import Link from 'react-router';
+import { Link as RouterLink } from 'react-router-dom';
+import { Link } from "@material-ui/core"
 import "./style.css";
 
 
@@ -20,7 +21,7 @@ class Navbar extends React.Component {
         return (
             <div id="Navigation-bar" style={navBarHidden ? { display: 'none' } : {}}>
                 <div id="accountInfo">
-                    <a href='/login'>{name}</a>
+                    <Link to='/login' component={RouterLink}>{name}</Link>
                 </div>
                 <ul>
                     <li><a href='/'>Home</a></li>
