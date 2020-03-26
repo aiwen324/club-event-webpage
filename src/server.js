@@ -52,35 +52,36 @@ const validatelogin = (req, res, next)=>{
 
 // API used to login, request json should be formated like:
 /*  {
-//      email: <email>,
+//      username: <username>,
 //      password: <password>
 //  }
 */
 // This method will return a json as follow if login is a sucess:
 /* 
  {
-    userID:   <userid (number)>
-    username: <username (String)>
-    accountType:<type   (Number)>  
+    userID:         <userid (number)>
+    email:          <email (String)>
+    username:       <username (String)>
+    accountType:    <type   (Number)>
 }
 */
-// If the login failed, it wil return a status code of 404
+// If the login failed, it wil return a status code of 400
 app.post('/Login', (req, res)=>{
-    const email = req.body.email
+    const username = req.body.email
     const password = req.body.password
 
-    Users.findOne({email, password}).then((result)=>{
+    Users.findOne({username, password}).then((result)=>{
         if(!result){
-            res.status(404).send()
+            res.status(400).send()
         }
         const returnJson = {
             userID: result._id,
             email: result.email,
             username: result.username,
-            accountType:result.accountType
+            accountType:result.accountType,
         }
         req.session.userID = result._id
-        req.session.type= 
+        req.session.type= result.accountType
         
         res.status(200).json(returnJson)
         

@@ -69,6 +69,6 @@ const AnnouncementSchema = new mongoose.Schema({
 
 
 
-const Announcement = mongoose.model('Restaurant', AnnouncementSchema);
+const Announcement = mongoose.model('Announcement', AnnouncementSchema);
 
 module.exports = { Announcement };
