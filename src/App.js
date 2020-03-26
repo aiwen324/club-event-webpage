@@ -31,20 +31,39 @@ class App extends React.Component {
     userName: "",
     userDisplayName: "",
     admin: false,
+    currentUser: null,
+    navBarHidden: false
+  }
+
+  componentDidUpdate() {
+    console.log("Current User when update", this.state.currentUser)
   }
 
   render() {
+    console.log(this.state);
     return (
       <div className="App">
-        <Navbar displayName={this.state.userDisplayName} />
+        <Navbar
+          user={this.state.currentUser}
+          navBarHidden={this.state.navBarHidden}
+        />
         <BrowserRouter>
           <Switch>
             <Route exact path='/' render={() =>
               (<Home />)} />
-            <Route exact path='/login/'
-              render={() => (<SignIn handle={handle(this)} />)}
+            <Route exact path={['/admin', '/login']}
+              render={({ history }) => {
+                if (!this.state.currentUser) {
+                  return (<SignIn handle={handle(this)} app={this} />)
+                }
+                else if (this.state.currentUser.account_type === 'admin') {
+                  console.log("Get here");
+                  return (<AdminDashboard app={this} history={history} displayName={this.state.userDisplayName} user={this.state.currentUser} />)
+                } else if (this.state.currentUser.account_type === 'standard') {
+                  return (<Home />)
+                }
+              }}
             />
-            <Route path='/postid=:id' render={() => (<SignIn />)} />
             <Route exact path='/event' render={() =>
               (<EventPage />)
             } />
@@ -54,9 +73,9 @@ class App extends React.Component {
             <Route exact path='/admin/edit_announce' render={
               () => (<AdminEdit />)
             } />
-            <Route exact path='/admin' render={() =>
-              (<AdminDashboard displayName={this.state.userDisplayName} />)
-            } />
+            {/* <Route exact path='/admin' render={({ history }) =>
+              (<AdminDashboard history={history} displayName={this.state.userDisplayName} user={this.state.currentUser} />)
+            } /> */}
             <Route exact path='/adminEventPage' render={() =>
               (<AdminEventPage />)} />
             <Route exact path='/adminSurveyPage' render={() =>

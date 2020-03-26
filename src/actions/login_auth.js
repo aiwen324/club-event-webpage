@@ -20,3 +20,35 @@ export const loginAuth = (login_page, handle) => {
         return 2;
     }
 }
+
+export const handle = (app) => (userId, userName, userDisplayName, admin) => {
+    app.setState({
+        userId: userId,
+        userName: userName,
+        userDisplayName: userDisplayName,
+        admin: admin
+    })
+    console.log("Login successful")
+}
+
+export const login = (loginComp, app) => {
+    // TODO: Send request to server
+    console.log('Login get called')
+    const { username, password } = loginComp.state;
+    const user = {
+        _id: '0',
+        account_type: null,
+        username: username,
+        email: null
+    }
+    if (username === 'admin' && password === 'admin') {
+        user.account_type = 'admin'
+    } else if (username === 'user' && password === 'user') {
+        user.account_type = 'standard'
+    } else {
+        // This case don't refresh the page
+        return;
+    }
+    console.log('app.state before set', app.state);
+    app.setState({ currentUser: user });
+}
