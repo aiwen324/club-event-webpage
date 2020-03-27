@@ -1,5 +1,3 @@
-import { Redirect } from "react-router-dom";
-
 export const loginAuth = (login_page, handle) => {
   const { userName, password } = login_page.state;
   console.log(userName);

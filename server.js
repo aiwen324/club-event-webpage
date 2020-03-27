@@ -10,18 +10,11 @@ const app = express();
 const { mongoose } = require("./src/db/mongoose");
 mongoose.set("useFindAndModify", false);
 
-const { Announcement } = require("./models/Announcements");
+const { Announcements } = require("./src/models/Announcement");
 const { Users } = require("./src/models/users");
 
 // to validate object IDs
 const { ObjectID } = require("mongodb");
-
-// handlebars templating engine
-const hbs = require("hbs");
-// Set express property 'view engine' to be 'hbs'
-app.set("view engine", "hbs");
-// setting up partials directory
-hbs.registerPartials(__dirname + "/views/partials");
 
 // body-parser: middleware for parsing HTTP JSON body into a usable object
 const bodyParser = require("body-parser");
@@ -132,7 +125,7 @@ app.post("/signUp", (req, res) => {
 //return {[results]}
 app.get("/visableAnnouncements", (req, res) => {
   //work in progress
-  Announcement.find({ visable: 1 }).then(
+  Announcements.find({ visable: 1 }).then(
     result => {
       res.status(200).send({ result });
     },
@@ -145,7 +138,7 @@ app.get("/visableAnnouncements", (req, res) => {
 // This API is for getting all the visable announcement
 //return {[results]}
 app.get("/getAllAnnouncement", (req, res) => {
-  Announcement.find().then(
+  Announcements.find().then(
     result => {
       res.send({ result });
     },
@@ -160,7 +153,7 @@ app.get("/getAllAnnouncement", (req, res) => {
 app.get("/Announcement/:id", (req, res) => {
   const announcementID = req.param.id;
 
-  Announcement.findById(announcementID).then(
+  Announcements.findById(announcementID).then(
     result => {
       res.status(200).send(result);
     },
@@ -192,12 +185,12 @@ app.post("/Announcement/:id", validatelogin, (req, res) => {
     date: req.body.date
   };
 
-  Announcement.findById(announcementID).then(
+  Announcements.findById(announcementID).then(
     result => {
       const comment = result.comments;
       comment.push(newComment);
 
-      Announcement.findByIdAndUpdate(
+      Announcements.findByIdAndUpdate(
         announcementID,
         { $set: { comments: Comment } },
         { new: true }
@@ -237,7 +230,7 @@ app.post("/Register/:id", validatelogin, (req, res) => {
         res.status(404).send("User does not exitst");
       }
 
-      Announcement.findById(announcementID).then(
+      Announcements.findById(announcementID).then(
         result => {
           if (!result) {
             res.status(404).send("Announcement does not exit");
@@ -252,7 +245,7 @@ app.post("/Register/:id", validatelogin, (req, res) => {
           });
           userList.push(userid);
 
-          Announcement.findByIdAndUpdate(
+          Announcements.findByIdAndUpdate(
             announcementID,
             { $set: { registeredUser: userList } },
             { new: true }
@@ -296,7 +289,7 @@ app.post("/updateAnnouncementVote/:id", validatelogin, (req, res) => {
     res.status(404).send();
   }
 
-  Announcement.findById(announcementID).then(
+  Announcements.findById(announcementID).then(
     result => {
       if (!result) {
         res.status(404).send();
