@@ -251,7 +251,7 @@ app.post("/Register/:id", validatelogin, (req, res) => {
       Announcements.findById(announcementID).then(
         result => {
           if (!result) {
-            res.status(404).send("Announcement does not exit");
+            res.status(404).send("Announcement does not exist");
           }
 
           const userList = result.registeredUser;
