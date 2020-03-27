@@ -276,10 +276,69 @@ app.post("/Register/:id", validatelogin, (req, res) => {
   );
 });
 
-// Update the announcement voting result
+// Update the announcement voting result, expect a json as follow
 /*
-    {
-        
+    {   
+        userID:<userID (Number)>
+        optionIDs: [{
+            surveyID: <surveyID (Number)>,
+            optionID: <optionID (Number)>
+        }]     
+        textResponse:  <response (Text)>
+        date: <date (Date)>
     }
 */
-app.post("/updateVote", (req, res) => {});
+// If the user already submitted, this will return status of 400, else 200
+app.post("/updateAnnouncementVote/:id", validatelogin, (req, res) => {
+  const announcementID = req.params.id;
+  const userID = req.body.userID;
+  if (!ObjectID.isValid(announcementID) && ObjectID.isValid(validatelogin)) {
+    res.status(404).send();
+  }
+
+  Announcement.findById(announcementID).then(
+    result => {
+      if (!result) {
+        res.status(404).send();
+        return;
+      }
+
+      const submittedUser = result.survey.submittedUsers;
+      submittedUser.forEach(user => {
+        if (user === userID) {
+          res.status(400).send();
+          return;
+        }
+      });
+
+      const optionIDs = req.body.optionIDs;
+      const surveys = result.survey.surveyQuestions;
+      optionIDs.forEach(element => {
+        let targetSurvey = surveys.id(element.surveyID);
+        let targetOption = targetSurvey.questionOptions.id(element.optionID);
+        targetOption.optionSelectedCount += 1;
+      });
+
+      const newResponse = {
+        userID: userID,
+        content: req.body.textResponse,
+        Date: req.body.date
+      };
+
+      result.survey.textResponse.push(newResponse);
+      result.survey.surveyQuestions = surveys;
+      result.survey.submittedUsers.push(userID);
+      result.save().then(
+        result => {
+          res.status(200).send();
+        },
+        error => {
+          res.status(500).send(error);
+        }
+      );
+    },
+    error => {
+      res.status(500).send(error);
+    }
+  );
+});
