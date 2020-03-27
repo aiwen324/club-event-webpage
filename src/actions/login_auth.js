@@ -67,10 +67,14 @@ export const signup = (username, password) => {
 
   fetch(request).then(res => {
     // TODO: Added front end to initialize the
-    if (res.status === 2000) {
+    if (res.status === 200) {
       console.log("Succeed to register the user");
       // TODO: Have some notification to tell the user succeed
+    } else if (res.status === 403) {
+      console.log("Duplicated User");
+      // TODO Have some notification to tell the user duplicate
     } else {
+      console.log("Internal server error");
     }
   });
 };
