@@ -342,3 +342,18 @@ app.post("/updateAnnouncementVote/:id", validatelogin, (req, res) => {
     }
   );
 });
+
+// Serve the build
+app.use(express.static(__dirname + "/build"));
+
+// All routes other than above will go to index.html
+app.get("*", (req, res) => {
+  res.sendFile(__dirname + "/build/index.html");
+});
+
+/*************************************************/
+// Express server listening...
+const port = process.env.PORT || 5000;
+app.listen(port, () => {
+  log(`Listening on port ${port}...`);
+});
