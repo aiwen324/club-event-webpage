@@ -1,3 +1,5 @@
+import { Redirect } from "react-router-dom";
+
 export const loginAuth = (login_page, handle) => {
   const { userName, password } = login_page.state;
   console.log(userName);
@@ -51,30 +53,48 @@ export const login = (loginComp, app) => {
   app.setState({ currentUser: user });
 };
 
-export const signup = (username, password) => {
+export const signup = SignUpComp => {
   const url = "/signUp";
 
-  const data = { username, password, accountType: 0, phoneNumber: null };
+  const data = {
+    username: SignUpComp.state.username,
+    password: SignUpComp.state.password,
+    email: SignUpComp.state.email,
+    accountType: 0,
+    phoneNumber: null
+  };
 
-  const request = new Request(url, {
-    method: "post",
-    body: JSON.stringify(data),
-    headers: {
-      Accept: "application/json, text/plain, */*",
-      "Content-Type": "application/json"
-    }
+  console.log(data);
+
+  // const request = new Request(url, {
+  //   method: "post",
+  //   body: JSON.stringify(data),
+  //   headers: {
+  //     Accept: "application/json, text/plain, */*",
+  //     "Content-Type": "application/json"
+  //   }
+  // });
+  const request = new Request("https://example.com", {
+    method: "POST",
+    body: '{"foo": "bar"}',
+    headers: { "Content-Type": "application/json" }
   });
 
-  fetch(request).then(res => {
-    // TODO: Added front end to initialize the
-    if (res.status === 200) {
-      console.log("Succeed to register the user");
-      // TODO: Have some notification to tell the user succeed
-    } else if (res.status === 403) {
-      console.log("Duplicated User");
-      // TODO Have some notification to tell the user duplicate
-    } else {
-      console.log("Internal server error");
-    }
-  });
+  console.log("Get here");
+  console.log(request.body);
+  // fetch(request).then(res => {
+  //   // TODO: Added front end to initialize the
+  //   if (res.status === 200) {
+  //     console.log("Succeed to register the user");
+  //     // TODO: Have some notification to tell the user succeed
+  //     SignUpComp.props.history.push("/login");
+  //   } else if (res.status === 403) {
+  //     console.log("Duplicated User");
+  //     // TODO Have some notification to tell the user duplicate
+  //     SignUpComp.setState({ dupUser: true });
+  //   } else {
+  //     console.log("Internal server error");
+  //     SignUpComp.setState({ serverError: true });
+  //   }
+  // });
 };
