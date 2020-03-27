@@ -35,8 +35,18 @@ app.use(
   })
 );
 
+// A route to check if a use is logged in on the session cookie
+app.get("/Login/check-session", (req, res) => {
+  if (req.session.user) {
+    res.send({ currentUser: req.session.user });
+  } else {
+    res.status(401).send();
+  }
+});
+
+// A middleware to verify if the user is logged in when doing REST API call
 const validatelogin = (req, res, next) => {
-  if (!req.session.Users) {
+  if (!req.session.user) {
     res.redirct("/login/");
   } else {
     next();
@@ -60,31 +70,38 @@ const validatelogin = (req, res, next) => {
 */
 // If the login failed, it wil return a status code of 400
 app.post("/Login", (req, res) => {
-  const username = req.body.email;
+  const username = req.body.username;
   const password = req.body.password;
 
-  Users.findOne({ username: username, password: password }).then(
-    result => {
-      if (!result) {
-        res.status(400).send();
-      }
-      const returnJson = {
-        userID: result._id,
-        email: result.email,
-        username: result.username,
-        accountType: result.accountType
-      };
-      req.session.userID = result._id;
-      req.session.type = result.accountType;
+  Users.findOne({ username: username, password: password })
+    .then(
+      result => {
+        if (!result) {
+          res.status(400).send();
+          return;
+        }
+        const currentUser = {
+          userID: result._id,
+          email: result.email,
+          username: result.username,
+          accountType: result.accountType
+        };
+        req.session.user = currentUser;
 
-      res.status(200).json(returnJson);
-    },
-    error => {
-      res.status(500).send(error);
-    }
-  );
+        res.status(200).json({ currentUser });
+      },
+      error => {
+        res.status(500).send(error);
+      }
+    )
+    .catch(error => {
+      console.log("Error: ", error);
+    });
 });
 
+/*******************************************************/
+
+/*** API Routes below */
 // API for adding new users to server, expecting a json format like this:
 /*
     {
@@ -106,7 +123,7 @@ app.post("/signUp", (req, res) => {
     phoneNumber: req.body.phoneNumber
   });
   Users.findOne({
-    $or: [{ username: req.body.username, email: req.body.email }]
+    $or: [{ username: req.body.username }, { email: req.body.email }]
   }).then(user => {
     if (user) {
       console.log("Find User exists");
@@ -337,6 +354,7 @@ app.post("/updateAnnouncementVote/:id", validatelogin, (req, res) => {
   );
 });
 
+/*** Webpage routes below ************************/
 // Serve the build
 app.use(express.static(__dirname + "/build"));
 

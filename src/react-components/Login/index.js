@@ -6,7 +6,8 @@ import Checkbox from "@material-ui/core/Checkbox";
 import { Link as RouterLink } from "react-router-dom";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
-import { loginAuth, login } from "../../actions/login_auth";
+import Alert from "@material-ui/lab/Alert";
+import { login } from "../../actions/login_auth";
 import { Redirect } from "react-router-dom";
 import "./style.css";
 
@@ -14,13 +15,14 @@ class SignIn extends React.Component {
   state = {
     username: "",
     password: "",
+    errorNum: null, // 1: User not exists; 2: Field empty; 2. Server Error
     user_type: 2
   };
 
   handleInputChange = event => {
     const target = event.target;
     const value = target.value;
-    const name = target.name;
+    const name = target.id;
 
     // 'this' is bound to the component in this arrow function.
     this.setState({
@@ -28,8 +30,36 @@ class SignIn extends React.Component {
     });
   };
 
+  handleClick = (e, app) => {
+    e.preventDefault();
+    if (!(this.state.password && this.state.username)) {
+      this.setState({ errorNum: 2 });
+    }
+    login(this, app);
+  };
+
   render() {
     const { handle, app } = this.props;
+    let errorMsg;
+    if (this.state.errorNum === 1) {
+      errorMsg = (
+        <Alert variant="outlined" severity="error">
+          Credential error
+        </Alert>
+      );
+    } else if (this.state.errorNum === 2) {
+      errorMsg = (
+        <Alert variant="outlined" severity="error">
+          Please fill all fields
+        </Alert>
+      );
+    } else if (this.state.errorNum === 3) {
+      errorMsg = (
+        <Alert variant="outlined" severity="error">
+          Server Error, code: 500
+        </Alert>
+      );
+    }
     return (
       <div id="login_page">
         <div id="top_padding" />
@@ -37,15 +67,15 @@ class SignIn extends React.Component {
           <div>
             <h2>Sign In</h2>
           </div>
+          {errorMsg}
           <form className="form" noValidate>
             <TextField
               variant="outlined"
               margin="normal"
               required
               fullWidth
-              id="user_name"
+              id="username"
               label="User Name"
-              name="username"
               value={this.state.username}
               onChange={this.handleInputChange}
               autoComplete="user_name"
@@ -56,7 +86,6 @@ class SignIn extends React.Component {
               margin="normal"
               required
               fullWidth
-              name="password"
               label="Password"
               type="password"
               id="password"
@@ -74,19 +103,7 @@ class SignIn extends React.Component {
               variant="contained"
               color="primary"
               className="submit"
-              // href='/admin'
-              // onClick={() => {
-              //     const flag = loginAuth(this, handle)
-              //     if (flag === 0) {
-              //         this.setState({ user_type: 0 });
-              //     }
-              //     if (flag === 1) {
-              //         this.setState({ user_type: 1 });
-              //     }
-              // }}
-              onClick={() => {
-                login(this, app);
-              }}
+              onClick={e => this.handleClick(e, app)}
             >
               Sign In
             </Button>

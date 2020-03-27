@@ -42,8 +42,7 @@ class SignUp extends React.Component {
     username: "",
     password: "",
     email: "",
-    dupUser: false,
-    serverError: false
+    errorNum: null // 1. User already exists; 2. Field empty; 3. Server error
   };
 
   handleInputChange = event => {
@@ -57,8 +56,37 @@ class SignUp extends React.Component {
     });
   };
 
+  handleClick = e => {
+    e.preventDefault();
+    if (!(this.state.username && this.state.password && this.state.email)) {
+      this.setState({ errorNum: 2 });
+    } else {
+      signup(this);
+    }
+  };
+
   render() {
     const classes = this.props.classes;
+    let errorMsg;
+    if (this.state.errorNum === 1) {
+      errorMsg = (
+        <Alert variant="outlined" severity="error">
+          Username or Email already exists
+        </Alert>
+      );
+    } else if (this.state.errorNum === 2) {
+      errorMsg = (
+        <Alert variant="outlined" severity="error">
+          Please fill out all fields
+        </Alert>
+      );
+    } else if (this.state.errorNum === 3) {
+      errorMsg = (
+        <Alert variant="outlined" severity="error">
+          Server Error, code: 500
+        </Alert>
+      );
+    }
     return (
       <Container className={classes.container} component="main" maxWidth="xs">
         <CssBaseline />
@@ -69,21 +97,8 @@ class SignUp extends React.Component {
           <Typography component="h1" variant="h5">
             Sign Up
           </Typography>
+          {errorMsg}
           <form className={classes.form}>
-            {this.state.dupUser ? (
-              <Alert variant="outlined" severity="error">
-                Username or Email already exists
-              </Alert>
-            ) : (
-              <div></div>
-            )}
-            {this.state.serverError ? (
-              <Alert variant="outlined" severity="error">
-                Server Error, code: 500
-              </Alert>
-            ) : (
-              <div></div>
-            )}
             <TextField
               variant="outlined"
               margin="normal"
@@ -126,10 +141,7 @@ class SignUp extends React.Component {
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick={e => {
-                e.preventDefault();
-                signup(this);
-              }}
+              onClick={e => this.handleClick(e)}
             >
               Sign Up
             </Button>

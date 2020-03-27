@@ -13,6 +13,7 @@ import AdminDashboard from "./react-components/AdminDashboard";
 import SignUp from "./react-components/SignUp";
 import AdminEventPage from "./react-components/AdminEventPage/index.js";
 import AdminSurveyPage from "./react-components/AdminSurvey/index.js";
+import { readCookie } from "./actions/login_auth";
 
 const handle = app => (userId, userName, userDisplayName, admin) => {
   app.setState({
@@ -25,6 +26,11 @@ const handle = app => (userId, userName, userDisplayName, admin) => {
 };
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    readCookie(this);
+  }
+
   state = {
     userId: null,
     userName: "",
@@ -47,14 +53,24 @@ class App extends React.Component {
             navBarHidden={this.state.navBarHidden}
           />
           <Switch>
-            <Route exact path="/" render={() => <Home />} />
+            <Route
+              exact
+              path="/"
+              render={({ history }) => <Home history={history} />}
+            />
             <Route
               exact
               path={["/admin", "/login"]}
               render={({ history }) => {
                 if (!this.state.currentUser) {
-                  return <SignIn handle={handle(this)} app={this} />;
-                } else if (this.state.currentUser.account_type === "admin") {
+                  return (
+                    <SignIn
+                      history={history}
+                      handle={handle(this)}
+                      app={this}
+                    />
+                  );
+                } else if (this.state.currentUser.accountType === 1) {
                   console.log("Get here");
                   return (
                     <AdminDashboard
@@ -64,8 +80,8 @@ class App extends React.Component {
                       user={this.state.currentUser}
                     />
                   );
-                } else if (this.state.currentUser.account_type === "standard") {
-                  return <Home />;
+                } else if (this.state.currentUser.accountType === 0) {
+                  history.push("/");
                 }
               }}
             />

@@ -8,6 +8,11 @@ import { Link as RouterLink } from "react-router-dom";
 import Link from "@material-ui/core/Link";
 
 class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.props.history.push("/");
+  }
+
   render() {
     return (
       <div className="home_pg">
