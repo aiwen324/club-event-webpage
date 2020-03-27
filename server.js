@@ -102,6 +102,7 @@ app.post("/signUp", (req, res) => {
     accountType: req.body.accountType,
     username: req.body.username,
     password: req.body.password,
+    email: req.body.email,
     phoneNumber: req.body.phoneNumber
   });
   Users.findOne({

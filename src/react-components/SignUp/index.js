@@ -126,7 +126,10 @@ class SignUp extends React.Component {
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick={() => signup(this)}
+              onClick={e => {
+                e.preventDefault();
+                signup(this);
+              }}
             >
               Sign Up
             </Button>
