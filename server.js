@@ -7,11 +7,11 @@ const express = require("express");
 const app = express();
 
 // mongoose and mongo connection
-const { mongoose } = require("./db/mongoose");
+const { mongoose } = require("./src/db/mongoose");
 mongoose.set("useFindAndModify", false);
 
 const { Announcement } = require("./models/Announcements");
-const { Users } = require("./models/users");
+const { Users } = require("./src/models/users");
 
 // to validate object IDs
 const { ObjectID } = require("mongodb");
