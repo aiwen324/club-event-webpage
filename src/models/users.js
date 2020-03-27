@@ -1,15 +1,16 @@
-const mongoose = require('mongoose');
+const {mongoose} = require('../DB/mongoose');
 
 const userSchema = new mongoose.Schema({
-    accountType: Number,
+    // If accountType == 0, this is a normal user, else it is an admin
+    accountType: {type: Number, default: 0},
     username: String,
     email: String,
     password: String,
-    phoneNumber: Number
+    phoneNumber: String
 });
 
 
 
-const Users = mongoose.model('Restaurant', userSchema);
+const Users = mongoose.model('User', userSchema);
 
 module.exports = { Users };
