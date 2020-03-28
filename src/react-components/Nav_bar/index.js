@@ -2,6 +2,7 @@ import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { Link, Button, CssBaseline } from "@material-ui/core";
 import "./style.css";
+import { logout } from "../../actions/login_auth";
 
 class Navbar extends React.Component {
   render() {
@@ -15,17 +16,29 @@ class Navbar extends React.Component {
       logOutButton = null;
     } else {
       name = user.username;
-      logOutButton = <Button>Log Out</Button>;
+      logOutButton = (
+        <Link
+          href="#"
+          onClick={e => {
+            e.preventDefault();
+            logout(this.props.app);
+          }}
+        >
+          Log Out
+        </Link>
+      );
     }
 
     return (
       <div id="Navigation-bar" style={navBarHidden ? { display: "none" } : {}}>
-        <div id="accountInfo">
-          <Link to="/login" component={RouterLink}>
-            {name}
-          </Link>
-          {logOutButton}
-        </div>
+        <ul id="accountInfo">
+          <li>
+            <Link to="/login" component={RouterLink}>
+              {name}
+            </Link>
+          </li>
+          <li>{logOutButton}</li>
+        </ul>
         <ul>
           <li>
             <Link id="link" to="/" component={RouterLink}>

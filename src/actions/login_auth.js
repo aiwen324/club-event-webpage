@@ -129,6 +129,18 @@ export const signup = SignUpComp => {
 };
 
 /** Log out handler */
-export const logout = () => {
+export const logout = app => {
   console.log("Get called");
+  const url = "logout";
+
+  // Delete the following block
+  app.setState({
+    currentUser: null
+  });
+
+  // fetch(url).then(res => {
+  //   app.setState({
+  //     currentUser: null
+  //   });
+  // });
 };

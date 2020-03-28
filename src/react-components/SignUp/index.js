@@ -60,6 +60,7 @@ class SignUp extends React.Component {
     e.preventDefault();
     if (!(this.state.username && this.state.password && this.state.email)) {
       this.setState({ errorNum: 2 });
+      return;
     } else {
       signup(this);
     }

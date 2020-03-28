@@ -49,8 +49,8 @@
   border-radius: 5px;
 }
 
-#accounInfor * {
-  margin: auto;
+#accounInfor > * {
+  margin: 5px;
 }
 
 #accountInfo a {

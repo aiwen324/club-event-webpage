@@ -38,6 +38,7 @@ class SignIn extends React.Component {
     e.preventDefault();
     if (!(this.state.password && this.state.username)) {
       this.setState({ errorNum: 2 });
+      return;
     }
     login(this, app);
   };

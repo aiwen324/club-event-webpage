@@ -37,6 +37,7 @@ class App extends React.Component {
           <Navbar
             user={this.state.currentUser}
             navBarHidden={this.state.navBarHidden}
+            app={this}
           />
           <Switch>
             <Route
