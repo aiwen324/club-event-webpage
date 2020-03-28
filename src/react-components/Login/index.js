@@ -12,10 +12,15 @@ import { Redirect } from "react-router-dom";
 import "./style.css";
 
 class SignIn extends React.Component {
+  constructor(props) {
+    super(props);
+    this.props.history.push("/login");
+  }
+
   state = {
     username: "",
     password: "",
-    errorNum: null, // 1: User not exists; 2: Field empty; 2. Server Error
+    errorNum: null, // 1: User not exists; 2: Field empty; 3. Server Error
     user_type: 2
   };
 

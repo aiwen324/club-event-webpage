@@ -29,7 +29,7 @@ app.use(
     secret: "#66CCFF",
     resave: false,
     cookie: {
-      expires: 10000,
+      expires: 600000,
       httppOnly: true
     }
   })
