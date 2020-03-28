@@ -28,7 +28,6 @@ class Navbar extends React.Component {
         </Link>
       );
     }
-
     return (
       <div id="Navigation-bar" style={navBarHidden ? { display: "none" } : {}}>
         <ul id="accountInfo">

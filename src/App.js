@@ -27,7 +27,7 @@ class App extends React.Component {
   };
 
   componentDidUpdate() {
-    console.log("Current User when update", this.state.currentUser);
+    // console.log("Current User when update", this.state.currentUser);
   }
 
   render() {
@@ -62,7 +62,7 @@ class App extends React.Component {
                     />
                   );
                 } else if (this.state.currentUser.accountType === 0) {
-                  history.push("/");
+                  return <Home history={history} />;
                 }
               }}
             />

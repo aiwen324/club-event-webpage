@@ -133,6 +133,7 @@ export const logout = app => {
   console.log("Get called");
   const url = "logout";
 
+  // #TODO: --------------------!!!
   // Delete the following block
   app.setState({
     currentUser: null

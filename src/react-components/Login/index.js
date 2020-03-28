@@ -44,7 +44,7 @@ class SignIn extends React.Component {
   };
 
   render() {
-    const { handle, app } = this.props;
+    const { app } = this.props;
     let errorMsg;
     if (this.state.errorNum === 1) {
       errorMsg = (
