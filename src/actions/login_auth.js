@@ -86,7 +86,6 @@ export const login = (loginComp, app) => {
       console.log("json.currentUser is", json.currentUser);
       if (json.currentUser !== undefined) {
         app.setState({ currentUser: json.currentUser });
-        loginComp.props.history.push("/");
       } else {
         console.log("Find returnJson is null");
       }
