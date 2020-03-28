@@ -35,12 +35,22 @@
 }
 
 #accountInfo {
+  display: flex;
+  flex-direction: row;
+  direction: rtl;
+  flex-grow: 1;
+  justify-content: flex-end;
   float: right;
   background-color: transparent;
   text-align: center;
+  align-items: flex-start;
   padding: 14px 16px;
   transition: 0.25s;
   border-radius: 5px;
+}
+
+#accounInfor * {
+  margin: auto;
 }
 
 #accountInfo a {
@@ -48,6 +58,6 @@
   text-decoration: none;
 }
 
-#accountInfo:hover {
+#accountInfo *:hover {
   background-color: #66ccff;
 }

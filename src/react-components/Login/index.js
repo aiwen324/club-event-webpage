@@ -20,8 +20,7 @@ class SignIn extends React.Component {
   state = {
     username: "",
     password: "",
-    errorNum: null, // 1: User not exists; 2: Field empty; 3. Server Error
-    user_type: 2
+    errorNum: null // 1: User not exists; 2: Field empty; 3. Server Error
   };
 
   handleInputChange = event => {
@@ -61,7 +60,7 @@ class SignIn extends React.Component {
     } else if (this.state.errorNum === 3) {
       errorMsg = (
         <Alert variant="outlined" severity="error">
-          Server Error, code: 500
+          Server Error
         </Alert>
       );
     }

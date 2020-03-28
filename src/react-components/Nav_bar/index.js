@@ -1,17 +1,21 @@
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
-import { Link } from "@material-ui/core";
+import { Link, Button, CssBaseline } from "@material-ui/core";
 import "./style.css";
 
 class Navbar extends React.Component {
   render() {
     const { user, navBarHidden } = this.props;
 
+    let logOutButton;
+
     let name = "";
     if (!user) {
       name = "Sign in";
+      logOutButton = null;
     } else {
       name = user.username;
+      logOutButton = <Button>Log Out</Button>;
     }
 
     return (
@@ -20,6 +24,7 @@ class Navbar extends React.Component {
           <Link to="/login" component={RouterLink}>
             {name}
           </Link>
+          {logOutButton}
         </div>
         <ul>
           <li>
@@ -28,10 +33,7 @@ class Navbar extends React.Component {
             </Link>
           </li>
           <li>
-            {/* <Link id="link" h component={RouterLink}>
-              Announcement
-            </Link> */}
-            <a href="#homePosts">Announcements</a>
+            <Link href="#homePosts">Announcements</Link>
           </li>
         </ul>
       </div>
