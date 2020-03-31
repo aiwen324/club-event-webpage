@@ -100,7 +100,7 @@ app.post("/Login", (req, res) => {
 });
 
 // API used to logout
-app.get("logout", (req, res) => {
+app.get("/logout", (req, res) => {
   // Remove the session
   req.session.destroy(error => {
     if (error) {

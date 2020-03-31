@@ -20,9 +20,6 @@ export const readCookie = app => {
 
 /** Login handler */
 export const login = (loginComp, app) => {
-  // TODO: Send request to server
-  console.log("Login get called");
-
   const url = "/Login";
   const { username, password } = loginComp.state;
 
@@ -130,25 +127,27 @@ export const signup = SignUpComp => {
 
 /** Log out handler */
 export const logout = app => {
-  console.log("Logout in login_auth get called");
   const url = "logout";
 
   // #TODO: --------------------!!!
   // Delete the following block
   if (
-    app.state.currentUser.username === "admin" ||
-    app.state.currentUser.username === "user"
+    app.state.currentUser.username === "test-admin" ||
+    app.state.currentUser.username === "test-user"
   ) {
-    console.log("Get here");
     app.setState({
       currentUser: null
     });
+    // -----------------------------
   } else {
-    console.log("Sending request to backend ...");
-    fetch(url).then(res => {
-      app.setState({
-        currentUser: null
+    fetch(url)
+      .then(res => {
+        app.setState({
+          currentUser: null
+        });
+      })
+      .catch(error => {
+        console.log(error);
       });
-    });
   }
 };
