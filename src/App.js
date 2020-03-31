@@ -15,16 +15,6 @@ import AdminEventPage from "./react-components/AdminEventPage/index.js";
 import AdminSurveyPage from "./react-components/AdminSurvey/index.js";
 import { readCookie } from "./actions/login_auth";
 
-const handle = app => (userId, userName, userDisplayName, admin) => {
-  app.setState({
-    userId: userId,
-    userName: userName,
-    userDisplayName: userDisplayName,
-    admin: admin
-  });
-  console.log("Login successful");
-};
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -32,16 +22,12 @@ class App extends React.Component {
   }
 
   state = {
-    userId: null,
-    userName: "",
-    userDisplayName: "",
-    admin: false,
     currentUser: null,
     navBarHidden: false
   };
 
   componentDidUpdate() {
-    console.log("Current User when update", this.state.currentUser);
+    // console.log("Current User when update", this.state.currentUser);
   }
 
   render() {
@@ -51,6 +37,7 @@ class App extends React.Component {
           <Navbar
             user={this.state.currentUser}
             navBarHidden={this.state.navBarHidden}
+            app={this}
           />
           <Switch>
             <Route
@@ -63,13 +50,7 @@ class App extends React.Component {
               path={["/admin", "/login"]}
               render={({ history }) => {
                 if (!this.state.currentUser) {
-                  return (
-                    <SignIn
-                      history={history}
-                      handle={handle(this)}
-                      app={this}
-                    />
-                  );
+                  return <SignIn history={history} app={this} />;
                 } else if (this.state.currentUser.accountType === 1) {
                   console.log("Get here");
                   return (
@@ -81,7 +62,7 @@ class App extends React.Component {
                     />
                   );
                 } else if (this.state.currentUser.accountType === 0) {
-                  history.push("/");
+                  return <Home history={history} />;
                 }
               }}
             />
@@ -97,9 +78,6 @@ class App extends React.Component {
               path="/admin/edit_announce"
               render={() => <AdminEdit />}
             />
-            {/* <Route exact path='/admin' render={({ history }) =>
-              (<AdminDashboard history={history} displayName={this.state.userDisplayName} user={this.state.currentUser} />)
-            } /> */}
             <Route
               exact
               path="/adminEventPage"

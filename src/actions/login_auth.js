@@ -1,34 +1,3 @@
-export const loginAuth = (login_page, handle) => {
-  const { userName, password } = login_page.state;
-  console.log(userName);
-  console.log(password);
-
-  if (userName === "admin" && password === "admin") {
-    handle(0, "admin", "Admin", true);
-    return 0;
-  } else if (userName === "user" && password === "user") {
-    handle(1, "user", "User", false);
-    return 1;
-  } else {
-    // const username_field = login_page.getElementById("userName")
-    // const password_field = login_page.getElementById("password")
-
-    // username_field.error = true
-    // password_field.error = true
-    return 2;
-  }
-};
-
-export const handle = app => (userId, userName, userDisplayName, admin) => {
-  app.setState({
-    userId: userId,
-    userName: userName,
-    userDisplayName: userDisplayName,
-    admin: admin
-  });
-  console.log("Login successful");
-};
-
 // A function to check if a user is logged in on the session cookie
 export const readCookie = app => {
   const url = "/Login/check-session";
@@ -49,12 +18,36 @@ export const readCookie = app => {
     });
 };
 
+/** Login handler */
 export const login = (loginComp, app) => {
-  // TODO: Send request to server
-  console.log("Login get called");
-
   const url = "/Login";
   const { username, password } = loginComp.state;
+
+  // TODO: Debuggin fake account, delete it when in production
+  if (username === "user" && password === "user") {
+    app.setState({
+      currentUser: {
+        userID: 0,
+        email: "aiwen324@gmail.com",
+        username: "test-user",
+        accountType: 0
+      }
+    });
+    return;
+  } else if (username === "admin" && password === "admin") {
+    console.log("Get to the username check");
+    app.setState({
+      currentUser: {
+        userID: 1,
+        email: "aiwen345@gmail.com",
+        username: "test-admin",
+        accountType: 1
+      }
+    });
+    return;
+  }
+  // ********* Delete the upper block ***************
+
   const data = { username, password };
 
   const request = new Request(url, {
@@ -74,7 +67,7 @@ export const login = (loginComp, app) => {
         if (res.status === 400) {
           // TODO: Set app state as User not Found
           loginComp.setState({ errorNum: 1 });
-        } else if (res.status === 500) {
+        } else if (res.status === 500 || res.status === 404) {
           // TODO: Set app state as Server error
           loginComp.setState({ errorNum: 3 });
         }
@@ -95,6 +88,7 @@ export const login = (loginComp, app) => {
     });
 };
 
+/** Signup handler */
 export const signup = SignUpComp => {
   const url = "/signUp";
 
@@ -129,4 +123,31 @@ export const signup = SignUpComp => {
       SignUpComp.setState({ errorNum: 3 });
     }
   });
+};
+
+/** Log out handler */
+export const logout = app => {
+  const url = "logout";
+
+  // #TODO: --------------------!!!
+  // Delete the following block
+  if (
+    app.state.currentUser.username === "test-admin" ||
+    app.state.currentUser.username === "test-user"
+  ) {
+    app.setState({
+      currentUser: null
+    });
+    // -----------------------------
+  } else {
+    fetch(url)
+      .then(res => {
+        app.setState({
+          currentUser: null
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
 };

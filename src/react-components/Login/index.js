@@ -8,7 +8,6 @@ import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Alert from "@material-ui/lab/Alert";
 import { login } from "../../actions/login_auth";
-import { Redirect } from "react-router-dom";
 import "./style.css";
 
 class SignIn extends React.Component {
@@ -20,8 +19,7 @@ class SignIn extends React.Component {
   state = {
     username: "",
     password: "",
-    errorNum: null, // 1: User not exists; 2: Field empty; 3. Server Error
-    user_type: 2
+    errorNum: null // 1: User not exists; 2: Field empty; 3. Server Error
   };
 
   handleInputChange = event => {
@@ -39,12 +37,13 @@ class SignIn extends React.Component {
     e.preventDefault();
     if (!(this.state.password && this.state.username)) {
       this.setState({ errorNum: 2 });
+      return;
     }
     login(this, app);
   };
 
   render() {
-    const { handle, app } = this.props;
+    const { app } = this.props;
     let errorMsg;
     if (this.state.errorNum === 1) {
       errorMsg = (
@@ -61,7 +60,7 @@ class SignIn extends React.Component {
     } else if (this.state.errorNum === 3) {
       errorMsg = (
         <Alert variant="outlined" severity="error">
-          Server Error, code: 500
+          Server Error
         </Alert>
       );
     }

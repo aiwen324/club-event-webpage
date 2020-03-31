@@ -99,6 +99,18 @@ app.post("/Login", (req, res) => {
     });
 });
 
+// API used to logout
+app.get("/logout", (req, res) => {
+  // Remove the session
+  req.session.destroy(error => {
+    if (error) {
+      res.status(500).send(error);
+    } else {
+      res.send();
+    }
+  });
+});
+
 /*******************************************************/
 
 /*** API Routes below */

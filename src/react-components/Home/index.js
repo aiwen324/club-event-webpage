@@ -1,5 +1,4 @@
 import React from "react";
-import DashboardAddButtons from "../DashboardAddButtons";
 import Surveys from "../Surveys/index.js";
 
 import "./style.css";
