@@ -130,18 +130,25 @@ export const signup = SignUpComp => {
 
 /** Log out handler */
 export const logout = app => {
-  console.log("Get called");
+  console.log("Logout in login_auth get called");
   const url = "logout";
 
   // #TODO: --------------------!!!
   // Delete the following block
-  app.setState({
-    currentUser: null
-  });
-
-  // fetch(url).then(res => {
-  //   app.setState({
-  //     currentUser: null
-  //   });
-  // });
+  if (
+    app.state.currentUser.username === "admin" ||
+    app.state.currentUser.username === "user"
+  ) {
+    console.log("Get here");
+    app.setState({
+      currentUser: null
+    });
+  } else {
+    console.log("Sending request to backend ...");
+    fetch(url).then(res => {
+      app.setState({
+        currentUser: null
+      });
+    });
+  }
 };

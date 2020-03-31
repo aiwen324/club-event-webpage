@@ -8,7 +8,6 @@ import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Alert from "@material-ui/lab/Alert";
 import { login } from "../../actions/login_auth";
-import { Redirect } from "react-router-dom";
 import "./style.css";
 
 class SignIn extends React.Component {

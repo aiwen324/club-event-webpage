@@ -9,11 +9,16 @@ class Navbar extends React.Component {
     const { user, navBarHidden } = this.props;
 
     let logOutButton;
-
+    let loginLink;
     let name = "";
     if (!user) {
       name = "Sign in";
       logOutButton = null;
+      loginLink = (
+        <Link to="/login" component={RouterLink}>
+          {name}
+        </Link>
+      );
     } else {
       name = user.username;
       logOutButton = (
@@ -27,15 +32,17 @@ class Navbar extends React.Component {
           Log Out
         </Link>
       );
+      const link = user.accountType === 0 ? "/" : "admin";
+      loginLink = (
+        <Link to={link} component={RouterLink}>
+          {name}
+        </Link>
+      );
     }
     return (
       <div id="Navigation-bar" style={navBarHidden ? { display: "none" } : {}}>
         <ul id="accountInfo">
-          <li>
-            <Link to="/login" component={RouterLink}>
-              {name}
-            </Link>
-          </li>
+          <li>{loginLink}</li>
           <li>{logOutButton}</li>
         </ul>
         <ul>
