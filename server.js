@@ -409,7 +409,9 @@ app.post("/addNewEvent", validatelogin, (req, res) => {
         text_content: req.body.title,
         imgPath: req.body.imgPath,
         registerFields: req.body.registerFields,
+        registeredUser: [],
         survey: req.body.survey,
+        comments: [],
         visable: req.body.visable
       });
 
@@ -428,47 +430,6 @@ app.post("/addNewEvent", validatelogin, (req, res) => {
   );
 });
 
-const findUser = userID => {
-  Users.findById(userID).then(
-    result => {},
-    error => {
-      return null;
-    }
-  );
-};
-//Get the statistic of the announcement from the server
-app.get("/AnnouncementStatistic/:id", validatelogin, (req, res) => {
-  const userID = req.session.user;
-  Users.findById(userID).then(
-    result => {
-      if (!result) {
-        res.status(401).send();
-        return;
-      }
-
-      if (result.accountType === 0) {
-        res.status(401).send();
-        return;
-      }
-
-      Announcements.findById(req.params.id).then(
-        result => {
-          if (!result) {
-            res.status(404).send();
-            return;
-          }
-        },
-        error => {
-          res.status(500).send(error);
-          return;
-        }
-      );
-    },
-    error => {
-      res.status(500).send(error);
-    }
-  );
-});
 /*** Webpage routes below ************************/
 // Serve the build
 app.use(express.static(__dirname + "/build"));
