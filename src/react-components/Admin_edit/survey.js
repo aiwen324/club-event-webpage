@@ -10,6 +10,12 @@ import TextField from "@material-ui/core/TextField";
 import "./survey.css";
 
 class Survey extends React.Component {
+  constructor(props) {
+    super(props);
+    this.checkBoxType = 1;
+    this.textType = 0;
+  }
+
   removeQuestion = (editPanel, index, e) => {
     e.preventDefault();
     const question_array = editPanel.state.question_array;
@@ -21,7 +27,7 @@ class Survey extends React.Component {
     event.preventDefault();
     const question_array = editPanel.state.question_array;
     question_array[index].type = event.target.value;
-    if (event.target.value !== 0) {
+    if (event.target.value !== this.checkBoxType) {
       question_array[index].options = "";
     }
     editPanel.setState({ question_array: question_array });
@@ -57,13 +63,13 @@ class Survey extends React.Component {
                 onChange={e => this.handleTypeSelection(editPanel, index, e)}
                 displayEmpty
               >
-                <MenuItem value={0}>Checkboxes</MenuItem>
-                <MenuItem value={1}>Paragraph</MenuItem>
+                <MenuItem value={this.textType}>Paragraph</MenuItem>
+                <MenuItem value={this.checkBoxType}>Checkboxes</MenuItem>
               </Select>
               <FormHelperText>Question Type</FormHelperText>
             </FormControl>
           </Grid>
-          {question.type === 0 ? (
+          {question.type === this.checkBoxType ? (
             <Grid item xs={10}>
               <TextField
                 name="options"
