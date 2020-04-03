@@ -4,6 +4,7 @@ import Button from "@material-ui/core/Button";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
+import Alert from "@material-ui/lab/Alert";
 import "./style.css";
 import Survey from "./survey";
 import {
@@ -17,6 +18,11 @@ class AdminEdit extends React.Component {
   checkBoxType = 1;
 
   state = {
+    /* 1. Invalid Title or Empty Description;
+     * 2. Invalid survey input
+     * 3. Invalid input
+     * 4. Server error */
+    errorNum: null,
     title: "",
     text_content: "",
     images: [],
@@ -66,6 +72,7 @@ class AdminEdit extends React.Component {
     if (!this.state.title || !this.state.text_content) {
       // TODO: Set error
       console.log("Implement required field");
+      this.setState({ errorNum: 1 });
       return;
     }
 
@@ -80,16 +87,20 @@ class AdminEdit extends React.Component {
         1. If type is Checkboxes, check if the options is empty 
     */
     // TODO: Parse the options content if it is not empty
-    let surveyQuestions;
-    try {
-      surveyQuestions = parseQuestions(this.state.question_array);
-    } catch (error) {
-      if (error.message === "Invalid Input") {
-        // TODO: Fix the error
-        console.log("Implement error alert");
-        return;
-      } else {
-        throw Error;
+    let surveyQuestions = [];
+    if (this.state.survey) {
+      try {
+        surveyQuestions = parseQuestions(this.state.question_array);
+      } catch (error) {
+        if (error.message === "Invalid Input") {
+          // TODO: Fix the error
+          console.log("Implement error alert");
+          this.setState({ errorNum: 2 });
+          return;
+        } else {
+          this.setState({ errorNum: 3 });
+          return;
+        }
       }
     }
     generateAnnouncement(this, surveyQuestions, imgURLs);
@@ -98,10 +109,38 @@ class AdminEdit extends React.Component {
   render() {
     const { reg_field, survey } = this.state;
 
+    let errorMsg;
+    if (this.state.errorNum === 1) {
+      errorMsg = (
+        <Alert variant="outlined" severity="error">
+          Empty title or Description
+        </Alert>
+      );
+    } else if (this.state.errorNum === 2) {
+      errorMsg = (
+        <Alert variant="outlined" severity="error">
+          Invalid survey input, check if question or options is empty
+        </Alert>
+      );
+    } else if (this.state.errorNum === 3) {
+      errorMsg = (
+        <Alert variant="outlined" severity="error">
+          Invalid Input
+        </Alert>
+      );
+    } else if (this.state.errorNum === 4) {
+      errorMsg = (
+        <Alert variant="outlined" severity="error">
+          Server Error
+        </Alert>
+      );
+    }
+
     // const { classes } = this.props;
     return (
       <div className="Edit_panel">
         <form className="edit_form">
+          {errorMsg}
           <TextField
             id="title"
             className="input_field"
