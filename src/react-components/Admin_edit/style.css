@@ -1,21 +1,32 @@
 .Edit_panel {
-    width: 100%;
-    background-color: white;
-    overflow: hidden;
-    display: block;
+  width: 100%;
+  background-color: white;
+  overflow: hidden;
+  display: block;
 }
 
 .edit_form {
-    width: 70% !important;
-    margin: 0 auto !important;
-    margin-top: 20pt !important;
-    text-align: left !important;
+  width: 70% !important;
+  margin: 0 auto !important;
+  margin-top: 20pt !important;
+  text-align: left !important;
 }
 
 .edit_form > * {
-    margin: 16pt !important;
+  margin: 16pt !important;
 }
 
 .input {
-    display: none;
+  display: none;
+}
+
+.img-panel {
+  display: "flex";
+  flex-grow: 1;
+  flex-direction: "row";
+  flex-wrap: "wrap";
+}
+
+.img-panel > * {
+  width: 20%;
 }

@@ -29,10 +29,14 @@ const surveyQuestionSchema = new mongoose.Schema({
     default: 0
   },
 
+  questionTitle: {
+    type: String
+  },
+
   questionOptions: {
     type: [optionSechma],
     required: () => {
-      return this.surveyQuestions.length !== 0;
+      return this.qusetionType !== 0;
     }
   }
 });
@@ -44,9 +48,9 @@ const responseSchema = new mongoose.Schema({
 });
 
 const surveySchema = new mongoose.Schema({
-  submittedUsers: [Number],
+  submittedUsers: { type: [Number], default: [] },
   surveyQuestions: [surveyQuestionSchema],
-  textResponse: [responseSchema]
+  textResponse: { type: [responseSchema], default: [] }
 });
 
 const commentSchema = new mongoose.Schema({
@@ -56,14 +60,15 @@ const commentSchema = new mongoose.Schema({
 });
 
 const AnnouncementSchema = new mongoose.Schema({
+  title: String,
   text_content: String,
-  imgPath: String,
+  imgPath: [String],
   registerFields: [FieldSchema],
   registeredUser: [Number],
   survey: surveySchema,
   comments: [commentSchema],
-  // If the field is 0, this announcement is not visable to public, else 1.
-  visable: Number
+  // If the field is 0, this announcement is not visible to public, else 1.
+  visible: Number
 });
 
 const Announcements = mongoose.model("Announcements", AnnouncementSchema);

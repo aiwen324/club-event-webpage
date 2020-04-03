@@ -20,6 +20,19 @@ const { ObjectID } = require("mongodb");
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 
+// multer for image parsing
+const multer = require("multer");
+const multerMiddleware = multer();
+
+// cloudinary: configure using credentials found on your Cloudinary Dashboard
+// sign up for a free account here: https://cloudinary.com/users/register/free
+const cloudinary = require("cloudinary");
+cloudinary.config({
+  cloud_name: "dknk7eimh",
+  api_key: "142485975195311",
+  api_secret: "P53FiX0RZY5JvKOzwe1AHxPNRTk"
+});
+
 // express-session for managing user sessions
 const session = require("express-session");
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -109,6 +122,16 @@ app.get("/logout", (req, res) => {
       res.send();
     }
   });
+});
+
+/******************************************************
+ * Image API Routes
+ */
+app.post("/images", multerMiddleware.array("images"), (req, res) => {
+  const files = req.files;
+  console.log("Server end get files: ");
+  console.log(files);
+  console.log(files[0].path);
 });
 
 /*******************************************************/
