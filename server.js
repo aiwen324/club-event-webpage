@@ -366,6 +366,86 @@ app.post("/updateAnnouncementVote/:id", validatelogin, (req, res) => {
   );
 });
 
+// API for posting new announcements
+
+app.post("/addNewEvent", validatelogin, (req, res) => {
+  const userID = req.session.user;
+  Users.findById(userID).then(
+    result => {
+      if (!result) {
+        res.status(404).send();
+        return;
+      }
+      if (result.accountType === 0) {
+        res.status(401).send();
+        return;
+      }
+
+      const newAnnonucement = new Announcements({
+        //title: req.body.title,
+        text_content: req.body.title,
+        imgPath: req.body.imgPath,
+        registerFields: req.body.registerFields,
+        survey: req.body.survey,
+        visable: req.body.visable
+      });
+
+      newAnnonucement.save().then(
+        result => {
+          res.status(200).send();
+        },
+        error => {
+          res.status(500).send(error);
+        }
+      );
+    },
+    error => {
+      res.status(500).send(error);
+    }
+  );
+});
+
+const findUser = userID => {
+  Users.findById(userID).then(
+    result => {},
+    error => {
+      return null;
+    }
+  );
+};
+//Get the statistic of the announcement from the server
+app.get("/AnnouncementStatistic/:id", validatelogin, (req, res) => {
+  const userID = req.session.user;
+  Users.findById(userID).then(
+    result => {
+      if (!result) {
+        res.status(401).send();
+        return;
+      }
+
+      if (result.accountType === 0) {
+        res.status(401).send();
+        return;
+      }
+
+      Announcements.findById(req.params.id).then(
+        result => {
+          if (!result) {
+            res.status(404).send();
+            return;
+          }
+        },
+        error => {
+          res.status(500).send(error);
+          return;
+        }
+      );
+    },
+    error => {
+      res.status(500).send(error);
+    }
+  );
+});
 /*** Webpage routes below ************************/
 // Serve the build
 app.use(express.static(__dirname + "/build"));
