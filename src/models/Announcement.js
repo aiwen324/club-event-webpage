@@ -24,7 +24,7 @@ const optionSechma = new mongoose.Schema({
 
 const surveyQuestionSchema = new mongoose.Schema({
   // 0 for text, 1 for single selection, 2 for multi-selection
-  qusetionType: {
+  questionType: {
     type: Number,
     default: 0
   },
@@ -36,7 +36,7 @@ const surveyQuestionSchema = new mongoose.Schema({
   questionOptions: {
     type: [optionSechma],
     required: () => {
-      return this.qusetionType !== 0;
+      return this.questionType !== 0;
     }
   }
 });

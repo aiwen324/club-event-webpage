@@ -20,18 +20,14 @@ const { ObjectID } = require("mongodb");
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 
-// multer for image parsing
-const multer = require("multer");
-const multerMiddleware = multer();
-
 // cloudinary: configure using credentials found on your Cloudinary Dashboard
 // sign up for a free account here: https://cloudinary.com/users/register/free
-const cloudinary = require("cloudinary");
-cloudinary.config({
-  cloud_name: "dknk7eimh",
-  api_key: "142485975195311",
-  api_secret: "P53FiX0RZY5JvKOzwe1AHxPNRTk"
-});
+// const cloudinary = require("cloudinary");
+// cloudinary.config({
+//   cloud_name: "dknk7eimh",
+//   api_key: "142485975195311",
+//   api_secret: "P53FiX0RZY5JvKOzwe1AHxPNRTk"
+// });
 
 // express-session for managing user sessions
 const session = require("express-session");
@@ -382,7 +378,8 @@ app.post("/updateAnnouncementVote/:id", validatelogin, (req, res) => {
 // API for posting new announcements
 
 app.post("/addNewEvent", validatelogin, (req, res) => {
-  const userID = req.session.user;
+  const userID = req.session.user.userID;
+  console.log("Get here");
   Users.findById(userID).then(
     result => {
       if (!result) {
@@ -395,8 +392,8 @@ app.post("/addNewEvent", validatelogin, (req, res) => {
       }
 
       const newAnnonucement = new Announcements({
-        //title: req.body.title,
-        text_content: req.body.title,
+        title: req.body.title,
+        text_content: req.body.text_content,
         imgPath: req.body.imgPath,
         registerFields: req.body.registerFields,
         registeredUser: [],
@@ -404,6 +401,10 @@ app.post("/addNewEvent", validatelogin, (req, res) => {
         comments: [],
         visable: req.body.visable
       });
+
+      console.log("Get here");
+      console.log("new Announcement schema looks like");
+      console.log(newAnnonucement);
 
       newAnnonucement.save().then(
         result => {

@@ -53,7 +53,7 @@ export const generateAnnouncement = (adminComp, surveyQuestions, imgPath) => {
         { fieldType: 1, fieldName: "Name" },
         { fieldType: 1, fieldName: "Email" }
       ]
-    : [];
+    : null;
   // const registeredUser = [];
   const survey = adminComp.state.survey ? { surveyQuestions } : null;
   // const commments = [];
@@ -102,7 +102,7 @@ export const uploadImages = adminComp => {
   const imgArr = adminComp.state.images;
   const url = "https://api.cloudinary.com/v1_1/dknk7eimh/upload";
 
-  Promise.all(
+  return Promise.all(
     imgArr.map(img => {
       const imgData = new FormData();
       imgData.append("upload_preset", "rqj7fl2q");
@@ -139,5 +139,6 @@ export const uploadImages = adminComp => {
     .catch(error => {
       console.log(error);
       // TODO: Set errow alert in the ocmponent
+      return [];
     });
 };

@@ -67,7 +67,7 @@ class AdminEdit extends React.Component {
     this.setState({ images: newFiles });
   };
 
-  publishAnnouncement = e => {
+  publishAnnouncement = async e => {
     e.preventDefault();
     if (!this.state.title || !this.state.text_content) {
       // TODO: Set error
@@ -79,9 +79,8 @@ class AdminEdit extends React.Component {
     // Try to upload images if images array is not empty
     let imgURLs = [];
     if (this.state.images.length > 0) {
-      imgURLs = uploadImages(this);
+      imgURLs = await uploadImages(this);
     }
-
     /* TODO: for each survey questions, check if it's valid:
         1. Check if quesiton is not empty
         1. If type is Checkboxes, check if the options is empty 
