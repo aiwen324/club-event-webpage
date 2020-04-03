@@ -70,8 +70,9 @@ class AdminEdit extends React.Component {
     }
 
     // Try to upload images if images array is not empty
+    let imgURLs = [];
     if (this.state.images.length > 0) {
-      uploadImages(this);
+      imgURLs = uploadImages(this);
     }
 
     /* TODO: for each survey questions, check if it's valid:
@@ -91,7 +92,7 @@ class AdminEdit extends React.Component {
         throw Error;
       }
     }
-    generateAnnouncement(this, surveyQuestions);
+    generateAnnouncement(this, surveyQuestions, imgURLs);
   };
 
   render() {

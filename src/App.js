@@ -76,7 +76,7 @@ class App extends React.Component {
             <Route
               exact
               path="/admin/edit_announce"
-              render={() => <AdminEdit />}
+              render={({ history }) => <AdminEdit history={history} />}
             />
             <Route
               exact

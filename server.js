@@ -124,16 +124,6 @@ app.get("/logout", (req, res) => {
   });
 });
 
-/******************************************************
- * Image API Routes
- */
-app.post("/images", multerMiddleware.array("images"), (req, res) => {
-  const files = req.files;
-  console.log("Server end get files: ");
-  console.log(files);
-  console.log(files[0].path);
-});
-
 /*******************************************************/
 
 /*** API Routes below */
