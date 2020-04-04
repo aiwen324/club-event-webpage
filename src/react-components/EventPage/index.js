@@ -68,12 +68,14 @@ class EventPage extends React.Component {
     });
     fetch(request).then(
       res => {
-        console.log("here");
-        if (res.status !== 200) {
-          console.log("Error when sending information");
-          return;
-        }
-        this.setState({ comments: res.body.updated_comment });
+        res.json().then(data => {
+          if (res.status !== 200) {
+            console.log("Error when sending information");
+            return;
+          }
+          console.log(data.updated_comment);
+          this.setState({ comments: data.updated_comment });
+        });
       },
       error => {
         console.log(error);

@@ -226,7 +226,6 @@ app.post("/Announcement/:id", validatelogin, (req, res) => {
   console.log(newComment);
   Announcements.findById(announcementID).then(
     result => {
-      console.log(result);
       const comments = result.comments;
       comments.push(newComment);
 
@@ -238,22 +237,20 @@ app.post("/Announcement/:id", validatelogin, (req, res) => {
         updateResult => {
           const newComments = [];
           updateResult.comments.forEach(element => {
-            console.log(element);
             Users.findById(element.userID).then(
               newResult => {
-                const commentObject = {
+                newComments.push({
                   poster: newResult.username,
                   content: element.content,
                   date: "Just now"
-                };
-                newComments.push(commentObject);
+                });
               },
               error => {
                 res.status(500).send(error);
               }
             );
           });
-
+          console.log(newComments);
           res.status(200).json({ updated_comment: newComments });
         },
         error => {
