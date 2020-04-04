@@ -190,7 +190,7 @@ app.get("/getAllAnnouncement", (req, res) => {
 // Get Announcement by announcement id
 // return announcement object
 app.get("/Announcement/:id", (req, res) => {
-  const announcementID = req.param.id;
+  const announcementID = req.params.id;
 
   Announcements.findById(announcementID).then(
     result => {
@@ -212,8 +212,8 @@ app.get("/Announcement/:id", (req, res) => {
 */
 // return a with updated post content
 app.post("/Announcement/:id", validatelogin, (req, res) => {
-  const announcementID = req.param.id;
-
+  const announcementID = req.params.id;
+  console.log(announcementID);
   if (!ObjectID.isValid(announcementID)) {
     res.status(404).send();
   }
@@ -226,16 +226,17 @@ app.post("/Announcement/:id", validatelogin, (req, res) => {
 
   Announcements.findById(announcementID).then(
     result => {
-      const comment = result.comments;
-      comment.push(newComment);
+      console.log(result);
+      const comments = result.comments;
+      comments.push(newComment);
 
       Announcements.findByIdAndUpdate(
         announcementID,
-        { $set: { comments: Comment } },
+        { $set: { comments } },
         { new: true }
       ).then(
         updateResult => {
-          res.status(200).json(updateResult);
+          res.status(200).json(updateResult.comments);
         },
         error => {
           res.status(500).send(error);

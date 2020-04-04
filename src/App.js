@@ -71,7 +71,11 @@ class App extends React.Component {
               path="/signUp"
               render={({ history }) => <SignUp history={history} />}
             />
-            <Route exact path="/event" render={() => <EventPage />} />
+            <Route
+              exact
+              path="/event"
+              render={() => <EventPage app={this} />}
+            />
             <Route exact path="/survey" render={() => <SurveyPage />} />
             <Route
               exact
