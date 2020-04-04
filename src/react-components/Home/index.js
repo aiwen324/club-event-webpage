@@ -6,11 +6,41 @@ import Posts from "../Posts";
 import { Link as RouterLink } from "react-router-dom";
 import Link from "@material-ui/core/Link";
 
+import { getAnnouncementList } from "../../actions/user";
+
 class Home extends React.Component {
   constructor(props) {
     super(props);
     this.props.history.push("/");
   }
+
+  state = {
+    announcements: []
+  };
+
+  componentDidMount() {
+    getAnnouncementList(this.props.app, this);
+  }
+
+  renderAnnouncementAbstract = announcement => {
+    const title = announcement.title;
+    const text_content = announcement.text_content;
+    console.log(text_content);
+    const paragraphs = text_content
+      .trim()
+      .split(/\n+/)
+      .map(p => p.trim());
+    const firstParagraph = paragraphs.length > 0 ? paragraphs[0] : "";
+    return (
+      <Link
+        underline="none"
+        component={RouterLink}
+        to={{ pathname: "/event", state: { ...announcement } }}
+      >
+        <Posts title={title} paragraph={firstParagraph} />;
+      </Link>
+    );
+  };
 
   render() {
     return (
@@ -22,6 +52,9 @@ class Home extends React.Component {
           </div>
         </div>
         <div id="homePosts">
+          {this.state.announcements.map(announcement => {
+            return this.renderAnnouncementAbstract(announcement);
+          })}
           <Link underline="none" component={RouterLink} to="/event">
             <Posts />
           </Link>
