@@ -211,23 +211,21 @@ app.get("/Announcement/:id", (req, res) => {
     }
 */
 // return a with updated post content
-app.post(
-  "/Announcement/:id",
-  validatelogin,
-  (req, res) => {
-    const announcementID = req.params.id;
-    console.log(announcementID);
-    if (!ObjectID.isValid(announcementID)) {
-      res.status(404).send();
-    }
-    const newComment = {
-      content: req.body.content,
-      userID: req.body.userID,
-      date: req.body.date,
-    };
-    console.log("==================");
-    console.log(newComment);
-    Announcements.findById(announcementID).then((result) => {
+app.post("/Announcement/:id", validatelogin, (req, res) => {
+  const announcementID = req.params.id;
+  console.log(announcementID);
+  if (!ObjectID.isValid(announcementID)) {
+    res.status(404).send();
+  }
+  const newComment = {
+    content: req.body.content,
+    userID: req.body.userID,
+    date: req.body.date,
+  };
+  console.log("==================");
+  console.log(newComment);
+  Announcements.findById(announcementID)
+    .then((result) => {
       const comments = result.comments;
       comments.push(newComment);
 
@@ -240,13 +238,13 @@ app.post(
           const returnComments = [];
           Promise.all(
             updateResult.comments.forEach((element) => {
-              Users.findById(element.userID).then(
+              return Users.findById(element.userID).then(
                 (newResult) => {
-                  returnComments.push({
+                  return {
                     poster: newResult.username,
                     content: element.content,
                     date: "Just now",
-                  });
+                  };
                 },
                 (error) => {
                   res.status(500).send(error);
@@ -256,18 +254,16 @@ app.post(
           );
         })
         .then((result) => {
-          res.status(200).json({ updated_comment: returnComments });
+          res.status(200).json({ updated_comment: result });
         })
         .catch((error) => {
           res.status(500).send();
         });
+    })
+    .catch((error) => {
+      res.status(404).send(error);
     });
-  },
-  (error) => {
-    res.status(404).send(error);
-  }
-);
-
+});
 // Register a user to activity, expect a json as follows:
 /*
     {
