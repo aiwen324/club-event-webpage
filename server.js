@@ -217,13 +217,13 @@ app.post("/Announcement/:id", validatelogin, (req, res) => {
   if (!ObjectID.isValid(announcementID)) {
     res.status(404).send();
   }
-
   const newComment = {
     content: req.body.content,
     userID: req.body.userID,
     date: req.body.date
   };
-
+  console.log("==================");
+  console.log(newComment);
   Announcements.findById(announcementID).then(
     result => {
       console.log(result);
@@ -236,7 +236,25 @@ app.post("/Announcement/:id", validatelogin, (req, res) => {
         { new: true }
       ).then(
         updateResult => {
-          res.status(200).json(updateResult.comments);
+          const newComments = [];
+          updateResult.comments.forEach(element => {
+            console.log(element);
+            Users.findById(element.userID).then(
+              newResult => {
+                const commentObject = {
+                  poster: newResult.username,
+                  content: element.content,
+                  date: "Just now"
+                };
+                newComments.push(commentObject);
+              },
+              error => {
+                res.status(500).send(error);
+              }
+            );
+          });
+
+          res.status(200).json({ updated_comment: newComments });
         },
         error => {
           res.status(500).send(error);

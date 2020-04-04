@@ -55,7 +55,7 @@ const surveySchema = new mongoose.Schema({
 
 const commentSchema = new mongoose.Schema({
   content: String,
-  userID: Number,
+  userID: String,
   date: Date
 });
 

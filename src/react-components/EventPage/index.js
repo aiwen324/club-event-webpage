@@ -48,14 +48,15 @@ class EventPage extends React.Component {
   };
 
   post_comment = event => {
-    const currentAnnouncementID = "5e883f9b468e5a0076f72656";
+    const currentAnnouncementID = "5e884d42956aa8024ca20d57";
     const url = "/Announcement/" + currentAnnouncementID;
     console.log(this.props);
 
     const dataToSave = {
       content: this.state.input_comment,
-      userID: this.props.app.state
+      userID: this.props.app.state.currentUser.userID
     };
+    console.log(dataToSave);
 
     const request = new Request(url, {
       method: "post",
@@ -72,7 +73,7 @@ class EventPage extends React.Component {
           console.log("Error when sending information");
           return;
         }
-        this.setState({ comments: res.body.comments });
+        this.setState({ comments: res.body.updated_comment });
       },
       error => {
         console.log(error);
