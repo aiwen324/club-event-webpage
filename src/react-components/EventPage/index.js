@@ -35,11 +35,11 @@ class EventPage extends React.Component {
     input_comment: "",
     comments: [
       { poster: "IMNF", content: "I love this activity!", date: "2 hours ago" },
-      { poster: "IMNF", content: "I love this activity!", date: "2 hours ago" }
-    ]
+      { poster: "IMNF", content: "I love this activity!", date: "2 hours ago" },
+    ],
   };
 
-  handle_input_comment = event => {
+  handle_input_comment = (event) => {
     const target = event.target;
     const value = target.value;
     const name = target.name;
@@ -47,14 +47,14 @@ class EventPage extends React.Component {
     this.setState({ [name]: value });
   };
 
-  post_comment = event => {
+  post_comment = (event) => {
     const currentAnnouncementID = "5e884d42956aa8024ca20d57";
     const url = "/Announcement/" + currentAnnouncementID;
     console.log(this.props);
 
     const dataToSave = {
       content: this.state.input_comment,
-      userID: this.props.app.state.currentUser.userID
+      userID: this.props.app.state.currentUser.userID,
     };
     console.log(dataToSave);
 
@@ -63,21 +63,35 @@ class EventPage extends React.Component {
       body: JSON.stringify(dataToSave),
       headers: {
         Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     });
     fetch(request).then(
-      res => {
-        res.json().then(data => {
+      (res) => {
+        res.json().then((data) => {
+          console.log(data);
           if (res.status !== 200) {
             console.log("Error when sending information");
             return;
           }
-          console.log(data.updated_comment);
-          this.setState({ comments: data.updated_comment });
+          const newComments = [];
+          data.comments.forEach((comments) => {
+            const comment = {
+              poster: null,
+              content: comments.content,
+              date: "Just Now",
+            };
+            data.id.forEach((id) => {
+              if (id.userID === comments.userID) {
+                comment.poster = id.username;
+              }
+            });
+            newComments.push(comment);
+          });
+          this.setState({ comments: newComments });
         });
       },
-      error => {
+      (error) => {
         console.log(error);
       }
     );
@@ -154,7 +168,7 @@ class EventPage extends React.Component {
           <div id="CommentsContainer">
             {/* <DiscussionBoard comments={this.state.comments[0]}></DiscussionBoard>
                         <DiscussionBoard comments={this.state.comments[1]}></DiscussionBoard> */}
-            {this.state.comments.map(comment => (
+            {this.state.comments.map((comment) => (
               <DiscussionBoard comments={comment} key={uid(comment)} />
             ))}
           </div>

@@ -222,8 +222,7 @@ app.post("/Announcement/:id", validatelogin, (req, res) => {
     userID: req.body.userID,
     date: req.body.date,
   };
-  console.log("==================");
-  console.log(newComment);
+
   Announcements.findById(announcementID)
     .then((result) => {
       const comments = result.comments;
@@ -233,32 +232,31 @@ app.post("/Announcement/:id", validatelogin, (req, res) => {
         announcementID,
         { $set: { comments } },
         { new: true }
-      )
-        .then((updateResult) => {
-          const returnComments = [];
-          Promise.all(
-            updateResult.comments.forEach((element) => {
-              return Users.findById(element.userID).then(
-                (newResult) => {
-                  return {
-                    poster: newResult.username,
-                    content: element.content,
-                    date: "Just now",
-                  };
-                },
-                (error) => {
-                  res.status(500).send(error);
-                }
-              );
-            })
-          );
-        })
-        .then((result) => {
-          res.status(200).json({ updated_comment: result });
-        })
-        .catch((error) => {
-          res.status(500).send();
+      ).then((updateResult) => {
+        const userID = [];
+        updateResult.comments.forEach((element) => {
+          userID.push(element.userID);
         });
+        Users.find({
+          _id: { $in: userID },
+        }).then(
+          (result) => {
+            const userList = [];
+            result.forEach((element) => {
+              userList.push({
+                username: element.username,
+                userID: element._id,
+              });
+            });
+            res
+              .status(200)
+              .json({ comments: updateResult.comments, id: userList });
+          },
+          (error) => {
+            res.status(500).send(error);
+          }
+        );
+      });
     })
     .catch((error) => {
       res.status(404).send(error);
