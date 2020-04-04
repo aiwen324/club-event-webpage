@@ -4,6 +4,12 @@ import Checkbox from "@material-ui/core/Checkbox";
 import "./style.css";
 
 class SurveyQuestion extends React.Component {
+  handleClick = (e, opt_idx) => {
+    const { question } = this.props;
+    question.questionOptions[opt_idx].optionSelectedCount += e.target.checked
+      ? 1
+      : -1;
+  };
   render() {
     // const [checked, setChecked] = React.useState(true);
 
@@ -41,10 +47,11 @@ class SurveyQuestion extends React.Component {
           />
           Not to be.
         </div> */}
-        {options.map((option) => (
+        {options.map((option, opt_idx) => (
           <div className="choice">
             <Checkbox
               // onChange={handleChange}
+              onClick={(e) => this.handleClick(e, opt_idx)}
               value="primary"
               inputProps={{ "aria-label": "primary checkbox" }}
             />

@@ -10,7 +10,12 @@ import SurveyStats from "../SurveyStats/SurveyStats.js";
 import { uid } from "react-uid";
 
 import { Button } from "@material-ui/core";
-import { parseDescript, parseSurvey, submitInfo } from "../../actions/user";
+import {
+  parseDescript,
+  parseSurvey,
+  submitRegister,
+  submitSurvey,
+} from "../../actions/user";
 import Survey from "../Admin_edit/survey";
 
 // import Link from '@material-ui/core/Link'
@@ -40,6 +45,8 @@ class EventPage extends React.Component {
       { poster: "IMNF", content: "I love this activity!", date: "2 hours ago" },
     ],
     announcement: null,
+    response: "",
+    questionMap: {},
   };
 
   handle_input_comment = (event) => {
@@ -66,16 +73,44 @@ class EventPage extends React.Component {
     console.log("Here is the announcement inside event page");
     console.log(announcement);
     this.setState({ announcement });
+    /* questionMap : {
+      question_id: {
+        option_id: true,
+        option_id: false
+      }
+      question_id: {
+        option_id: true,
+        option_id: false
+    }
+    */
+    const questionMap = this.state.questionMap;
+    const surveyQuestions = parseSurvey(announcement);
+    surveyQuestions.map((question) => {
+      if (question.questionType === 1) {
+        // questionMap[question._id] = {
+        //   ...question.questionOptions.map((option) => option.optionContent),
+        // };
+        const optionMap = question.questionOptions
+          .map((option) => option._id)
+          .reduce((acc, curVal) => ({ ...acc, [curVal]: false }), {});
+      }
+    });
   };
 
-  handleClick = (e) => {
+  handleClick = (e, regRequired, surveyFlag) => {
     e.preventDefault();
+    const { announcement } = this.state.announcement;
     const { currentUser } = this.props.app.state;
     if (!currentUser) {
       console.log("Please log in!!!!!");
       return;
     }
-    submitInfo();
+    if (regRequired) {
+      submitRegister(currentUser.userID);
+    }
+    if (surveyFlag) {
+      submitSurvey();
+    }
   };
 
   render() {
@@ -108,11 +143,13 @@ class EventPage extends React.Component {
     let surveyComp = null;
     if (surveyFlag) {
       if (surveyQuestions.length > 0) {
-        surveyComp = surveyQuestions.map((question) => {
+        surveyComp = surveyQuestions.map((question, q_idx) => {
           if (question.questionType === 1) {
-            return <SurveyQuestion question={question} />;
+            return <SurveyQuestion question={question} q_idx={q_idx} />;
           } else if (question.questionType === 0) {
-            return <FreeResponseQuestion question={question} />;
+            return (
+              <FreeResponseQuestion question={question} eventComp={this} />
+            );
           }
         });
         surveyComp = (
@@ -182,7 +219,12 @@ class EventPage extends React.Component {
           </div>
 
           <div id="submit_button">
-            <Button type="submit" variant="contained" color="primary">
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              onClick={(e) => this.handleClick(e, regRequired, surveyFlag)}
+            >
               Register & Submit
             </Button>
           </div>
