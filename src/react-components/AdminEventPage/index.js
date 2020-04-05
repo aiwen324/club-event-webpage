@@ -18,7 +18,7 @@ import { Button } from "@material-ui/core";
 class AdminEventPage extends React.Component {
   state = {
     admin: 0,
-    options: [],
+    survey: [],
     responses: [],
     comments: [],
   };
@@ -27,7 +27,7 @@ class AdminEventPage extends React.Component {
     console.log("hi");
     if (this.state.admin) {
       console.log("get into this.admin scope");
-      const currentAnnouncementID = "5e87aa36b9e8b82618d44460";
+      const currentAnnouncementID = "5e884d42956aa8024ca20d57";
       const url = "/Announcement/" + currentAnnouncementID;
       const request = new Request(url, {
         method: "get",
@@ -42,7 +42,7 @@ class AdminEventPage extends React.Component {
         (res) => {
           res.json().then(
             (data) => {
-              const totalSubmit = data.survey.submittedUsers;
+              const totalSubmit = data.survey.submittedUsers.length;
               const questionData = data.survey.surveyQuestions;
               const textResponse = data.survey.textResponse;
               const stats = [];
@@ -55,7 +55,7 @@ class AdminEventPage extends React.Component {
                 };
                 stats.push(questionObject);
               });
-              this.setState({ options: stats });
+              this.setState({ survey: stats });
 
               textResponse.forEach((response) => {
                 responses.push(response.content);
@@ -73,18 +73,11 @@ class AdminEventPage extends React.Component {
       );
     }
   }
-  state = {
-    input_comment: "",
-    comments: [
-      { poster: "IMNF", content: "I love this activity!", date: "2 hours ago" },
-      { poster: "IMNF", content: "I love this activity!", date: "2 hours ago" },
-    ],
-    options: [],
-    responses: [],
-  };
 
   componentWillMount = () => {
-    this.setState({ admin: this.props.app.state.currentUser.accountType });
+    if (this.props.app.state.currentUser) {
+      this.setState({ admin: this.props.app.state.currentUser.accountType });
+    }
   };
   componentDidMount = () => {
     console.log("Current state of admin is ", this.state.admin);
@@ -144,8 +137,12 @@ class AdminEventPage extends React.Component {
               <SurveyStats /> */}
               {console.log("Current options are", this.state.options)}
               {console.log("Current responses are", this.state.responses)}
-              {this.state.options.map((surveys) => (
-                <SurveyStats options={surveys} key={uid(surveys)} />
+              {console.log("Current responses are", this.state)}
+              {this.state.survey.map((questionObject) => (
+                <SurveyStats
+                  questionObj={questionObject}
+                  key={uid(questionObject)}
+                />
               ))}
             </div>
             {this.state.responses.map((response) => (
