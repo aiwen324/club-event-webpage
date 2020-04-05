@@ -271,40 +271,44 @@ app.post("/Register/:id", validatelogin, (req, res) => {
         return;
       }
 
-      Announcements.findById(announcementID).then(
-        (result) => {
-          if (!result) {
-            res.status(404).send("Announcement does not exist");
+      Announcements.findById(announcementID)
+        .then(
+          (result) => {
+            if (!result) {
+              res.status(404).send("Announcement does not exist");
+              return;
+            }
+
+            const userList = result.registeredUser;
+            userList.forEach((element) => {
+              if (element === userid) {
+                res.status(403).send("User is already registerd");
+                throw Error("Duplicate user detected");
+              }
+            });
+            userList.push(userid);
+
+            Announcements.findByIdAndUpdate(
+              announcementID,
+              { $set: { registeredUser: userList } },
+              { new: true }
+            ).then(
+              (result) => {
+                res.status(200).json(result);
+              },
+              (error) => {
+                res.status(500).send(error);
+              }
+            );
+          },
+          (error) => {
+            res.status(500).send(error);
             return;
           }
-
-          const userList = result.registeredUser;
-          userList.forEach((element) => {
-            if (element === userid) {
-              res.status(500).send("User is already registerd");
-              throw Error("Duplicate user detected");
-            }
-          });
-          userList.push(userid);
-
-          Announcements.findByIdAndUpdate(
-            announcementID,
-            { $set: { registeredUser: userList } },
-            { new: true }
-          ).then(
-            (result) => {
-              res.status(200).json(result);
-            },
-            (error) => {
-              res.status(500).send(error);
-            }
-          );
-        },
-        (error) => {
-          res.status(500).send(error);
-          return;
-        }
-      );
+        )
+        .catch((error) => {
+          console.log(error);
+        });
     })
     .catch((error) => {
       console.log(error);

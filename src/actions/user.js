@@ -39,13 +39,19 @@ export const submitSurvey = (eventComp, currentUser) => {
   console.log("submitSurvey get called");
   const { questionMap, announcement, response } = eventComp.state;
   const optionIDs = [];
+  const filledQuestionID = new Set();
   Object.keys(questionMap).forEach((q_key) => {
     Object.keys(questionMap[q_key]).forEach((opt_key) => {
       if (questionMap[q_key][opt_key]) {
         optionIDs.push({ questionID: q_key, optionID: opt_key });
+        filledQuestionID.add(q_key);
       }
     });
   });
+  if (filledQuestionID.size < Object.keys(questionMap).length) {
+    alert("Please fill out all survey questions!");
+    return;
+  }
   const announcementID = announcement._id;
   const url = `/updateAnnouncementVote/${announcementID}`;
 
@@ -81,8 +87,6 @@ export const submitRegister = (eventComp, currentUser) => {
   const announcementID = announcement._id;
   const url = `/Register/${announcementID}`;
 
-  console.log("userID to pass", currentUser.userID);
-
   const request = new Request(url, {
     method: "post",
     body: JSON.stringify({ userID: currentUser.userID }),
@@ -92,11 +96,18 @@ export const submitRegister = (eventComp, currentUser) => {
     },
   });
 
-  fetch(request).then((res) => {
+  return fetch(request).then((res) => {
     if (res.status === 200) {
       console.log("Sucessful register the user");
+    } else if (res.status === 403) {
+      alert("You've already registered to this event");
+      return;
     } else {
       throw Error;
     }
   });
+};
+
+export const validateSurvey = (questionMap) => {
+  let flag = true;
 };

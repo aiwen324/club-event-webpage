@@ -45,6 +45,7 @@ class EventPage extends React.Component {
       { poster: "IMNF", content: "I love this activity!", date: "2 hours ago" },
     ],
     announcement: null,
+    responseFlag: false,
     response: "",
     questionMap: {},
   };
@@ -90,12 +91,11 @@ class EventPage extends React.Component {
         question.questionOptions.map(
           (option) => (optionMap[option._id] = false)
         );
-        // .reduce((acc, curVal) => ({ ...acc, [curVal]: false }), {});
         questionMap[question._id] = optionMap;
+      } else if (question.questionType === 0) {
+        this.setState({ responseFlag: true });
       }
     });
-    console.log("generate questionMap: ");
-    console.log(questionMap);
     this.setState({ questionMap });
   };
 
@@ -103,11 +103,13 @@ class EventPage extends React.Component {
     e.preventDefault();
     const { currentUser } = this.props.app.state;
     if (!currentUser) {
-      console.log("Please log in!!!!!");
+      alert("Please log in");
       return;
     }
     if (regRequired) {
-      submitRegister(this, currentUser);
+      submitRegister(this, currentUser).catch((error) => {
+        alert("Server Error");
+      });
     }
   };
 
@@ -115,9 +117,13 @@ class EventPage extends React.Component {
     e.preventDefault();
     const { currentUser } = this.props.app.state;
     if (!currentUser) {
-      console.log("Please log in!!!!!");
+      alert("Please log in");
       return;
     }
+    if (this.state.responseFlag && this.state.response === "") {
+      alert("Please fill out all fields");
+    }
+
     if (surveyFlag) {
       submitSurvey(this, currentUser);
     }
