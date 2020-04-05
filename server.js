@@ -350,11 +350,15 @@ app.post("/Register/:id", validatelogin, (req, res) => {
           }
         )
         .catch(error => {
-          console.log(error);
+          if (error.message === "Duplicate user detected") {
+            console.log("Duplicate user detected");
+          } else {
+            console.log(error);
+          }
         });
     })
     .catch(error => {
-      console.log(error);
+      console.log(error.message);
     });
 });
 
