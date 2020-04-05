@@ -42,13 +42,13 @@ const surveyQuestionSchema = new mongoose.Schema({
 });
 
 const responseSchema = new mongoose.Schema({
-  userID: Number,
+  userID: String,
   content: String,
   Date: Date,
 });
 
 const surveySchema = new mongoose.Schema({
-  submittedUsers: { type: [Number], default: [] },
+  submittedUsers: { type: [String], default: [] },
   surveyQuestions: [surveyQuestionSchema],
   textResponse: { type: [responseSchema], default: [] },
 });
@@ -64,7 +64,7 @@ const AnnouncementSchema = new mongoose.Schema({
   text_content: String,
   imgPath: [String],
   registerFields: [FieldSchema],
-  registeredUser: [Number],
+  registeredUser: [String],
   survey: surveySchema,
   comments: { type: [commentSchema], default: [] },
   // If the field is 0, this announcement is not visible to public, else 1.
