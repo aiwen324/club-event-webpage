@@ -16,27 +16,18 @@ import { Button } from "@material-ui/core";
 // import Link from '@material-ui/core/Link'
 
 class AdminEventPage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.admin = props.fromDashboard;
-    this.surveySection = document.querySelector("SurveyPart");
-  }
-
-  adminCheck() {
-    console.log(this.props);
-    if (this.admin === "true") {
-      let child = this.surveySection.lastElementChild;
-      while (child) {
-        this.surveySection.removeChild(child);
-        child = this.surveySection.lastElementChild;
-      }
-    }
-  }
+  state = {
+    admin: 0,
+    options: [],
+    responses: [],
+    comments: [],
+  };
 
   loadStats() {
     console.log("hi");
-    if (this.admin === "true") {
-      const currentAnnouncementID = "5e884d42956aa8024ca20d57";
+    if (this.state.admin) {
+      console.log("get into this.admin scope");
+      const currentAnnouncementID = "5e87aa36b9e8b82618d44460";
       const url = "/Announcement/" + currentAnnouncementID;
       const request = new Request(url, {
         method: "get",
@@ -92,9 +83,14 @@ class AdminEventPage extends React.Component {
     responses: [],
   };
 
-  componentDidMount() {
+  componentWillMount = () => {
+    this.setState({ admin: this.props.app.state.currentUser.accountType });
+  };
+  componentDidMount = () => {
+    console.log("Current state of admin is ", this.state.admin);
     this.loadStats();
-  }
+  };
+
   render() {
     const { commentsTable } = this.props;
 
@@ -146,6 +142,8 @@ class AdminEventPage extends React.Component {
               {/* <SurveyStats />
               <SurveyStats />
               <SurveyStats /> */}
+              {console.log("Current options are", this.state.options)}
+              {console.log("Current responses are", this.state.responses)}
               {this.state.options.map((surveys) => (
                 <SurveyStats options={surveys} key={uid(surveys)} />
               ))}

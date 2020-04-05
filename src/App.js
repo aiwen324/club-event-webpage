@@ -23,7 +23,7 @@ class App extends React.Component {
 
   state = {
     currentUser: null,
-    navBarHidden: false
+    navBarHidden: false,
   };
 
   componentDidUpdate() {
@@ -85,12 +85,12 @@ class App extends React.Component {
             <Route
               exact
               path="/adminEventPage"
-              render={() => <AdminEventPage />}
+              render={() => <AdminEventPage app={this} />}
             />
             <Route
               exact
               path="/adminSurveyPage"
-              render={() => <AdminSurveyPage />}
+              render={() => <AdminSurveyPage app={this} />}
             />
           </Switch>
         </BrowserRouter>
