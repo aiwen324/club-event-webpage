@@ -1,24 +1,18 @@
 .skills {
-    text-align: left;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    color: white;
-    margin-left: 0%;
-  }
-  
+  text-align: left;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: white;
+  margin-left: 0%;
+}
 
-  .tobe {
-    width: 30%; 
-    background-color: #f44336e1;
-  }
+#NotTobe {
+  width: 60%;
+  background-color: #808080e7;
+}
 
-  .NotTobe {
-    width: 60%; 
-    background-color: #808080e7;
-  }
-
-  .container{
-    margin-top: 10pt;
-    margin-left: 30pt;
-    margin-right: 30pt
-  }
+.container {
+  margin-top: 10pt;
+  margin-left: 30pt;
+  margin-right: 30pt;
+}

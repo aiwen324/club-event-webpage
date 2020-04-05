@@ -16,26 +16,17 @@ import { Button } from "@material-ui/core";
 // import Link from '@material-ui/core/Link'
 
 class AdminEventPage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.admin = props.fromDashboard;
-    this.surveySection = document.querySelector("SurveyPart");
-  }
-
-  adminCheck() {
-    console.log(this.props);
-    if (this.admin === "true") {
-      let child = this.surveySection.lastElementChild;
-      while (child) {
-        this.surveySection.removeChild(child);
-        child = this.surveySection.lastElementChild;
-      }
-    }
-  }
+  state = {
+    admin: 0,
+    survey: [],
+    responses: [],
+    comments: [],
+  };
 
   loadStats() {
     console.log("hi");
-    if (this.admin === "true") {
+    if (this.state.admin) {
+      console.log("get into this.admin scope");
       const currentAnnouncementID = "5e884d42956aa8024ca20d57";
       const url = "/Announcement/" + currentAnnouncementID;
       const request = new Request(url, {
@@ -51,7 +42,7 @@ class AdminEventPage extends React.Component {
         (res) => {
           res.json().then(
             (data) => {
-              const totalSubmit = data.survey.submittedUsers;
+              const totalSubmit = data.survey.submittedUsers.length;
               const questionData = data.survey.surveyQuestions;
               const textResponse = data.survey.textResponse;
               const stats = [];
@@ -64,7 +55,7 @@ class AdminEventPage extends React.Component {
                 };
                 stats.push(questionObject);
               });
-              this.setState({ options: stats });
+              this.setState({ survey: stats });
 
               textResponse.forEach((response) => {
                 responses.push(response.content);
@@ -82,19 +73,17 @@ class AdminEventPage extends React.Component {
       );
     }
   }
-  state = {
-    input_comment: "",
-    comments: [
-      { poster: "IMNF", content: "I love this activity!", date: "2 hours ago" },
-      { poster: "IMNF", content: "I love this activity!", date: "2 hours ago" },
-    ],
-    options: [],
-    responses: [],
+
+  componentWillMount = () => {
+    if (this.props.app.state.currentUser) {
+      this.setState({ admin: this.props.app.state.currentUser.accountType });
+    }
+  };
+  componentDidMount = () => {
+    console.log("Current state of admin is ", this.state.admin);
+    this.loadStats();
   };
 
-  componentDidMount() {
-    this.loadStats();
-  }
   render() {
     const { commentsTable } = this.props;
 
@@ -146,8 +135,14 @@ class AdminEventPage extends React.Component {
               {/* <SurveyStats />
               <SurveyStats />
               <SurveyStats /> */}
-              {this.state.options.map((surveys) => (
-                <SurveyStats options={surveys} key={uid(surveys)} />
+              {console.log("Current options are", this.state.options)}
+              {console.log("Current responses are", this.state.responses)}
+              {console.log("Current responses are", this.state)}
+              {this.state.survey.map((questionObject) => (
+                <SurveyStats
+                  questionObj={questionObject}
+                  key={uid(questionObject)}
+                />
               ))}
             </div>
             {this.state.responses.map((response) => (
