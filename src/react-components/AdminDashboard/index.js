@@ -6,6 +6,7 @@ import Surveys from "../Surveys/index.js";
 
 import { Link as RouterLink } from "react-router-dom";
 import Link from "@material-ui/core/Link";
+import { getAnnouncementList } from "../../actions/user";
 
 import "./style.css";
 
@@ -19,7 +20,8 @@ class AdminDashboard extends React.Component {
   }
 
   state = {
-    greeting: null
+    greeting: null,
+    announcements: []
   };
 
   admain_status = 1;
@@ -43,7 +45,28 @@ class AdminDashboard extends React.Component {
       greeting = "Good afternoon";
     }
     this.setState({ greeting });
+    getAnnouncementList(this.props.app, this);
   }
+
+  renderAnnouncementAbstract = announcement => {
+    const title = announcement.title;
+    const text_content = announcement.text_content;
+    console.log(text_content);
+    const paragraphs = text_content
+      .trim()
+      .split(/\n+/)
+      .map(p => p.trim());
+    const firstParagraph = paragraphs.length > 0 ? paragraphs[0] : "";
+    return (
+      <Link
+        underline="none"
+        component={RouterLink}
+        to={{ pathname: "/event", state: { ...announcement } }}
+      >
+        <Posts title={title} paragraph={firstParagraph} />;
+      </Link>
+    );
+  };
 
   render() {
     const { greeting } = this.state;
@@ -65,37 +88,9 @@ class AdminDashboard extends React.Component {
           <DashboardAddButtons />
         </div>
         <div id="posts">
-          <Link underline="none" component={RouterLink} to="/adminEventPage">
-            <Posts />
-          </Link>
-
-          <Link underline="none" component={RouterLink} to="/AdminSurveyPage">
-            <Surveys />
-          </Link>
-
-          <Link underline="none" component={RouterLink} to="/adminEventPage">
-            <Posts />
-          </Link>
-
-          <Link underline="none" component={RouterLink} to="/adminEventPage">
-            <Posts />
-          </Link>
-
-          <Link underline="none" component={RouterLink} to="/adminEventPage">
-            <Posts />
-          </Link>
-
-          <Link underline="none" component={RouterLink} to="/AdminSurveyPage">
-            <Surveys />
-          </Link>
-
-          <Link underline="none" component={RouterLink} to="/adminEventPage">
-            <Posts />
-          </Link>
-
-          <Link underline="none" component={RouterLink} to="/AdminSurveyPage">
-            <Surveys />
-          </Link>
+          {this.state.announcements.map(announcement => {
+            return this.renderAnnouncementAbstract(announcement);
+          })}
         </div>
       </div>
     );
