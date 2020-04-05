@@ -15,6 +15,8 @@ import {
   parseSurvey,
   submitRegister,
   submitSurvey,
+  post_comment,
+  fetchComments,
 } from "../../actions/user";
 import Survey from "../Admin_edit/survey";
 
@@ -58,72 +60,31 @@ class EventPage extends React.Component {
     this.setState({ [name]: value });
   };
 
-  post_comment = (event) => {
-    const currentAnnouncementID = "5e884d42956aa8024ca20d57";
-    const url = "/Announcement/" + currentAnnouncementID;
-    console.log(this.props);
-
-    const dataToSave = {
-      content: this.state.input_comment,
-      userID: this.props.app.state.currentUser.userID,
-    };
-    console.log(dataToSave);
-
-    const request = new Request(url, {
-      method: "post",
-      body: JSON.stringify(dataToSave),
-      headers: {
-        Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/json",
-      },
-    });
-    fetch(request).then(
-      (res) => {
-        res.json().then((data) => {
-          console.log(data);
-          if (res.status !== 200) {
-            console.log("Error when sending information");
-            return;
-          }
-          const newComments = [];
-          data.comments.forEach((comments) => {
-            const comment = {
-              poster: null,
-              content: comments.content,
-              date: "Just Now",
-            };
-            data.id.forEach((id) => {
-              if (id.userID === comments.userID) {
-                comment.poster = id.username;
-              }
-            });
-            newComments.push(comment);
-          });
-          this.setState({ comments: newComments });
-        });
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-
-    this.setState({ input_comment: "" });
-  };
-
   // Initialize the question map
+  /* questionMap : {
+   *     question_id: {
+   *       option_id: true,
+   *       option_id: false
+   *     },
+   *     ...
+   * }
+   */
   componentWillMount = () => {
     const announcement = this.props.location.state;
     console.log("Here is the announcement inside event page");
     console.log(announcement);
     this.setState({ announcement });
-    /* questionMap : {
-     *     question_id: {
-     *       option_id: true,
-     *       option_id: false
-     *     },
-     *     ...
-     * }
-     */
+    fetchComments(announcement)
+      .then((comments) => {
+        if (comments) {
+          this.setState({ comments });
+        }
+      })
+      .catch((error) => {
+        console.log("get error in upper level");
+        console.log(error);
+      });
+
     const questionMap = this.state.questionMap;
     const surveyQuestions = parseSurvey(announcement);
     surveyQuestions.map((question) => {
@@ -318,7 +279,12 @@ class EventPage extends React.Component {
                 value={this.state.input_comment}
                 onChange={this.handle_input_comment}
               ></textarea>
-              <button className="comment-submit" onClick={this.post_comment}>
+              <button
+                className="comment-submit"
+                onClick={() => {
+                  post_comment(this);
+                }}
+              >
                 Send!
               </button>
             </div>

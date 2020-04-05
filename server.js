@@ -261,12 +261,55 @@ app.post("/Announcement/:id", validatelogin, (req, res) => {
       res.status(404).send(error);
     });
 });
+
+app.get("/comment/:id", async (req, res) => {
+  try {
+    const announcementID = req.params.id;
+    if (!ObjectID.isValid(announcementID)) {
+      res.status(404).send();
+      return;
+    }
+
+    const announcement = await Announcements.findById(announcementID);
+    const userID = announcement.comments.map((element) => element.userID);
+    const userArr = await Users.find({ _id: { $in: userID } });
+    const userDict = {};
+    userArr.forEach((element) => {
+      userDict[element._id] = element.username;
+    });
+    // .then((result) => {
+    //   const userID = result.comments.map((element) => element.userID);
+    //   return Users.find({
+    //     _id: { $in: userID },
+    //   });
+    // })
+    // .then((result) => {
+    //   const userList = result.map((element) => {
+    //     return {
+    //       username: element.username,
+    //       userID: element._id,
+    //     };
+    //   });
+    const comments = announcement.comments.map((comment) => {
+      return {
+        _id: comment._id,
+        content: comment.content,
+        userID: comment.userID,
+        poster: userDict[comment.userID],
+      };
+    });
+    res.status(200).json({ comments });
+  } catch (error) {
+    res.status(404).send(error);
+  }
+});
+
 // Register a user to activity, expect a json as follows:
 /*
-    {
-        userID: <userID (Number)>
-    }
-*/
+            {
+              userID: <userID (Number)>
+            }
+            */
 //Upon sucess, return 200 and the updated announcement as json, if post does not exit, print failure.
 app.post("/Register/:id", validatelogin, (req, res) => {
   const announcementID = req.params.id;

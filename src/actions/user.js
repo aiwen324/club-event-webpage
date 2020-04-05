@@ -108,6 +108,84 @@ export const submitRegister = (eventComp, currentUser) => {
   });
 };
 
-export const validateSurvey = (questionMap) => {
-  let flag = true;
+// Helper function for sending the comments
+export const post_comment = (eventComp) => {
+  const { announcement, input_comment } = eventComp.state;
+  const { app } = eventComp.props;
+  const { currentUser } = app.state;
+  const currentAnnouncementID = announcement._id;
+  const url = "/Announcement/" + currentAnnouncementID;
+
+  if (!currentUser) {
+    alert("You must log in too submit the comment");
+    return;
+  }
+
+  const dataToSave = {
+    content: input_comment,
+    userID: currentUser.userID,
+  };
+  console.log(dataToSave);
+
+  const request = new Request(url, {
+    method: "post",
+    body: JSON.stringify(dataToSave),
+    headers: {
+      Accept: "application/json, text/plain, */*",
+      "Content-Type": "application/json",
+    },
+  });
+  fetch(request)
+    .then((res) => {
+      if (res.status !== 200) {
+        console.log("Error when sending information");
+        alert("Server Error when sending request");
+        throw Error;
+      }
+      return res.json();
+    })
+    .then((data) => {
+      console.log(data);
+      const newComments = [];
+      data.comments.forEach((comments) => {
+        const comment = {
+          poster: null,
+          content: comments.content,
+          date: "Just Now",
+        };
+        data.id.forEach((id) => {
+          if (id.userID === comments.userID) {
+            comment.poster = id.username;
+          }
+        });
+        newComments.push(comment);
+      });
+      eventComp.setState({ comments: newComments });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  eventComp.setState({ input_comment: "" });
+};
+
+// Helper function to fetch comments
+export const fetchComments = (announcement) => {
+  const announcementID = announcement._id;
+  const url = `/comment/${announcementID}`;
+  console.log("Sending request to url: ", url);
+  return fetch(url)
+    .then((res) => {
+      console.log("Get response", res);
+      if (res.status === 200) {
+        return res.json();
+      } else {
+        throw Error("Server Error");
+      }
+    })
+    .then((res) => {
+      console.log("Get comments");
+      console.log(res.comments);
+      return res.comments;
+    });
+  // .catch((error) => console.log(error));
 };

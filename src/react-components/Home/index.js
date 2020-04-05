@@ -15,21 +15,21 @@ class Home extends React.Component {
   }
 
   state = {
-    announcements: []
+    announcements: [],
   };
 
   componentDidMount() {
     getAnnouncementList(this.props.app, this);
   }
 
-  renderAnnouncementAbstract = announcement => {
+  renderAnnouncementAbstract = (announcement) => {
     const title = announcement.title;
     const text_content = announcement.text_content;
     console.log(text_content);
     const paragraphs = text_content
       .trim()
       .split(/\n+/)
-      .map(p => p.trim());
+      .map((p) => p.trim());
     const firstParagraph = paragraphs.length > 0 ? paragraphs[0] : "";
     return (
       <Link
@@ -52,10 +52,10 @@ class Home extends React.Component {
           </div>
         </div>
         <div id="homePosts">
-          {this.state.announcements.map(announcement => {
+          {this.state.announcements.map((announcement) => {
             return this.renderAnnouncementAbstract(announcement);
           })}
-          <Link underline="none" component={RouterLink} to="/event">
+          {/* <Link underline="none" component={RouterLink} to="/event">
             <Posts />
           </Link>
 
@@ -67,7 +67,7 @@ class Home extends React.Component {
           </Link>
           <Link underline="none" component={RouterLink} to="/your-target-path">
             <Posts />
-          </Link>
+          </Link> */}
         </div>
         <div id="bottom-padding" />
       </div>
