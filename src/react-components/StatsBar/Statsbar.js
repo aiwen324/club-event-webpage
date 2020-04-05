@@ -1,9 +1,9 @@
 import React from "react";
-import "./statsbar.css";
+import "./Statsbar.css";
 
 class Statsbar extends React.Component {
   state = {
-    width: "0%"
+    width: "0%",
   };
   changeLength() {
     const { optionObj } = this.props;
@@ -30,7 +30,7 @@ class Statsbar extends React.Component {
           id="NotTobe"
           style={{
             width: this.state.width,
-            backgroundColor: "(#808080e7, 0.604)"
+            backgroundColor: "(#808080e7, 0.604)",
           }}
         >
           {" "}
