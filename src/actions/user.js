@@ -108,6 +108,7 @@ export const submitRegister = (eventComp, currentUser) => {
   });
 };
 
+<<<<<<< HEAD
 // Helper function for sending the comments
 export const post_comment = (eventComp) => {
   const { announcement, input_comment } = eventComp.state;
@@ -188,4 +189,8 @@ export const fetchComments = (announcement) => {
       return res.comments;
     });
   // .catch((error) => console.log(error));
+=======
+export const validateSurvey = (questionMap) => {
+  let flag = true;
+>>>>>>> 09e6cad336f528d41b708cf3aead22b85de5508b
 };
