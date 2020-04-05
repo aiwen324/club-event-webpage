@@ -16,7 +16,7 @@ import {
   submitRegister,
   submitSurvey,
   post_comment,
-  fetchComments,
+  fetchComments
 } from "../../actions/user";
 import Survey from "../Admin_edit/survey";
 
@@ -44,15 +44,15 @@ class EventPage extends React.Component {
     input_comment: "",
     comments: [
       { poster: "IMNF", content: "I love this activity!", date: "2 hours ago" },
-      { poster: "IMNF", content: "I love this activity!", date: "2 hours ago" },
+      { poster: "IMNF", content: "I love this activity!", date: "2 hours ago" }
     ],
     announcement: null,
     responseFlag: false,
     response: "",
-    questionMap: {},
+    questionMap: {}
   };
 
-  handle_input_comment = (event) => {
+  handle_input_comment = event => {
     const target = event.target;
     const value = target.value;
     const name = target.name;
@@ -75,24 +75,22 @@ class EventPage extends React.Component {
     console.log(announcement);
     this.setState({ announcement });
     fetchComments(announcement)
-      .then((comments) => {
+      .then(comments => {
         if (comments) {
           this.setState({ comments });
         }
       })
-      .catch((error) => {
+      .catch(error => {
         console.log("get error in upper level");
         console.log(error);
       });
 
     const questionMap = this.state.questionMap;
     const surveyQuestions = parseSurvey(announcement);
-    surveyQuestions.map((question) => {
+    surveyQuestions.map(question => {
       if (question.questionType === 1) {
         const optionMap = {};
-        question.questionOptions.map(
-          (option) => (optionMap[option._id] = false)
-        );
+        question.questionOptions.map(option => (optionMap[option._id] = false));
         questionMap[question._id] = optionMap;
       } else if (question.questionType === 0) {
         this.setState({ responseFlag: true });
@@ -109,7 +107,7 @@ class EventPage extends React.Component {
       return;
     }
     if (regRequired) {
-      submitRegister(this, currentUser).catch((error) => {
+      submitRegister(this, currentUser).catch(error => {
         alert("Server Error");
       });
     }
@@ -135,35 +133,35 @@ class EventPage extends React.Component {
     const { app, commentsTable } = this.props;
 
     let paragraphArr = [
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
     ];
     let title = "Project Demo";
     let imageArr = [
       require("./images/boeing777x.jpeg"),
-      require("./images/shoko-enoshima.jpeg"),
+      require("./images/shoko-enoshima.jpeg")
     ];
     let regRequired = true;
     let surveyFlag = true;
     let surveyQuestions = [];
+    const { currentUser } = app.state;
     if (this.state.announcement) {
       const { announcement } = this.state;
       paragraphArr = parseDescript(announcement);
       imageArr = announcement.imgPath;
-      regRequired = announcement.registerFields ? true : false;
-      surveyFlag = announcement.survey ? true : false;
+      if (currentUser && currentUser.accountType === 1) {
+        regRequired = false;
+        surveyFlag = false;
+      } else {
+        regRequired = announcement.registerFields ? true : false;
+        surveyFlag = announcement.survey ? true : false;
+      }
       surveyQuestions = parseSurvey(announcement);
-      console.log("Get announcement here");
-      console.log(announcement);
     }
-    console.log("surveyQuestions is ");
-    console.log(surveyQuestions);
-    console.log("surveyFlag is ");
-    console.log(surveyFlag);
 
     let surveyComp = null;
     if (surveyFlag) {
       if (surveyQuestions.length > 0) {
-        surveyComp = surveyQuestions.map((question) => {
+        surveyComp = surveyQuestions.map(question => {
           if (question.questionType === 1) {
             return <SurveyQuestion question={question} eventComp={this} />;
           } else if (question.questionType === 0) {
@@ -183,23 +181,11 @@ class EventPage extends React.Component {
                 type="submit"
                 variant="contained"
                 color="primary"
-                onClick={(e) => this.handleSurvey(e, regRequired, surveyFlag)}
+                onClick={e => this.handleSurvey(e, regRequired, surveyFlag)}
               >
                 Submit
               </Button>
             </div>
-          </div>
-        );
-      } else {
-        surveyComp = (
-          <div>
-            <div>
-              <h2 className="event_section_title">Pre-event Survey</h2>
-            </div>
-            <SurveyQuestion />
-            <SurveyQuestion />
-            <SurveyQuestion />
-            <SurveyQuestion />
           </div>
         );
       }
@@ -220,11 +206,11 @@ class EventPage extends React.Component {
             </h3>
           </div>
           <div id="event_details">
-            {paragraphArr.map((paragraph) => (
+            {paragraphArr.map(paragraph => (
               <p>{paragraph}</p>
             ))}
           </div>
-          {imageArr.map((imagePath) => (
+          {imageArr.map(imagePath => (
             <div>
               <img
                 className="event_image"
@@ -245,7 +231,7 @@ class EventPage extends React.Component {
                     type="submit"
                     variant="contained"
                     color="primary"
-                    onClick={(e) =>
+                    onClick={e =>
                       this.handleRegister(e, regRequired, surveyFlag)
                     }
                   >
@@ -263,7 +249,7 @@ class EventPage extends React.Component {
           <div id="CommentsContainer">
             {/* <DiscussionBoard comments={this.state.comments[0]}></DiscussionBoard>
                         <DiscussionBoard comments={this.state.comments[1]}></DiscussionBoard> */}
-            {this.state.comments.map((comment) => (
+            {this.state.comments.map(comment => (
               <DiscussionBoard comments={comment} key={uid(comment)} />
             ))}
           </div>
