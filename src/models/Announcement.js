@@ -5,9 +5,9 @@ const FieldSchema = new mongoose.Schema({
     type: Number,
     required: () => {
       return this.type ? true : false;
-    }
+    },
   },
-  fieldName: String
+  fieldName: String,
 });
 
 const optionSechma = new mongoose.Schema({
@@ -16,47 +16,47 @@ const optionSechma = new mongoose.Schema({
     type: String,
     required: () => {
       return this.optionContent ? false : true;
-    }
+    },
   },
 
-  optionSelectedCount: { type: Number, default: 0 }
+  optionSelectedCount: { type: Number, default: 0 },
 });
 
 const surveyQuestionSchema = new mongoose.Schema({
   // 0 for text, 1 for single selection, 2 for multi-selection
   questionType: {
     type: Number,
-    default: 0
+    default: 0,
   },
 
   questionTitle: {
-    type: String
+    type: String,
   },
 
   questionOptions: {
     type: [optionSechma],
     required: () => {
       return this.questionType !== 0;
-    }
-  }
+    },
+  },
 });
 
 const responseSchema = new mongoose.Schema({
   userID: Number,
   content: String,
-  Date: Date
+  Date: Date,
 });
 
 const surveySchema = new mongoose.Schema({
   submittedUsers: { type: [Number], default: [] },
   surveyQuestions: [surveyQuestionSchema],
-  textResponse: { type: [responseSchema], default: [] }
+  textResponse: { type: [responseSchema], default: [] },
 });
 
 const commentSchema = new mongoose.Schema({
   content: String,
   userID: String,
-  date: Date
+  date: Date,
 });
 
 const AnnouncementSchema = new mongoose.Schema({
@@ -68,7 +68,7 @@ const AnnouncementSchema = new mongoose.Schema({
   survey: surveySchema,
   comments: { type: [commentSchema], default: [] },
   // If the field is 0, this announcement is not visible to public, else 1.
-  visible: Number
+  visible: Number,
 });
 
 const Announcements = mongoose.model("Announcements", AnnouncementSchema);

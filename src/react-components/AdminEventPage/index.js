@@ -34,6 +34,7 @@ class AdminEventPage extends React.Component {
   }
 
   loadStats() {
+    console.log("hi");
     if (this.admin === "true") {
       const currentAnnouncementID = "5e884d42956aa8024ca20d57";
       const url = "/Announcement/" + currentAnnouncementID;
@@ -54,6 +55,7 @@ class AdminEventPage extends React.Component {
               const questionData = data.survey.surveyQuestions;
               const textResponse = data.survey.textResponse;
               const stats = [];
+              const responses = [];
               questionData.forEach((survey_question) => {
                 const questionObject = {
                   question: survey_question.questionTitle,
@@ -63,6 +65,11 @@ class AdminEventPage extends React.Component {
                 stats.push(questionObject);
               });
               this.setState({ options: stats });
+
+              textResponse.forEach((response) => {
+                responses.push(response.content);
+              });
+              this.setState({ responses: responses });
             },
             (error) => {
               console.log(error);
@@ -82,8 +89,12 @@ class AdminEventPage extends React.Component {
       { poster: "IMNF", content: "I love this activity!", date: "2 hours ago" },
     ],
     options: [],
+    responses: [],
   };
 
+  componentDidMount() {
+    this.loadStats();
+  }
   render() {
     const { commentsTable } = this.props;
 
@@ -135,19 +146,21 @@ class AdminEventPage extends React.Component {
               {/* <SurveyStats />
               <SurveyStats />
               <SurveyStats /> */}
-              {this.state.comments.map((surveys) => (
+              {this.state.options.map((surveys) => (
                 <SurveyStats options={surveys} key={uid(surveys)} />
               ))}
             </div>
-            <FreeResponseResult />
+            {this.state.responses.map((response) => (
+              <FreeResponseResult response={response} key={uid(response)} />
+            ))}
             <div className="bottom_padder" />
           </div>
         </div>
 
         <div className="commentSection">
           <div id="CommentsContainer">
-            {this.options.comments.map((comment) => (
-              <DiscussionBoard options={comment} />
+            {this.state.comments.map((comment) => (
+              <DiscussionBoard comments={comment} key={uid(comment)} />
             ))}
           </div>
         </div>
