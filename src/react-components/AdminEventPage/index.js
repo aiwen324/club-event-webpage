@@ -58,9 +58,11 @@ class AdminEventPage extends React.Component {
                 const questionObject = {
                   question: survey_question.questionTitle,
                   options: survey_question.questionOptions,
+                  totalnum: totalSubmit,
                 };
                 stats.push(questionObject);
               });
+              this.setState({ options: stats });
             },
             (error) => {
               console.log(error);

@@ -8,8 +8,18 @@ class SurveyStats extends React.Component {
       <div className="SurveyResult">
         <div className="survey_question">
           <div id="survey_question">{options.question}</div>
+          {options.map((option) => (
+            <div className="container">
+              <div className="skills tobe">
+                {" "}
+                {option.optionContent}:{" "}
+                {Math.round(option.optionSelectedCount / options.totalnum)}%
+              </div>
+              <br />
+            </div>
+          ))}
 
-          <div className="container">
+          {/* <div className="container">
             <div className="skills tobe"> To be: 65%</div>
             <br />
           </div>
@@ -17,7 +27,7 @@ class SurveyStats extends React.Component {
           <div className="container">
             <div className="skills NotTobe"> Not to be: 60%</div>
             <br />
-          </div>
+          </div> */}
         </div>
       </div>
     );
