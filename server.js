@@ -7,7 +7,7 @@ const express = require("express");
 const app = express();
 
 // mongoose and mongo connection
-const { mongoose } = require("./src/db/mongoose");
+const { mongoose } = require("./src/DB/mongoose");
 mongoose.set("useFindAndModify", false);
 
 const { Announcements } = require("./src/models/Announcement");
@@ -213,7 +213,6 @@ app.get("/Announcement/:id", (req, res) => {
 // return a with updated post content
 app.post("/Announcement/:id", validatelogin, (req, res) => {
   const announcementID = req.params.id;
-  console.log(announcementID);
   if (!ObjectID.isValid(announcementID)) {
     res.status(404).send();
   }
@@ -270,30 +269,33 @@ app.post("/Announcement/:id", validatelogin, (req, res) => {
 */
 //Upon sucess, return 200 and the updated announcement as json, if post does not exit, print failure.
 app.post("/Register/:id", validatelogin, (req, res) => {
-  const announcementID = req.param.id;
-  const userid = res.body.userID;
+  const announcementID = req.params.id;
+  const userid = req.body.userID;
 
   if (!ObjectID.isValid(announcementID)) {
     res.status(404).send();
+    return;
   }
 
-  Users.findOne({ userID: userid }).then(
-    (result) => {
+  Users.findById(userid)
+    .then((result) => {
       if (!result) {
         res.status(404).send("User does not exitst");
+        return;
       }
 
       Announcements.findById(announcementID).then(
         (result) => {
           if (!result) {
             res.status(404).send("Announcement does not exist");
+            return;
           }
 
           const userList = result.registeredUser;
           userList.forEach((element) => {
             if (element === userid) {
               res.status(500).send("User is already registerd");
-              return;
+              throw Error("Duplicate user detected");
             }
           });
           userList.push(userid);
@@ -313,13 +315,13 @@ app.post("/Register/:id", validatelogin, (req, res) => {
         },
         (error) => {
           res.status(500).send(error);
+          return;
         }
       );
-    },
-    (error) => {
-      res.status(500).send(error);
-    }
-  );
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 });
 
 // Update the announcement voting result, expect a json as follow
@@ -327,7 +329,7 @@ app.post("/Register/:id", validatelogin, (req, res) => {
     {   
         userID:<userID (Number)>
         optionIDs: [{
-            surveyID: <surveyID (Number)>,
+            questionID: <questionID (Number)>,
             optionID: <optionID (Number)>
         }]     
         textResponse:  <response (Text)>
@@ -360,7 +362,7 @@ app.post("/updateAnnouncementVote/:id", validatelogin, (req, res) => {
       const optionIDs = req.body.optionIDs;
       const surveys = result.survey.surveyQuestions;
       optionIDs.forEach((element) => {
-        let targetSurvey = surveys.id(element.surveyID);
+        let targetSurvey = surveys.id(element.questionID);
         let targetOption = targetSurvey.questionOptions.id(element.optionID);
         targetOption.optionSelectedCount += 1;
       });

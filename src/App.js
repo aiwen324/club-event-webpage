@@ -23,7 +23,7 @@ class App extends React.Component {
 
   state = {
     currentUser: null,
-    navBarHidden: false
+    navBarHidden: false,
   };
 
   componentDidUpdate() {
@@ -74,7 +74,9 @@ class App extends React.Component {
             <Route
               exact
               path="/event"
-              render={() => <EventPage app={this} />}
+              render={({ location }) => (
+                <EventPage app={this} location={location} />
+              )}
             />
             <Route exact path="/survey" render={() => <SurveyPage />} />
             <Route

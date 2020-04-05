@@ -24,7 +24,9 @@
     "validator": "^13.0.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "heroku-postbuild": "npm install && npm run build",
+    "setup": "npm install",
+    "start": "node server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
