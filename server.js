@@ -39,8 +39,8 @@ app.use(
     resave: false,
     cookie: {
       expires: 600000,
-      httppOnly: true
-    }
+      httppOnly: true,
+    },
   })
 );
 
@@ -84,7 +84,7 @@ app.post("/Login", (req, res) => {
 
   Users.findOne({ username: username, password: password })
     .then(
-      result => {
+      (result) => {
         if (!result) {
           res.status(400).send();
           return;
@@ -93,17 +93,17 @@ app.post("/Login", (req, res) => {
           userID: result._id,
           email: result.email,
           username: result.username,
-          accountType: result.accountType
+          accountType: result.accountType,
         };
         req.session.user = currentUser;
 
         res.status(200).json({ currentUser });
       },
-      error => {
+      (error) => {
         res.status(500).send(error);
       }
     )
-    .catch(error => {
+    .catch((error) => {
       console.log("Error: ", error);
     });
 });
@@ -111,7 +111,7 @@ app.post("/Login", (req, res) => {
 // API used to logout
 app.get("/logout", (req, res) => {
   // Remove the session
-  req.session.destroy(error => {
+  req.session.destroy((error) => {
     if (error) {
       res.status(500).send(error);
     } else {
@@ -141,18 +141,18 @@ app.post("/signUp", (req, res) => {
     username: req.body.username,
     password: req.body.password,
     email: req.body.email,
-    phoneNumber: req.body.phoneNumber
+    phoneNumber: req.body.phoneNumber,
   });
   Users.findOne({
-    $or: [{ username: req.body.username }, { email: req.body.email }]
-  }).then(user => {
+    $or: [{ username: req.body.username }, { email: req.body.email }],
+  }).then((user) => {
     if (user) {
       console.log("Find User exists");
       res.status(403).send({ reason: "Duplicated Users" });
     } else {
       newUser.save().then(
-        result => res.status(200).send(),
-        error => {
+        (result) => res.status(200).send(),
+        (error) => {
           res.status(500).send(error);
         }
       );
@@ -165,10 +165,10 @@ app.post("/signUp", (req, res) => {
 app.get("/visableAnnouncements", (req, res) => {
   //work in progress
   Announcements.find({ visable: 1 }).then(
-    result => {
+    (result) => {
       res.status(200).send({ result });
     },
-    error => {
+    (error) => {
       res.status(500).send(error);
     }
   );
@@ -178,10 +178,10 @@ app.get("/visableAnnouncements", (req, res) => {
 //return {[results]}
 app.get("/getAllAnnouncement", (req, res) => {
   Announcements.find().then(
-    result => {
+    (result) => {
       res.send({ result });
     },
-    error => {
+    (error) => {
       res.status(500).send(error);
     }
   );
@@ -190,13 +190,13 @@ app.get("/getAllAnnouncement", (req, res) => {
 // Get Announcement by announcement id
 // return announcement object
 app.get("/Announcement/:id", (req, res) => {
-  const announcementID = req.param.id;
+  const announcementID = req.params.id;
 
   Announcements.findById(announcementID).then(
-    result => {
+    (result) => {
       res.status(200).send(result);
     },
-    error => {
+    (error) => {
       res.status(500).send(error);
     }
   );
@@ -212,7 +212,7 @@ app.get("/Announcement/:id", (req, res) => {
 */
 // return a with updated post content
 app.post("/Announcement/:id", validatelogin, (req, res) => {
-  const announcementID = req.param.id;
+  const announcementID = req.params.id;
 
   if (!ObjectID.isValid(announcementID)) {
     res.status(404).send();
@@ -221,11 +221,11 @@ app.post("/Announcement/:id", validatelogin, (req, res) => {
   const newComment = {
     content: req.body.content,
     userID: req.body.userID,
-    date: req.body.date
+    date: req.body.date,
   };
 
   Announcements.findById(announcementID).then(
-    result => {
+    (result) => {
       const comment = result.comments;
       comment.push(newComment);
 
@@ -234,15 +234,15 @@ app.post("/Announcement/:id", validatelogin, (req, res) => {
         { $set: { comments: Comment } },
         { new: true }
       ).then(
-        updateResult => {
+        (updateResult) => {
           res.status(200).json(updateResult);
         },
-        error => {
+        (error) => {
           res.status(500).send(error);
         }
       );
     },
-    error => {
+    (error) => {
       res.status(404).send(error);
     }
   );
@@ -256,30 +256,33 @@ app.post("/Announcement/:id", validatelogin, (req, res) => {
 */
 //Upon sucess, return 200 and the updated announcement as json, if post does not exit, print failure.
 app.post("/Register/:id", validatelogin, (req, res) => {
-  const announcementID = req.param.id;
-  const userid = res.body.userID;
+  const announcementID = req.params.id;
+  const userid = req.body.userID;
 
   if (!ObjectID.isValid(announcementID)) {
     res.status(404).send();
+    return;
   }
 
-  Users.findOne({ userID: userid }).then(
-    result => {
+  Users.findById(userid)
+    .then((result) => {
       if (!result) {
         res.status(404).send("User does not exitst");
+        return;
       }
 
       Announcements.findById(announcementID).then(
-        result => {
+        (result) => {
           if (!result) {
             res.status(404).send("Announcement does not exist");
+            return;
           }
 
           const userList = result.registeredUser;
-          userList.forEach(element => {
+          userList.forEach((element) => {
             if (element === userid) {
               res.status(500).send("User is already registerd");
-              return;
+              throw Error("Duplicate user detected");
             }
           });
           userList.push(userid);
@@ -289,23 +292,24 @@ app.post("/Register/:id", validatelogin, (req, res) => {
             { $set: { registeredUser: userList } },
             { new: true }
           ).then(
-            result => {
+            (result) => {
+              console.log(result);
               res.status(200).json(result);
             },
-            error => {
+            (error) => {
               res.status(500).send(error);
             }
           );
         },
-        error => {
+        (error) => {
           res.status(500).send(error);
+          return;
         }
       );
-    },
-    error => {
-      res.status(500).send(error);
-    }
-  );
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 });
 
 // Update the announcement voting result, expect a json as follow
@@ -313,7 +317,7 @@ app.post("/Register/:id", validatelogin, (req, res) => {
     {   
         userID:<userID (Number)>
         optionIDs: [{
-            surveyID: <surveyID (Number)>,
+            questionID: <questionID (Number)>,
             optionID: <optionID (Number)>
         }]     
         textResponse:  <response (Text)>
@@ -329,14 +333,14 @@ app.post("/updateAnnouncementVote/:id", validatelogin, (req, res) => {
   }
 
   Announcements.findById(announcementID).then(
-    result => {
+    (result) => {
       if (!result) {
         res.status(404).send();
         return;
       }
 
       const submittedUser = result.survey.submittedUsers;
-      submittedUser.forEach(user => {
+      submittedUser.forEach((user) => {
         if (user === userID) {
           res.status(400).send();
           return;
@@ -345,8 +349,8 @@ app.post("/updateAnnouncementVote/:id", validatelogin, (req, res) => {
 
       const optionIDs = req.body.optionIDs;
       const surveys = result.survey.surveyQuestions;
-      optionIDs.forEach(element => {
-        let targetSurvey = surveys.id(element.surveyID);
+      optionIDs.forEach((element) => {
+        let targetSurvey = surveys.id(element.questionID);
         let targetOption = targetSurvey.questionOptions.id(element.optionID);
         targetOption.optionSelectedCount += 1;
       });
@@ -354,22 +358,22 @@ app.post("/updateAnnouncementVote/:id", validatelogin, (req, res) => {
       const newResponse = {
         userID: userID,
         content: req.body.textResponse,
-        Date: req.body.date
+        Date: req.body.date,
       };
 
       result.survey.textResponse.push(newResponse);
       result.survey.surveyQuestions = surveys;
       result.survey.submittedUsers.push(userID);
       result.save().then(
-        result => {
+        (result) => {
           res.status(200).send();
         },
-        error => {
+        (error) => {
           res.status(500).send(error);
         }
       );
     },
-    error => {
+    (error) => {
       res.status(500).send(error);
     }
   );
@@ -381,7 +385,7 @@ app.post("/addNewEvent", validatelogin, (req, res) => {
   const userID = req.session.user.userID;
   console.log("Get here");
   Users.findById(userID).then(
-    result => {
+    (result) => {
       if (!result) {
         res.status(404).send();
         return;
@@ -399,7 +403,7 @@ app.post("/addNewEvent", validatelogin, (req, res) => {
         registeredUser: [],
         survey: req.body.survey,
         comments: [],
-        visable: req.body.visable
+        visable: req.body.visable,
       });
 
       console.log("Get here");
@@ -407,15 +411,15 @@ app.post("/addNewEvent", validatelogin, (req, res) => {
       console.log(newAnnonucement);
 
       newAnnonucement.save().then(
-        result => {
+        (result) => {
           res.status(200).send();
         },
-        error => {
+        (error) => {
           res.status(500).send(error);
         }
       );
     },
-    error => {
+    (error) => {
       res.status(500).send(error);
     }
   );

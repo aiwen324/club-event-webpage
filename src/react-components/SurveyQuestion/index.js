@@ -4,58 +4,44 @@ import Checkbox from "@material-ui/core/Checkbox";
 import "./style.css";
 
 class SurveyQuestion extends React.Component {
-  handleClick = (e, opt_idx) => {
-    const { question } = this.props;
-    question.questionOptions[opt_idx].optionSelectedCount += e.target.checked
-      ? 1
-      : -1;
+  handleClick = (e, opt_id) => {
+    const { eventComp, question } = this.props;
+    const { questionMap } = eventComp.state;
+    questionMap[question._id][opt_id] = e.target.checked;
+    eventComp.setState({ questionMap });
   };
+
   render() {
-    // const [checked, setChecked] = React.useState(true);
-
-    // const handleChange = event => {
-    //     setChecked(event.target.checked);
-    // };
-
-    const { question } = this.props;
+    const { question, eventComp } = this.props;
     let title = "This is the question";
-    let options = ["To be", "Not to be"];
+    let options = [
+      {
+        optionSelectedCount: 0,
+        _id: "11111",
+        optionContent: "To be",
+      },
+      {
+        optionSelectedCount: 0,
+        _id: "22222",
+        optionContent: "Not to be",
+      },
+    ];
     if (question) {
       title = question.questionTitle;
-      options = question.questionOptions.map(
-        (optionObject) => optionObject.optionContent
-      );
+      options = question.questionOptions;
     }
-    console.log("Get options");
-    console.log(options);
     return (
       <div className="survey_question">
         <div id="survey_question">{title}</div>
-        {/* <div className="choice">
-          <Checkbox
-            // onChange={handleChange}
-            value="primary"
-            inputProps={{ "aria-label": "primary checkbox" }}
-          />
-          To be.
-        </div>
-        <div className="choice">
-          <Checkbox
-            // onChange={handleChange}
-            value="primary"
-            inputProps={{ "aria-label": "primary checkbox" }}
-          />
-          Not to be.
-        </div> */}
-        {options.map((option, opt_idx) => (
+        {options.map((option) => (
           <div className="choice">
             <Checkbox
-              // onChange={handleChange}
-              onClick={(e) => this.handleClick(e, opt_idx)}
+              checked={eventComp.state.questionMap[question._id][option._id]}
+              onClick={(e) => this.handleClick(e, option._id)}
               value="primary"
               inputProps={{ "aria-label": "primary checkbox" }}
             />
-            {option}
+            {option.optionContent}
           </div>
         ))}
       </div>

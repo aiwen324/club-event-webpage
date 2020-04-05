@@ -68,48 +68,58 @@ class EventPage extends React.Component {
     this.setState({ input_comment: "" });
   };
 
-  componentDidMount = () => {
+  // Initialize the question map
+  componentWillMount = () => {
     const announcement = this.props.location.state;
     console.log("Here is the announcement inside event page");
     console.log(announcement);
     this.setState({ announcement });
     /* questionMap : {
-      question_id: {
-        option_id: true,
-        option_id: false
-      }
-      question_id: {
-        option_id: true,
-        option_id: false
-    }
-    */
+     *     question_id: {
+     *       option_id: true,
+     *       option_id: false
+     *     },
+     *     ...
+     * }
+     */
     const questionMap = this.state.questionMap;
     const surveyQuestions = parseSurvey(announcement);
     surveyQuestions.map((question) => {
       if (question.questionType === 1) {
-        // questionMap[question._id] = {
-        //   ...question.questionOptions.map((option) => option.optionContent),
-        // };
-        const optionMap = question.questionOptions
-          .map((option) => option._id)
-          .reduce((acc, curVal) => ({ ...acc, [curVal]: false }), {});
+        const optionMap = {};
+        question.questionOptions.map(
+          (option) => (optionMap[option._id] = false)
+        );
+        // .reduce((acc, curVal) => ({ ...acc, [curVal]: false }), {});
+        questionMap[question._id] = optionMap;
       }
     });
+    console.log("generate questionMap: ");
+    console.log(questionMap);
+    this.setState({ questionMap });
   };
 
-  handleClick = (e, regRequired, surveyFlag) => {
+  handleRegister = (e, regRequired) => {
     e.preventDefault();
-    const { announcement } = this.state.announcement;
     const { currentUser } = this.props.app.state;
     if (!currentUser) {
       console.log("Please log in!!!!!");
       return;
     }
     if (regRequired) {
-      submitRegister(currentUser.userID);
+      submitRegister(this, currentUser);
+    }
+  };
+
+  handleSurvey = (e, surveyFlag) => {
+    e.preventDefault();
+    const { currentUser } = this.props.app.state;
+    if (!currentUser) {
+      console.log("Please log in!!!!!");
+      return;
     }
     if (surveyFlag) {
-      submitSurvey();
+      submitSurvey(this, currentUser);
     }
   };
 
@@ -134,6 +144,8 @@ class EventPage extends React.Component {
       regRequired = announcement.registerFields ? true : false;
       surveyFlag = announcement.survey ? true : false;
       surveyQuestions = parseSurvey(announcement);
+      console.log("Get announcement here");
+      console.log(announcement);
     }
     console.log("surveyQuestions is ");
     console.log(surveyQuestions);
@@ -143,9 +155,9 @@ class EventPage extends React.Component {
     let surveyComp = null;
     if (surveyFlag) {
       if (surveyQuestions.length > 0) {
-        surveyComp = surveyQuestions.map((question, q_idx) => {
+        surveyComp = surveyQuestions.map((question) => {
           if (question.questionType === 1) {
-            return <SurveyQuestion question={question} q_idx={q_idx} />;
+            return <SurveyQuestion question={question} eventComp={this} />;
           } else if (question.questionType === 0) {
             return (
               <FreeResponseQuestion question={question} eventComp={this} />
@@ -158,6 +170,16 @@ class EventPage extends React.Component {
               <h2 className="event_section_title">Pre-event Survey</h2>
             </div>
             {surveyComp}
+            <div id="submit_button">
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                onClick={(e) => this.handleSurvey(e, regRequired, surveyFlag)}
+              >
+                Submit
+              </Button>
+            </div>
           </div>
         );
       } else {
@@ -204,29 +226,27 @@ class EventPage extends React.Component {
             </div>
           ))}
           <div id="SurveyPart">
-            <div>
-              <h2 className="event_section_title">Registration Form</h2>
-            </div>
             {regRequired ? (
               <div>
                 <div>
                   <h2 className="event_section_title">Registration Form</h2>
                 </div>
                 <Event_register />
+                <div id="submit_button">
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    onClick={(e) =>
+                      this.handleRegister(e, regRequired, surveyFlag)
+                    }
+                  >
+                    Register
+                  </Button>
+                </div>
               </div>
             ) : null}
             {surveyComp}
-          </div>
-
-          <div id="submit_button">
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              onClick={(e) => this.handleClick(e, regRequired, surveyFlag)}
-            >
-              Register & Submit
-            </Button>
           </div>
           <div className="bottom_padder" />
         </div>
