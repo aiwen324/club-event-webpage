@@ -23,7 +23,7 @@ class App extends React.Component {
 
   state = {
     currentUser: null,
-    navBarHidden: false
+    navBarHidden: false,
   };
 
   componentDidUpdate() {
@@ -71,12 +71,18 @@ class App extends React.Component {
               path="/signUp"
               render={({ history }) => <SignUp history={history} />}
             />
-            <Route exact path="/event" render={() => <EventPage />} />
+            <Route
+              exact
+              path="/event"
+              render={({ location }) => (
+                <EventPage app={this} location={location} />
+              )}
+            />
             <Route exact path="/survey" render={() => <SurveyPage />} />
             <Route
               exact
               path="/admin/edit_announce"
-              render={() => <AdminEdit />}
+              render={({ history }) => <AdminEdit history={history} />}
             />
             <Route
               exact
