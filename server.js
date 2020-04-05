@@ -390,12 +390,13 @@ app.post("/updateAnnouncementVote/:id", validatelogin, (req, res) => {
       }
 
       const submittedUser = result.survey.submittedUsers;
-      submittedUser.forEach(user => {
+
+      for (let user of submittedUser) {
         if (user === userID) {
           res.status(400).send();
           return;
         }
-      });
+      }
 
       const optionIDs = req.body.optionIDs;
       const surveys = result.survey.surveyQuestions;

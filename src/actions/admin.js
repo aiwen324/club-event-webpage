@@ -131,7 +131,7 @@ export const uploadImages = adminComp => {
       return Promise.all(jsonArr);
     })
     .then(jsonArr => {
-      console.log("Get following response: ");
+      console.log("Get folresponses = textResponse.map(response: ");
       console.log(jsonArr);
       const urlArr = jsonArr.map(jsonData => jsonData.url);
       return urlArr;
@@ -142,3 +142,85 @@ export const uploadImages = adminComp => {
       return [];
     });
 };
+
+export const loadStats = async (eventComp, currentUser, announcement) => {
+  console.log("hi");
+  const isAdmin = currentUser && currentUser.accountType && 1;
+  const announcementID = announcement._id;
+  if (isAdmin) {
+    console.log("get into this.admin scope");
+    const url = `/Announcement/${announcementID}`;
+    const request = new Request(url, {
+      method: "get",
+      body: null,
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json"
+      }
+    });
+    try {
+      const res = await fetch(request);
+      if (res.status === 200) {
+        const data = await res.json();
+        const questionData = data.survey.surveyQuestions;
+        const textResponse = data.survey.textResponse;
+        const stats = [];
+        questionData.forEach(survey_question => {
+          let totalnum = 0;
+          if (survey_question.questionType === 1) {
+            totalnum = survey_question.questionOptions.reduce(
+              (prev, curr) => prev + curr.optionSelectedCount,
+              0
+            );
+            stats.push({
+              question: survey_question.questionTitle,
+              options: survey_question.questionOptions,
+              totalnum
+            });
+          }
+        });
+        const responses = textResponse.map(response => response.content);
+        console.log("Get responses");
+        console.log(responses);
+        eventComp.setState({ responses, survey: stats });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+};
+
+//   fetch(request).then(
+//     res => {
+//       res.json().then(
+//         data => {
+//           const totalSubmit = data.survey.submittedUsers.length;
+//           const questionData = data.survey.surveyQuestions;
+//           conresponses = textResponse.map(response = data.survresponses = textResponse.map(response;
+//           const stats = [];
+//          responses = textResponse.map(responses = [];
+//           questionData.forEach(survey_question => {
+//             const questionObject = {
+//               question: survey_question.questionTitle,
+//               options: survey_question.questionOptions,
+//               totalnum: totalSubmit
+//             };
+//             stats.push(questionObject);
+//           });
+//           this.setState({ survey: stats });
+
+//        responses = textResponse.map(response.fresponses = textResponse.map(response => {
+//      responses = textResponse.map(response.content);
+//           });
+//           this.setSresponses = textResponse.map(responses });
+//         },
+//         error => {
+//           console.log(error);
+//         }
+//       );
+//     },
+//     error => {
+//       console.log(error);
+//     }
+//   );
+// }

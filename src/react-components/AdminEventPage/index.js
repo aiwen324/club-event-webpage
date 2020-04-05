@@ -20,54 +20,54 @@ class AdminEventPage extends React.Component {
     admin: 0,
     survey: [],
     responses: [],
-    comments: [],
+    comments: []
   };
 
   loadStats() {
     console.log("hi");
     if (this.state.admin) {
       console.log("get into this.admin scope");
-      const currentAnnouncementID = "5e884d42956aa8024ca20d57";
+      const currentAnnouncementID = "5e87aa36b9e8b82618d44460";
       const url = "/Announcement/" + currentAnnouncementID;
       const request = new Request(url, {
         method: "get",
         body: null,
         headers: {
           Accept: "application/json, text/plain, */*",
-          "Content-Type": "application/json",
-        },
+          "Content-Type": "application/json"
+        }
       });
 
       fetch(request).then(
-        (res) => {
+        res => {
           res.json().then(
-            (data) => {
+            data => {
               const totalSubmit = data.survey.submittedUsers.length;
               const questionData = data.survey.surveyQuestions;
               const textResponse = data.survey.textResponse;
               const stats = [];
               const responses = [];
-              questionData.forEach((survey_question) => {
+              questionData.forEach(survey_question => {
                 const questionObject = {
                   question: survey_question.questionTitle,
                   options: survey_question.questionOptions,
-                  totalnum: totalSubmit,
+                  totalnum: totalSubmit
                 };
                 stats.push(questionObject);
               });
               this.setState({ survey: stats });
 
-              textResponse.forEach((response) => {
+              textResponse.forEach(response => {
                 responses.push(response.content);
               });
               this.setState({ responses: responses });
             },
-            (error) => {
+            error => {
               console.log(error);
             }
           );
         },
-        (error) => {
+        error => {
           console.log(error);
         }
       );
@@ -138,14 +138,14 @@ class AdminEventPage extends React.Component {
               {console.log("Current options are", this.state.options)}
               {console.log("Current responses are", this.state.responses)}
               {console.log("Current responses are", this.state)}
-              {this.state.survey.map((questionObject) => (
+              {this.state.survey.map(questionObject => (
                 <SurveyStats
                   questionObj={questionObject}
                   key={uid(questionObject)}
                 />
               ))}
             </div>
-            {this.state.responses.map((response) => (
+            {this.state.responses.map(response => (
               <FreeResponseResult response={response} key={uid(response)} />
             ))}
             <div className="bottom_padder" />
@@ -154,7 +154,7 @@ class AdminEventPage extends React.Component {
 
         <div className="commentSection">
           <div id="CommentsContainer">
-            {this.state.comments.map((comment) => (
+            {this.state.comments.map(comment => (
               <DiscussionBoard comments={comment} key={uid(comment)} />
             ))}
           </div>

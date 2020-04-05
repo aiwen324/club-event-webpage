@@ -5,16 +5,17 @@ class Statsbar extends React.Component {
   changeLength() {
     const { optionObj } = this.props;
     const element = document.getElementById("NotTobe");
-    console.log("=============");
-    console.log(optionObj.optionSelectedCount);
-    console.log("=============");
-    console.log(optionObj);
     if (isNaN(optionObj.optionSelectedCount / optionObj.totalnum)) {
       element.style.width = 0 + "%";
     } else {
+      console.log("Here is the current status of optionObj");
+      console.log(
+        `optionSelectedCount: ${optionObj.optionSelectedCount} optionObj.totalnum: ${optionObj.totalnum}`
+      );
       element.style.width =
         Math.round((optionObj.optionSelectedCount / optionObj.totalnum) * 100) +
         "%";
+      console.log(`element.style.width is: ${element.style.width}`);
     }
   }
 
