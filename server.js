@@ -7,7 +7,7 @@ const express = require("express");
 const app = express();
 
 // mongoose and mongo connection
-const { mongoose } = require("./src/db/mongoose");
+const { mongoose } = require("./src/DB/mongoose");
 mongoose.set("useFindAndModify", false);
 
 const { Announcements } = require("./src/models/Announcement");
@@ -293,7 +293,6 @@ app.post("/Register/:id", validatelogin, (req, res) => {
             { new: true }
           ).then(
             (result) => {
-              console.log(result);
               res.status(200).json(result);
             },
             (error) => {
