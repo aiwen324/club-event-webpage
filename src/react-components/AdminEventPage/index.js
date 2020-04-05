@@ -9,6 +9,8 @@ import FreeResponseQuestion from "../FreeResponseQuestion";
 import SurveyStats from "../SurveyStats/SurveyStats.js";
 import FreeResponseResult from "../FreeResponseResult/Comment.js";
 
+import { uid } from "react-uid";
+
 import { Button } from "@material-ui/core";
 
 // import Link from '@material-ui/core/Link'
@@ -57,6 +59,7 @@ class AdminEventPage extends React.Component {
                   question: survey_question.questionTitle,
                   options: survey_question.questionOptions,
                 };
+                stats.push(questionObject);
               });
             },
             (error) => {
@@ -127,9 +130,12 @@ class AdminEventPage extends React.Component {
               <h2 className="event_section_title">Pre-event Survey</h2>
             </div>
             <div className="surveyResult">
+              {/* <SurveyStats />
               <SurveyStats />
-              <SurveyStats />
-              <SurveyStats />
+              <SurveyStats /> */}
+              {this.state.comments.map((surveys) => (
+                <SurveyStats options={surveys} key={uid(surveys)} />
+              ))}
             </div>
             <FreeResponseResult />
             <div className="bottom_padder" />
@@ -138,8 +144,8 @@ class AdminEventPage extends React.Component {
 
         <div className="commentSection">
           <div id="CommentsContainer">
-            {this.state.comments.map((comment) => (
-              <DiscussionBoard comments={comment} />
+            {this.options.comments.map((comment) => (
+              <DiscussionBoard options={comment} />
             ))}
           </div>
         </div>
