@@ -55,7 +55,7 @@ class Home extends React.Component {
           {this.state.announcements.map(announcement => {
             return this.renderAnnouncementAbstract(announcement);
           })}
-          <Link underline="none" component={RouterLink} to="/event">
+          {/* <Link underline="none" component={RouterLink} to="/event">
             <Posts />
           </Link>
 
@@ -67,7 +67,7 @@ class Home extends React.Component {
           </Link>
           <Link underline="none" component={RouterLink} to="/your-target-path">
             <Posts />
-          </Link>
+          </Link> */}
         </div>
         <div id="bottom-padding" />
       </div>

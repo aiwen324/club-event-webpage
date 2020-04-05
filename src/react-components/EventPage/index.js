@@ -15,6 +15,8 @@ import {
   parseSurvey,
   submitRegister,
   submitSurvey,
+  post_comment,
+  fetchComments
 } from "../../actions/user";
 import Survey from "../Admin_edit/survey";
 
@@ -42,14 +44,15 @@ class EventPage extends React.Component {
     input_comment: "",
     comments: [
       { poster: "IMNF", content: "I love this activity!", date: "2 hours ago" },
-      { poster: "IMNF", content: "I love this activity!", date: "2 hours ago" },
+      { poster: "IMNF", content: "I love this activity!", date: "2 hours ago" }
     ],
     announcement: null,
+    responseFlag: false,
     response: "",
-    questionMap: {},
+    questionMap: {}
   };
 
-  handle_input_comment = (event) => {
+  handle_input_comment = event => {
     const target = event.target;
     const value = target.value;
     const name = target.name;
@@ -57,86 +60,42 @@ class EventPage extends React.Component {
     this.setState({ [name]: value });
   };
 
-  post_comment = (event) => {
-    const currentAnnouncementID = "5e884d42956aa8024ca20d57";
-    const url = "/Announcement/" + currentAnnouncementID;
-    console.log(this.props);
-
-    const dataToSave = {
-      content: this.state.input_comment,
-      userID: this.props.app.state.currentUser.userID,
-    };
-    console.log(dataToSave);
-
-    const request = new Request(url, {
-      method: "post",
-      body: JSON.stringify(dataToSave),
-      headers: {
-        Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/json",
-      },
-    });
-    fetch(request).then(
-      (res) => {
-        res.json().then((data) => {
-          console.log(data);
-          if (res.status !== 200) {
-            console.log("Error when sending information");
-            return;
-          }
-          const newComments = [];
-          data.comments.forEach((comments) => {
-            const comment = {
-              poster: null,
-              content: comments.content,
-              date: "Just Now",
-            };
-            data.id.forEach((id) => {
-              if (id.userID === comments.userID) {
-                comment.poster = id.username;
-              }
-            });
-            newComments.push(comment);
-          });
-          this.setState({ comments: newComments });
-        });
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-
-    this.setState({ input_comment: "" });
-  };
-
   // Initialize the question map
+  /* questionMap : {
+   *     question_id: {
+   *       option_id: true,
+   *       option_id: false
+   *     },
+   *     ...
+   * }
+   */
   componentWillMount = () => {
     const announcement = this.props.location.state;
     console.log("Here is the announcement inside event page");
     console.log(announcement);
     this.setState({ announcement });
-    /* questionMap : {
-     *     question_id: {
-     *       option_id: true,
-     *       option_id: false
-     *     },
-     *     ...
-     * }
-     */
+    fetchComments(announcement)
+      .then(comments => {
+        if (comments) {
+          this.setState({ comments });
+        }
+      })
+      .catch(error => {
+        console.log("get error in upper level");
+        console.log(error);
+      });
+
     const questionMap = this.state.questionMap;
     const surveyQuestions = parseSurvey(announcement);
-    surveyQuestions.map((question) => {
+    surveyQuestions.map(question => {
       if (question.questionType === 1) {
         const optionMap = {};
-        question.questionOptions.map(
-          (option) => (optionMap[option._id] = false)
-        );
-        // .reduce((acc, curVal) => ({ ...acc, [curVal]: false }), {});
+        question.questionOptions.map(option => (optionMap[option._id] = false));
         questionMap[question._id] = optionMap;
+      } else if (question.questionType === 0) {
+        this.setState({ responseFlag: true });
       }
     });
-    console.log("generate questionMap: ");
-    console.log(questionMap);
     this.setState({ questionMap });
   };
 
@@ -144,11 +103,13 @@ class EventPage extends React.Component {
     e.preventDefault();
     const { currentUser } = this.props.app.state;
     if (!currentUser) {
-      console.log("Please log in!!!!!");
+      alert("Please log in");
       return;
     }
     if (regRequired) {
-      submitRegister(this, currentUser);
+      submitRegister(this, currentUser).catch(error => {
+        alert("Server Error");
+      });
     }
   };
 
@@ -156,9 +117,13 @@ class EventPage extends React.Component {
     e.preventDefault();
     const { currentUser } = this.props.app.state;
     if (!currentUser) {
-      console.log("Please log in!!!!!");
+      alert("Please log in");
       return;
     }
+    if (this.state.responseFlag && this.state.response === "") {
+      alert("Please fill out all fields");
+    }
+
     if (surveyFlag) {
       submitSurvey(this, currentUser);
     }
@@ -168,35 +133,35 @@ class EventPage extends React.Component {
     const { app, commentsTable } = this.props;
 
     let paragraphArr = [
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
     ];
     let title = "Project Demo";
     let imageArr = [
       require("./images/boeing777x.jpeg"),
-      require("./images/shoko-enoshima.jpeg"),
+      require("./images/shoko-enoshima.jpeg")
     ];
     let regRequired = true;
     let surveyFlag = true;
     let surveyQuestions = [];
+    const { currentUser } = app.state;
     if (this.state.announcement) {
       const { announcement } = this.state;
       paragraphArr = parseDescript(announcement);
       imageArr = announcement.imgPath;
-      regRequired = announcement.registerFields ? true : false;
-      surveyFlag = announcement.survey ? true : false;
+      if (currentUser && currentUser.accountType === 1) {
+        regRequired = false;
+        surveyFlag = false;
+      } else {
+        regRequired = announcement.registerFields ? true : false;
+        surveyFlag = announcement.survey ? true : false;
+      }
       surveyQuestions = parseSurvey(announcement);
-      console.log("Get announcement here");
-      console.log(announcement);
     }
-    console.log("surveyQuestions is ");
-    console.log(surveyQuestions);
-    console.log("surveyFlag is ");
-    console.log(surveyFlag);
 
     let surveyComp = null;
     if (surveyFlag) {
       if (surveyQuestions.length > 0) {
-        surveyComp = surveyQuestions.map((question) => {
+        surveyComp = surveyQuestions.map(question => {
           if (question.questionType === 1) {
             return <SurveyQuestion question={question} eventComp={this} />;
           } else if (question.questionType === 0) {
@@ -216,23 +181,11 @@ class EventPage extends React.Component {
                 type="submit"
                 variant="contained"
                 color="primary"
-                onClick={(e) => this.handleSurvey(e, regRequired, surveyFlag)}
+                onClick={e => this.handleSurvey(e, regRequired, surveyFlag)}
               >
                 Submit
               </Button>
             </div>
-          </div>
-        );
-      } else {
-        surveyComp = (
-          <div>
-            <div>
-              <h2 className="event_section_title">Pre-event Survey</h2>
-            </div>
-            <SurveyQuestion />
-            <SurveyQuestion />
-            <SurveyQuestion />
-            <SurveyQuestion />
           </div>
         );
       }
@@ -253,11 +206,11 @@ class EventPage extends React.Component {
             </h3>
           </div>
           <div id="event_details">
-            {paragraphArr.map((paragraph) => (
+            {paragraphArr.map(paragraph => (
               <p>{paragraph}</p>
             ))}
           </div>
-          {imageArr.map((imagePath) => (
+          {imageArr.map(imagePath => (
             <div>
               <img
                 className="event_image"
@@ -278,7 +231,7 @@ class EventPage extends React.Component {
                     type="submit"
                     variant="contained"
                     color="primary"
-                    onClick={(e) =>
+                    onClick={e =>
                       this.handleRegister(e, regRequired, surveyFlag)
                     }
                   >
@@ -296,7 +249,7 @@ class EventPage extends React.Component {
           <div id="CommentsContainer">
             {/* <DiscussionBoard comments={this.state.comments[0]}></DiscussionBoard>
                         <DiscussionBoard comments={this.state.comments[1]}></DiscussionBoard> */}
-            {this.state.comments.map((comment) => (
+            {this.state.comments.map(comment => (
               <DiscussionBoard comments={comment} key={uid(comment)} />
             ))}
           </div>
@@ -312,7 +265,12 @@ class EventPage extends React.Component {
                 value={this.state.input_comment}
                 onChange={this.handle_input_comment}
               ></textarea>
-              <button className="comment-submit" onClick={this.post_comment}>
+              <button
+                className="comment-submit"
+                onClick={() => {
+                  post_comment(this);
+                }}
+              >
                 Send!
               </button>
             </div>
