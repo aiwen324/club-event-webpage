@@ -9,6 +9,8 @@ import FreeResponseQuestion from "../FreeResponseQuestion";
 import SurveyStats from "../SurveyStats/SurveyStats.js";
 import FreeResponseResult from "../FreeResponseResult/Comment.js";
 
+import { uid } from "react-uid";
+
 import { Button } from "@material-ui/core";
 
 // import Link from '@material-ui/core/Link'
@@ -31,14 +33,68 @@ class AdminEventPage extends React.Component {
     }
   }
 
+  loadStats() {
+    console.log("hi");
+    if (this.admin === "true") {
+      const currentAnnouncementID = "5e884d42956aa8024ca20d57";
+      const url = "/Announcement/" + currentAnnouncementID;
+      const request = new Request(url, {
+        method: "get",
+        body: null,
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          "Content-Type": "application/json",
+        },
+      });
+
+      fetch(request).then(
+        (res) => {
+          res.json().then(
+            (data) => {
+              const totalSubmit = data.survey.submittedUsers;
+              const questionData = data.survey.surveyQuestions;
+              const textResponse = data.survey.textResponse;
+              const stats = [];
+              const responses = [];
+              questionData.forEach((survey_question) => {
+                const questionObject = {
+                  question: survey_question.questionTitle,
+                  options: survey_question.questionOptions,
+                  totalnum: totalSubmit,
+                };
+                stats.push(questionObject);
+              });
+              this.setState({ options: stats });
+
+              textResponse.forEach((response) => {
+                responses.push(response.content);
+              });
+              this.setState({ responses: responses });
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
+  }
   state = {
     input_comment: "",
     comments: [
       { poster: "IMNF", content: "I love this activity!", date: "2 hours ago" },
-      { poster: "IMNF", content: "I love this activity!", date: "2 hours ago" }
-    ]
+      { poster: "IMNF", content: "I love this activity!", date: "2 hours ago" },
+    ],
+    options: [],
+    responses: [],
   };
 
+  componentDidMount() {
+    this.loadStats();
+  }
   render() {
     const { commentsTable } = this.props;
 
@@ -87,19 +143,24 @@ class AdminEventPage extends React.Component {
               <h2 className="event_section_title">Pre-event Survey</h2>
             </div>
             <div className="surveyResult">
+              {/* <SurveyStats />
               <SurveyStats />
-              <SurveyStats />
-              <SurveyStats />
+              <SurveyStats /> */}
+              {this.state.options.map((surveys) => (
+                <SurveyStats options={surveys} key={uid(surveys)} />
+              ))}
             </div>
-            <FreeResponseResult />
+            {this.state.responses.map((response) => (
+              <FreeResponseResult response={response} key={uid(response)} />
+            ))}
             <div className="bottom_padder" />
           </div>
         </div>
 
         <div className="commentSection">
           <div id="CommentsContainer">
-            {this.state.comments.map(comment => (
-              <DiscussionBoard comments={comment} />
+            {this.state.comments.map((comment) => (
+              <DiscussionBoard comments={comment} key={uid(comment)} />
             ))}
           </div>
         </div>

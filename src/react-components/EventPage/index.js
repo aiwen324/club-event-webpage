@@ -58,13 +58,54 @@ class EventPage extends React.Component {
   };
 
   post_comment = (event) => {
-    const comments = this.state.comments;
-    comments.push({
-      poster: "IMNF",
+    const currentAnnouncementID = "5e884d42956aa8024ca20d57";
+    const url = "/Announcement/" + currentAnnouncementID;
+    console.log(this.props);
+
+    const dataToSave = {
       content: this.state.input_comment,
-      date: "Just now",
+      userID: this.props.app.state.currentUser.userID,
+    };
+    console.log(dataToSave);
+
+    const request = new Request(url, {
+      method: "post",
+      body: JSON.stringify(dataToSave),
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+      },
     });
-    this.setState({ comments: comments });
+    fetch(request).then(
+      (res) => {
+        res.json().then((data) => {
+          console.log(data);
+          if (res.status !== 200) {
+            console.log("Error when sending information");
+            return;
+          }
+          const newComments = [];
+          data.comments.forEach((comments) => {
+            const comment = {
+              poster: null,
+              content: comments.content,
+              date: "Just Now",
+            };
+            data.id.forEach((id) => {
+              if (id.userID === comments.userID) {
+                comment.poster = id.username;
+              }
+            });
+            newComments.push(comment);
+          });
+          this.setState({ comments: newComments });
+        });
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+
     this.setState({ input_comment: "" });
   };
 

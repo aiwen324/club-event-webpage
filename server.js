@@ -213,41 +213,54 @@ app.get("/Announcement/:id", (req, res) => {
 // return a with updated post content
 app.post("/Announcement/:id", validatelogin, (req, res) => {
   const announcementID = req.params.id;
-
   if (!ObjectID.isValid(announcementID)) {
     res.status(404).send();
   }
-
   const newComment = {
     content: req.body.content,
     userID: req.body.userID,
     date: req.body.date,
   };
 
-  Announcements.findById(announcementID).then(
-    (result) => {
-      const comment = result.comments;
-      comment.push(newComment);
+  Announcements.findById(announcementID)
+    .then((result) => {
+      const comments = result.comments;
+      comments.push(newComment);
 
       Announcements.findByIdAndUpdate(
         announcementID,
-        { $set: { comments: Comment } },
+        { $set: { comments } },
         { new: true }
-      ).then(
-        (updateResult) => {
-          res.status(200).json(updateResult);
-        },
-        (error) => {
-          res.status(500).send(error);
-        }
-      );
-    },
-    (error) => {
+      ).then((updateResult) => {
+        const userID = [];
+        updateResult.comments.forEach((element) => {
+          userID.push(element.userID);
+        });
+        Users.find({
+          _id: { $in: userID },
+        }).then(
+          (result) => {
+            const userList = [];
+            result.forEach((element) => {
+              userList.push({
+                username: element.username,
+                userID: element._id,
+              });
+            });
+            res
+              .status(200)
+              .json({ comments: updateResult.comments, id: userList });
+          },
+          (error) => {
+            res.status(500).send(error);
+          }
+        );
+      });
+    })
+    .catch((error) => {
       res.status(404).send(error);
-    }
-  );
+    });
 });
-
 // Register a user to activity, expect a json as follows:
 /*
     {
