@@ -75,6 +75,8 @@ export const submitSurvey = (eventComp, currentUser) => {
   return fetch(req).then(res => {
     if (res.status === 200) {
       console.log("User successfully submit survey.");
+    } else if (res.status === 400) {
+      alert("You can't submit the survey multiple times");
     } else {
       throw Error;
     }
