@@ -75,7 +75,7 @@ class Survey extends React.Component {
                 name="options"
                 className="question"
                 label="options"
-                placeholder="Options sepereated by ; (e.g. a; b; c; d)"
+                placeholder="Options sepereated by lines (e.g. a\n b\n c\n d)"
                 value={editPanel.state.question_array[index].options}
                 onChange={e => this.handleTextInput(editPanel, index, e)}
                 fullWidth
