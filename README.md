@@ -40,7 +40,7 @@ The main contents, including all surveys, are called "announcements" in the plat
 
 ### To Browse an Announcement
 
-On the home page, scroll down or hit the _Announcements_ button on the navigation bar to see a list of current announcements. Hit any item in the list to see the contents of the announcement.
+On the home page, scroll down to see a list of current announcements. Hit any item in the list to see the contents of the announcement.
 
 ### Viewing an Annoucement as a General User
 
@@ -74,4 +74,4 @@ The admin can opt to attach an event registration form by checking _Add Register
 
 #### Survey Questionaire Form
 
-To add a survey questionaire, the admin should edit the survey questionaire form. The admin can choose to add a question by hitting the _Add Question_ button, or remove a question by hitting the bin on the bottom-right side of the question box. The admin can choose whether to make the question a checkbox (multiple choices) question or a free response one; if the question is a checkbox one, the admin should provide the options in the _Options_ column, and separate each options using a semicolon (;).
+To add a survey questionaire, the admin should edit the survey questionaire form. The admin can choose to add a question by hitting the _Add Question_ button, or remove a question by hitting the bin on the bottom-right side of the question box. The admin can choose whether to make the question a checkbox (multiple choices) question or a free response one; if the question is a checkbox one, the admin should provide the options in the _Options_ column, separating the options with the ENTER key.
