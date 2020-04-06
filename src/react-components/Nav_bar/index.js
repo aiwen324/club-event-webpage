@@ -51,9 +51,9 @@ class Navbar extends React.Component {
               Home
             </Link>
           </li>
-          <li>
-            <Link href="#homePosts">Announcements</Link>
-          </li>
+          {/* <li>
+            <Link href="/#homePosts">Announcements</Link>
+          </li> */}
         </ul>
       </div>
     );
