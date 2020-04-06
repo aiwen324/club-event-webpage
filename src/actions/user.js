@@ -18,6 +18,26 @@ export const getAnnouncementList = (appComp, homeComp) => {
     });
 };
 
+export const fetchAnnouncement = (eventComp, announcementID) => {
+  const url = `/Announcement/${announcementID}`;
+  fetch(url)
+    .then(res => {
+      if (res.status === 200) {
+        console.log("Success to query announcements");
+        return res.json();
+      } else {
+        throw Error("Failed to get announcement from DB");
+      }
+    })
+    .then(res => {
+      console.log("Get announcement as:");
+      console.log(res);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
 export const parseDescript = announce => {
   const { text_content } = announce;
   const paragraphArr = text_content
