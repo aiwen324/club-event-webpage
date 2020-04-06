@@ -23,7 +23,7 @@ class App extends React.Component {
 
   state = {
     currentUser: null,
-    navBarHidden: false,
+    navBarHidden: false
   };
 
   componentDidUpdate() {

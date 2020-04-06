@@ -3,11 +3,12 @@ import { Link as RouterLink } from "react-router-dom";
 import { Link, Button, CssBaseline } from "@material-ui/core";
 import "./style.css";
 import { logout } from "../../actions/login_auth";
+import { withRouter } from "react-router-dom";
 
 class Navbar extends React.Component {
   render() {
-    const { user, navBarHidden } = this.props;
-
+    const { user, navBarHidden, history } = this.props;
+    let navBarHiddenFlag = history.location.pathname === "/admin";
     let logOutButton;
     let loginLink;
     let name = "";
@@ -40,7 +41,10 @@ class Navbar extends React.Component {
       );
     }
     return (
-      <div id="Navigation-bar" style={navBarHidden ? { display: "none" } : {}}>
+      <div
+        id="Navigation-bar"
+        style={navBarHiddenFlag ? { display: "none" } : {}}
+      >
         <ul id="accountInfo">
           <li>{loginLink}</li>
           <li>{logOutButton}</li>
@@ -60,4 +64,4 @@ class Navbar extends React.Component {
   }
 }
 
-export default Navbar;
+export default withRouter(Navbar);
