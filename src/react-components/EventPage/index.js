@@ -17,7 +17,8 @@ import {
   submitRegister,
   submitSurvey,
   post_comment,
-  fetchComments
+  fetchComments,
+  fetchAnnouncement
 } from "../../actions/user";
 import Survey from "../Admin_edit/survey";
 import { loadStats } from "../../actions/admin";
@@ -102,6 +103,17 @@ class EventPage extends React.Component {
       }
     });
     this.setState({ questionMap });
+  };
+
+  componentDidMount = () => {
+    const announcement = this.props.location.state;
+    const { currentUser } = this.props.app.state;
+    loadStats(this, currentUser, announcement);
+  };
+
+  componentWillReceiveProps = () => {
+    const announcement = this.props.location.state;
+    const { currentUser } = this.props.app.state;
     loadStats(this, currentUser, announcement);
   };
 

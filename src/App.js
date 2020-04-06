@@ -75,7 +75,11 @@ class App extends React.Component {
               exact
               path="/event"
               render={({ location }) => (
-                <EventPage app={this} location={location} />
+                <EventPage
+                  app={this}
+                  location={location}
+                  currentUser={this.state.currentUser}
+                />
               )}
             />
             <Route exact path="/survey" render={() => <SurveyPage />} />
