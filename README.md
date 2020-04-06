@@ -2,6 +2,8 @@
 
 ## Team 41
 
+**Please include all commits up to commit `a49fcca` on April 5 at 10:06 PM on branch `master`, in addition to this commit that reflect this change to the README file.**
+
 Our project is an event and survey platform for a ACG _(Anime, Comic and Games)_ related student organization. The platform enables the administrators of the organization to collect registerations for events and conduct surveys on all organization-related issues.
 
 To launch the project visit [https://blooming-beyond-39581.herokuapp.com](https://blooming-beyond-39581.herokuapp.com).
