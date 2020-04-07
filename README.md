@@ -10,6 +10,21 @@ To launch the project visit [https://blooming-beyond-39581.herokuapp.com](https:
 
 ---
 
+## Set Up the Web App in Local
+
+Before you start, make sure `npm` and `mongod` are installed in your computer.
+
+- Change directory (`cd`) to your local repository holding the app
+- Make a new directory to hold the MongoDB database: `mkdir mongo-data`
+- Set up the database: `mongod --dbpath mongo-data`
+- Install the web app: `npm install`
+- Run the app using the current build: `npm run build`
+- Start the app: `node server.js`
+
+After all the steps above, you should be able to see on what port is your app running on; on default, it will be `5000`. In this case, open the browser and visit `http://localhost:5000` and you should see the web app running on your local machine.
+
+---
+
 ## Sign In and Sign Out
 
 The platform has different functionalities and interfaces for _Admins_ and _General Users_. To sign in, hit the "_Sign in_" button on the very right of the navigation bar. Note that after a successful sign-in, the button's caption will become the display name of the user.
